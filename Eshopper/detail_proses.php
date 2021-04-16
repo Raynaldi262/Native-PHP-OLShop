@@ -172,7 +172,7 @@ require('../model/User.php');
 						<tr>
 							<td class="cart_product">
 							<a href="../Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-								<img style="width:200px" src="images/product/<?php echo $item_cart['item_img']; ?>" alt="">
+								<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
 							</a>
 							</td>
 							<td class="cart_description" style="text-align: center">
