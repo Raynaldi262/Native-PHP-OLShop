@@ -259,7 +259,7 @@ function getProsesCount($cust_id){
   }else{
     if(!isset($_POST['qty'])){
       $qty = 1;
-      CheckStock($_POST['item_id'],$qty);  // untuk check stock habis/tidak home
+      CheckStock1($_POST['item_id'],$qty);  // untuk check stock habis/tidak home
     }else{
         $qty = $_POST['qty'];
         echo $_POST['qty'];
@@ -268,6 +268,37 @@ function getProsesCount($cust_id){
    
       }
    }
+
+   function CheckStock1($item_id,$qty){
+      require('../connect/conn.php');
+   $sql = "SELECT item_qty from tbl_item where item_id = ".$item_id." ";
+   $item = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item);
+   if($data['item_qty'] < $qty){
+       //echo '<script>alert("Stock barang kurang")</script>';
+        //header("location: ../../product_details.php/?id= $item_id"); 
+        msg('Item Gagal Ditambah', '../../index.php');
+   }else{
+     $sqlc = "SELECT * from tbl_cart where item_id = ".$item_id." AND cust_id = ".$_SESSION['cust_id']." ";//check di cart ada item sama / tidak
+     $check = mysqli_query($conn, $sqlc);
+     $data_check = mysqli_fetch_assoc($check);
+        if($data_check){
+           $jml = $data_check['qty'] + $qty;
+           $sql = "UPDATE tbl_cart SET qty = ".$jml." WHERE item_id = ".$item_id." AND cust_id = ".$_SESSION['cust_id']." ";
+           $result = mysqli_query($conn, $sql);
+        }else{
+               $sql = "INSERT INTO tbl_cart ( item_id,cust_id, qty, create_date) 
+               VALUES ( '" . $item_id . "','" . $_SESSION['cust_id'] . "', '".$qty."', now())";
+                $result = mysqli_query($conn, $sql);
+        }
+          if ($result) {
+          header("location: ../Eshopper/cart.php"); 
+          } else {
+         msg('Item Gagal Ditambah', '../Eshopper/cart.php');
+          }
+      }
+
+  }
 
    function CheckStock($item_id,$qty){
        require('../connect/conn.php');
@@ -292,14 +323,14 @@ function getProsesCount($cust_id){
                  $result = mysqli_query($conn, $sql);
          }
            if ($result) {
-           header("location: ../Eshopper/cart.php"); 
+           header("location: ../../cart.php"); 
            } else {
-          msg('Item Gagal Ditambah', '../Eshopper/cart.php');
+          msg('Item Gagal Ditambah', '../../cart.php');
            }
        }
- 
 
    }
+
 
  function insertUser($conn){
     $sql = "SELECT * from tbl_customer where cust_email = '".$_POST['email']."' ";
