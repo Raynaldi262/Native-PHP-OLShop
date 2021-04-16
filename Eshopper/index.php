@@ -50,20 +50,20 @@ if(isset($_SESSION['cust_id'])){
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="./Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
 									<?php
 								}else{
 									$data = custLogin($_SESSION['cust_id']);
 									?>
 								<?php if($proses_count['juml'] != 0){?>
-								<li><a href="/SkripsiR/Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
+								<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
 									 style=" width:25px;height: 25px; border-radius: 50%;"/>
 									 <span><?php echo $data['cust_name'];?></span>
 								 	<span class="badge"><?php echo $proses_count['juml']; ?></span>
 								 	</a>
 								</li>
 								<?php }else{ ?>
-									<li><a href="/SkripsiR/Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
+									<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
 								 style=" width:25px;height: 25px; border-radius: 50%;"/> <?php echo $data['cust_name'];?></a></li>
 								<?php } ?>
 								<?php
@@ -93,7 +93,7 @@ if(isset($_SESSION['cust_id'])){
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
 									<?php
 								}else{
 									?>
@@ -219,12 +219,12 @@ if(isset($_SESSION['cust_id'])){
 							</ul>
 						</div>
 							<?php while ($data = mysqli_fetch_assoc($item_data)){?>
-								<a href="/SkripsiR/Eshopper/product_details.php/?id=<?php echo $data['item_id']; ?>">
+								<a href="../Eshopper/product_details.php/?id=<?php echo $data['item_id']; ?>">
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<img src="images/product/<?php echo $data['item_img']; ?>" alt="" />
+												<img src="../dist/img/item/<?php echo $data['item_img']; ?>" alt="" />
 												<h2>Rp. <?php echo number_format($data['item_price']); ?></h2>
 												<p><?php echo $data['item_name']; ?></p>
 												<form action="../model/User.php" method="post">

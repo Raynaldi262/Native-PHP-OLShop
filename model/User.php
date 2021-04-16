@@ -32,11 +32,6 @@ if (isset($_POST['checkout'])) {
    AddCheckout($conn);
 }
 
-
-    //echo $GLOBALS['detail_name'];  
-
- // header("location: /SkripsiR/Eshopper/product_details.php"); 
-
  function getDataArea($conn){
     require('../connect/conn.php');
     $sql = "SELECT area_name from tbl_area";
@@ -158,7 +153,7 @@ function getProsesCount($cust_id){
           $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = ".$_POST['cust_id']."";
            mysqli_query($conn, $sql);
     }
-    header("location: /SkripsiR/Eshopper/checkout.php");
+    header("location: ../Eshopper/checkout.php");
     //return $data;
  }
 
@@ -166,9 +161,9 @@ function getProsesCount($cust_id){
   if ($_POST['pass1'] == $_POST['pass2']){
     $sql = "UPDATE tbl_customer SET cust_pass = password('" . $_POST['pass1'] . "') WHERE cust_id = ".$_SESSION['cust_id']." ";
     $result = mysqli_query($conn, $sql);
-     msg('Password berhasil diubah!!', '/SkripsiR/Eshopper/profile.php');
+     msg('Password berhasil diubah!!', '../Eshopper/profile.php');
   }else{
-    msg('Password tidak sama!!', '/SkripsiR/Eshopper/profile.php');
+    msg('Password tidak sama!!', '../Eshopper/profile.php');
   }
  }
 
@@ -197,15 +192,15 @@ function getProsesCount($cust_id){
                   mysqli_query($conn, $sql);
            }
                if ($result) {
-                  header("location: /SkripsiR/Eshopper/profile.php");
+                  header("location: ../Eshopper/profile.php");
                } else {
-                   msg('Gagal Upload data!!', '/SkripsiR/Eshopper/profile.php');
+                   msg('Gagal Upload data!!', '../Eshopper/profile.php');
                }
            }else{
            msg('Ukuran file max 4mb!!', '../admin/profile.php');
        }
    } else {
-       msg('Ekstensi File yang diupload hanya diperbolehkan png, jpg, Jpeg!!', '/SkripsiR/Eshopper/profile.php');
+       msg('Ekstensi File yang diupload hanya diperbolehkan png, jpg, Jpeg!!', '../Eshopper/profile.php');
    }
 
  
@@ -214,7 +209,7 @@ function getProsesCount($cust_id){
  function deleteCart($conn){
     $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cart_id = ".$_POST['cart_id']."";
     mysqli_query($conn, $sql);
-    header("location: /SkripsiR/Eshopper/cart.php");
+    header("location: ../Eshopper/cart.php");
  }
 
  function UpdateProfile($conn){
@@ -234,24 +229,24 @@ function getProsesCount($cust_id){
                     $result = mysqli_query($conn, $sql);
 
                     if ($result) {
-                        msg('Data berhasil diubah!!', '/SkripsiR/Eshopper/profile.php');
+                        msg('Data berhasil diubah!!', '../Eshopper/profile.php');
                     } else {
-                        msg('Gagal Mengubah data!!', '/SkripsiR/Eshopper/profile.php');
+                        msg('Gagal Mengubah data!!', '../Eshopper/profile.php');
                     }
                 }else{
                 msg('Ukuran file max 4mb!!', '../admin/profile.php');
             }
         } else {
-            msg('Ekstensi File yang diupload hanya diperbolehkan png / jpg!!', '/SkripsiR/Eshopper/profile.php');
+            msg('Ekstensi File yang diupload hanya diperbolehkan png / jpg!!', '../Eshopper/profile.php');
         }
       }else{
          $sql = "UPDATE tbl_customer SET cust_name = '" . $_POST['nama'] . "'  , cust_birth = '" . $_POST['ultah'] . "' , cust_address = '" . $_POST['address'] . "', cust_province = '" . $_POST['provinsi'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE cust_id = ".$_SESSION['cust_id']." ";
           $result = mysqli_query($conn, $sql);
 
           if ($result) {
-               msg('Data berhasil diubah!!', '/SkripsiR/Eshopper/profile.php');
+               msg('Data berhasil diubah!!', '../Eshopper/profile.php');
            } else {
-               msg('Gagal Mengubah data!!', '/SkripsiR/Eshopper/profile.php');
+               msg('Gagal Mengubah data!!', '../Eshopper/profile.php');
            }
       }
     }
@@ -281,7 +276,7 @@ function getProsesCount($cust_id){
     $data = mysqli_fetch_assoc($item);
     if($data['item_qty'] < $qty){
         echo '<script>alert("Stock barang kurang")</script>';
-         header("location: /SkripsiR/Eshopper/product_details.php/?id= $item_id"); 
+         header("location: ../Eshopper/product_details.php/?id= $item_id"); 
     }else{
       $sqlc = "SELECT * from tbl_cart where item_id = ".$item_id." AND cust_id = ".$_SESSION['cust_id']." ";//check di cart ada item sama / tidak
       $check = mysqli_query($conn, $sqlc);
@@ -296,7 +291,7 @@ function getProsesCount($cust_id){
                  $result = mysqli_query($conn, $sql);
          }
            if ($result) {
-           header("location: /SkripsiR/Eshopper/cart.php"); 
+           header("location:../Eshopper/cart.php"); 
            } else {
           msg('Item Gagal Ditambah', '../Eshopper/cart.php');
            }

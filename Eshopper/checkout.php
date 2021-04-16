@@ -60,20 +60,20 @@ require('../model/User.php');
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
 									<?php
 								}else{
 									$data = custLogin($_SESSION['cust_id']);
 									?>
 								<?php if($proses_count['juml'] != 0){?>
-								<li><a href="/SkripsiR/Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
+								<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
 									 style=" width:25px;height: 25px; border-radius: 50%;"/>
 									 <span><?php echo $data['cust_name'];?></span>
 								 	<span class="badge"><?php echo $proses_count['juml']; ?></span>
 								 	</a>
 								</li>
 								<?php }else{ ?>
-									<li><a href="/SkripsiR/Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
+									<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
 								 style=" width:25px;height: 25px; border-radius: 50%;"/> <?php echo $data['cust_name'];?></a></li>
 								<?php } ?>
 								<?php
@@ -103,7 +103,7 @@ require('../model/User.php');
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
 									<?php
 								}else{
 									?>
@@ -172,7 +172,7 @@ require('../model/User.php');
 							?>
 						<tr>
 							<td class="cart_product">
-							<a href="/SkripsiR/Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
+							<a href="../Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
 								<img style="width:200px" src="images/product/<?php echo $item_cart['item_img']; ?>" alt="">
 							</a>
 							</td>

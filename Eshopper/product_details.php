@@ -62,20 +62,20 @@ if(isset($_SESSION['cust_id'])){
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/logout.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../Eshopper/logout.php"><i class="fa fa-user"></i> Account</a></li>
 									<?php
 								}else{
 									$data_user = custLogin($_SESSION['cust_id']);
 									?>
 								<?php if($proses_count['juml'] != 0){?>
-								<li><a href="/SkripsiR/Eshopper/profile.php"><img src="../images/Profile/<?php echo $datauser['cust_img']?>" 
+								<li><a href="../Eshopper/profile.php"><img src="../images/Profile/<?php echo $datauser['cust_img']?>" 
 									 style=" width:25px;height: 25px; border-radius: 50%;"/>
 									 <span><?php echo $datauser['cust_name'];?></span>
 								 	<span class="badge"><?php echo $proses_count['juml']; ?></span>
 								 	</a>
 								</li>
 								<?php }else{ ?>
-									<li><a href="/SkripsiR/Eshopper/profile.php"><img src="../images/Profile/<?php echo $datauser['cust_img']?>" 
+									<li><a href="../Eshopper/profile.php"><img src="../images/Profile/<?php echo $datauser['cust_img']?>" 
 								 style=" width:25px;height: 25px; border-radius: 50%;"/> <?php echo $datauser['cust_name'];?></a></li>
 								<?php } ?>
 								<?php
@@ -83,28 +83,28 @@ if(isset($_SESSION['cust_id'])){
 								?>
 								<!-- checkout -->
 								<?php if($data_check['juml'] != 0){?>
-								<li><a href="/SkripsiR/Eshopper/checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>												
+								<li><a href="../Eshopper/checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>												
 									<span>Checkout</span>
  									<span class="badge"><?php echo $data_check['juml']; ?></span>
 									</a>
 								</li>
 								<?php }else{ ?>
-									<li><a href="/SkripsiR/Eshopper/checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
+									<li><a href="../Eshopper/checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
 								<?php } ?>
 								<!-- cart -->
 								<?php if($data_cart['juml'] != 0){?>
-								<li><a href="/SkripsiR/Eshopper/cart.php" class="notification"><i class="fa fa-shopping-cart"></i>												
+								<li><a href="../Eshopper/cart.php" class="notification"><i class="fa fa-shopping-cart"></i>												
 									<span>Cart</span>
  									<span class="badge"><?php echo $data_cart['juml']; ?></span>
 									</a>
 								</li>
 								<?php }else{ ?>
-									<li><a href="/SkripsiR/Eshopper/cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="../Eshopper/cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
 								<?php } ?>
 								<?php
 								if(!isset($_SESSION['cust_id'])){
 									?>
-									<li><a href="/SkripsiR/Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
 									<?php
 								}else{
 									?>
@@ -133,7 +133,7 @@ if(isset($_SESSION['cust_id'])){
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/SkripsiR/Eshopper/">Home</a></li>
+								<li><a href="./Eshopper/">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
 							</ul>
 						</div>
@@ -150,7 +150,7 @@ if(isset($_SESSION['cust_id'])){
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img style="width:500px" src="../images/product/<?php echo $data['item_img'];?>" alt="" />
+								<img style="width:500px" src="../dist/img/item/<?php echo $data['item_img'];?>" alt="" />
 							</div>
 						</div>
 						<div class="col-sm-7">
