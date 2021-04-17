@@ -73,6 +73,7 @@
                         <th>Jenis Pengiriman</th>
                         <th>Total Harga</th>
                         <th>Bukti Transfer</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -91,13 +92,22 @@
                           <td><?php echo $data['price']; ?></td>
                           <td> <a href='../Eshopper/images/bayar/<?php echo $data['img_bayar']; ?>' data-toggle="lightbox" data-gallery="gallery">
                               <img src="../Eshopper/images/bayar/<?php echo $data['img_bayar']; ?> " alt=""></a></td>
+
+                          <td><?php echo $data['status']; ?></td>
                           <td>
-                            <button type="button" class="btn btn-warning ubahItem" data-toggle="modal" data-target="#modal-ubahItem" id="<?php echo $data['item_id']; ?>">
-                              Konfirmasi
-                            </button>
-                            <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['item_id']; ?>">
-                              Tolak
-                            </button>
+                            <form action="../model/dataPesanan.php" method="post">
+                              <input type="hidden" name="item_id" id="item_id" value="<?php echo $data['date_id']; ?>">
+                              <input type="hidden" name="cust_id" id="cust_id" value="<?php echo $data['cust_id']; ?>">
+                              <input type="hidden" name="price" id="price" value="<?php echo $data['price']; ?>">
+
+                              <?php if ($data['status'] == 'Menunggu Konfrimasi') { ?>
+                                <input type="submit" class="btn btn-success" name="acc_item" value="Terima">
+                                <input type="submit" class="btn btn-danger" name="dec_item" value="Tolak">
+                              <?php } ?>
+                              <?php if ($data['status'] == 'Proses Pengemasan') { ?>
+                                <input type="submit" class="btn btn-primary" name="kirim_item" value="Kirim Pesanan">
+                              <?php } ?>
+                            </form>
                           </td>
                         </tr>
                       <?php $i++;
@@ -190,7 +200,7 @@
       $("#include-navbar").load("left-navbar.php");
     });
 
-    // konfirmasi hapus data disini
+    // Detail pesanan
     $(document).on("click", ".detailPesanan", function() {
       var pesananID = $(this).attr('id');
       $.ajax({
@@ -221,6 +231,7 @@
       });
     });
 
+    // lighbox
     $(document).on("click", '[data-toggle="lightbox"]', function(event) {
       event.preventDefault();
       $(this).ekkoLightbox();
