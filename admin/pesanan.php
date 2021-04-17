@@ -213,16 +213,18 @@
         },
         success: function(data) {
           $('.lampiran').empty();
+          console.log(data);
           var pesanan = 0;
-          var ongkir = data[0].price;
+          var ongkir = 0;
           var total = 0;
           data.forEach(function(datas) {
             var kalimat = datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
             $(".lampiran").append("<span class='label label-important'>" + kalimat + '</span> <br>')
             pesanan += datas.qty * datas.item_price;
+            ongkir = datas.ongkir;
           });
-          ongkir = ongkir - pesanan;
-          total = pesanan + ongkir;
+
+          total += (parseInt(pesanan) + parseInt(ongkir));
           $(".lampiran").append("<br><span class='label label-important'>" + 'Pesanan = Rp ' + numeral(pesanan).format('0,0') + '</span> <br>')
           $(".lampiran").append("<span class='label label-important'>" + 'Ongkir = Rp ' + numeral(ongkir).format('0,0') + '</span> <br>')
           $(".lampiran").append("<span class='label label-important'>" + 'Total = Rp ' + numeral(total).format('0,0') + '</span> <br>')
