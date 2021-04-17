@@ -27,7 +27,6 @@ if (isset($_POST['login'])) {
             <?php
     
         } else {
-            echo "false";
             ?>
             <script type="text/javascript">
                 alert("Maaf, username / password yang dimasukan salah, silahkan coba kembali.");
@@ -36,7 +35,6 @@ if (isset($_POST['login'])) {
         <?php
         }
     } else {
-        echo "false";
         ?>
         <script type="text/javascript">
             alert("Maaf, username / password yang dimasukan salah, silahkan coba kembali.");

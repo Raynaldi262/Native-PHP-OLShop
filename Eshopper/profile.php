@@ -231,6 +231,7 @@ require('../model/User.php');
 							<td style="text-align: center">Proses id</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Kurir</td>
+							<td style="text-align: center">Ongkir</td>
 							<td style="text-align: center">Status</td>
 							<td style="text-align: center">Tanggal Bayar</td>
 							<td></td>
@@ -248,6 +249,9 @@ require('../model/User.php');
 							</td>
 							<td style="text-align: center">
 								<h4><?php echo $data['kurir']?></h4>
+							</td>
+							<td style="text-align: center">
+								<h4><?php echo $data['ongkir']?></h4>
 							</td>
 							<td style="text-align: center">
 								<h4><?php echo $data['status']?></h4>

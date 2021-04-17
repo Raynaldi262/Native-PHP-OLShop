@@ -173,7 +173,7 @@ require('../model/User.php');
 						<tr>
 							<td class="cart_product">
 							<a href="../Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-								<img style="width:200px" src="images/product/<?php echo $item_cart['item_img']; ?>" alt="">
+								<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
 							</a>
 							</td>
 							<td class="cart_description" style="text-align: center">
@@ -239,11 +239,11 @@ require('../model/User.php');
 							<li>Eco Tax <span>$2</span></li>
 							<li>Shipping Cost <span>Free</span></li> -->
 							<?php $hargaongkir = KiloBarang($totalberat,$data_onkir['ongkir_price']);
-							$totalharga += $hargaongkir;?>
+							$totalharga1 = $totalharga + $hargaongkir;?>
 							<li>Kurir :	<span><?php echo $data_onkir['ongkir_type']; ?></span></li>
 							<li>Berat :	<span><?php echo $totalberat; ?> Gram</span></li>
 							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
-							<li>Total : <span>Rp. <?php echo number_format($totalharga); ?></span></li>
+							<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
 						</ul>
 							<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
 					</div>
@@ -264,6 +264,7 @@ require('../model/User.php');
 							<h5>Masukan Bukti Pembayaran :</h5>
 							<input type="file" name="img"/>
 							<input type="hidden" name="kurir" value="<?php echo $data_onkir['ongkir_type']; ?>">
+							<input type="hidden" name="hargaongkir" value="<?php echo $hargaongkir; ?>">
 							<input type="hidden" name="totalharga" value="<?php echo $totalharga; ?>">
 							<button type="submit" name="bayar" class="btn btn-default">Upload</button>
 						</form>

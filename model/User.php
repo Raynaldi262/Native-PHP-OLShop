@@ -197,7 +197,7 @@ function ProsesBayar($conn)
    if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {    // kalau ekstensinya bener
       if ($ukuran < 4044070) {        // max 4 mb
          move_uploaded_file($file_tmp, '../Eshopper/images/bayar/' . $nama);
-         $sql = "INSERT INTO tbl_proses (date_id,cust_id, price, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " , '" . $_POST['totalharga'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', now(),'" . $nama . "') ";
+         $sql = "INSERT INTO tbl_proses (date_id,cust_id, price, ongkir, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " , '" . $_POST['totalharga'] . "','" . $_POST['hargaongkir'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', now(),'" . $nama . "') ";
          $result = mysqli_query($conn, $sql);
          $sql = "SELECT * from tbl_checkout where cust_id = " . $_SESSION['cust_id'] . " ";
          $item = mysqli_query($conn, $sql);
