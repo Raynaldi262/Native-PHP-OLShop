@@ -157,7 +157,6 @@ require('../model/User.php');
 							<td style="text-align: center">Jumlah</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Berat</td>
-							<td style="text-align: center">Hapus</td>
 							<td></td>
 						</tr>
 					</thead>
@@ -172,7 +171,7 @@ require('../model/User.php');
 							?>
 						<tr>
 							<td class="cart_product">
-							<a href="../Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
+							<a href="../Eshopper/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
 								<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
 							</a>
 							</td>
@@ -193,12 +192,6 @@ require('../model/User.php');
 							</td>
 							<td class="cart_price" style="text-align: center">
 								<p><?php echo $item_cart['item_weight']?> Grm</p>
-							</td>
-							<td class="cart_delete" style="text-align: center">
-								<form action="../model/User.php" method="post">
-									<input type="hidden" name="cart_id" value="<?php echo $data_cart['cart_id']?>">
-									<button type="submit" name="deletecart" class="cart_quantity_delete"><i class="fa fa-times"></i></button>
-								</form>
 							</td>
 						</tr>
 					<?php }}?>

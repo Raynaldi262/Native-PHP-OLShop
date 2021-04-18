@@ -155,31 +155,31 @@ $data_banner = getDataBanner($conn);
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
-	<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner">
-						<?php $active = 'active';
-						while ($data_ban = mysqli_fetch_assoc($data_banner)){?>
-							<div class="item <?php echo $active ?>">
-								<div class="col-sm-6">
-									<img style="width: 1000px; height: 500px;" src="../dist/img/banner/<?php echo $data_ban['banner_img']?>"alt="" />
-								</div>
-							</div>
-							
-						<?php $active = ''; } ?>
-						</div>
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-			</div>
-		</div>
-	</section><!--/slider-->
+	<section id="slider">
+        <!--slider-->
+        <div class="container">
+            <div class="row">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php $active = 'active';
+                        while ($data_ban = mysqli_fetch_assoc($data_banner)) { ?>
+                            <div class="item <?php echo $active ?>">
+                                <img style="width: 1000px; height: 500px; margin-left: -2%;" src="../dist/img/banner/<?php echo $data_ban['banner_img'] ?>" alt="" />
+                            </div>
+
+                        <?php $active = '';
+                        } ?>
+                    </div>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section><!--/slider-->
 	
 	<section>
 		<div class="container">
