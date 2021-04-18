@@ -9,6 +9,9 @@ $item_data = mysqli_query($conn, $sql);
 if (isset($_POST['bayar'])) {
    ProsesBayar($conn);
 }
+if (isset($_POST['batalcheck'])) {
+   BatalCheck($conn);
+}
 
 if (isset($_POST['UbahPassword'])) {
    UbahPassword($conn);
@@ -123,7 +126,12 @@ function getColoritem($id_color)
    $data = mysqli_fetch_assoc($item);
    return $data;
 }
-
+function getDataBanner($conn)
+{
+   $sql = "SELECT * from tbl_banner ";
+   $item = mysqli_query($conn, $sql);
+   return $item;
+}
 function getItemcart($id_item)
 {
    require('../connect/conn.php');
@@ -226,6 +234,12 @@ function deleteCart($conn)
    $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cart_id = " . $_POST['cart_id'] . "";
    mysqli_query($conn, $sql);
    header("location: ../Eshopper/cart.php");
+}
+
+function BatalCheck($conn){
+   $sql = "DELETE FROM tbl_checkout WHERE tbl_checkout . cust_id = " . $_SESSION['cust_id'] . "";
+   mysqli_query($conn, $sql);
+   header("location: ../Eshopper/checkout.php");
 }
 
 function UpdateProfile($conn)

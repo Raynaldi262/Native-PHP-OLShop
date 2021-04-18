@@ -270,8 +270,6 @@ require('../model/User.php');
 		</div>
 	</section> <!--/#cart_items-->
 
-
-
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
 			<div class="container">

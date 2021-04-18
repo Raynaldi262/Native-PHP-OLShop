@@ -245,7 +245,10 @@ require('../model/User.php');
 							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
 							<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
 						</ul>
-							<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
+						<form action="../model/User.php" method="post">
+						<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
+								<button type="submit" name="batalcheck" class="btn btn-default check_out">Batal</button>
+						</form>
 					</div>
 				</div>
 				<?php } ?>
