@@ -80,7 +80,7 @@ function terimaPesanan($conn)
 
         foreach ($itemData as $data) {
             $stok = $data['item_qty'] - $data['qty'];
-
+            $item_price = $data['qty'] * $data['item_price'];
             // update stok item
             $sql2 = "update tbl_item    
             set item_qty = " . $stok . "
@@ -91,7 +91,7 @@ function terimaPesanan($conn)
             //update history stok
             $sql3 = "insert into tbl_stockinout(item_id, item_name, stok_qty, stok_desc, stok_price, total_qty)
                     values(" . $data['item_id'] . ", '" . $data['item_name'] . "', " . $data['qty'] . ", 'STOCK OUT'
-                    ," . $data['price'] . ", " . $stok . " )";
+                    ," . $item_price . ", " . $stok . " )";
 
             $result3 = mysqli_query($conn, $sql3);
         }
@@ -145,7 +145,7 @@ function getCustdata($conn, $cust_id)
 
 function getitemData($conn, $id)
 {
-    $sql = "select a.item_id, qty, item_qty, item_name, price from tbl_detailorder a
+    $sql = "select a.item_id, qty, item_qty, item_price, item_name, price from tbl_detailorder a
             join tbl_item b on a.item_id = b.item_id 
             join tbl_proses c on a.date_id = c.date_id
             where a.date_id = '" . $id . "'";

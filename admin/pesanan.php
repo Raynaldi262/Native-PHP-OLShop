@@ -18,10 +18,6 @@
 
 </head>
 <style>
-  #tambah_warna {
-    margin-left: 50% !important;
-  }
-
   img {
     width: 100px;
     height: 100px;
@@ -251,7 +247,7 @@
           var ongkir = 0;
           var total = 0;
           data.forEach(function(datas) {
-            var kalimat = datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
+            var kalimat = datas.item_name + ', ' + datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
             $(".lampiran").append("<span class='label label-important'>" + kalimat + '</span> <br>')
             pesanan += datas.qty * datas.item_price;
             ongkir = datas.ongkir;

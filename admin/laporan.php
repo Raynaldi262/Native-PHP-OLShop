@@ -45,7 +45,7 @@
                 <div class="info-box">
                   <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file"></i></span>
                   <div class="info-box-content">
-                    <a class="info-box-text" href="">Laporan Pesanan</a>
+                    <a class="info-box-text" href="laporan_pesanan.php">Laporan Pesanan</a>
                   </div>
                   <!-- /.info-box-content -->
                 </div>
