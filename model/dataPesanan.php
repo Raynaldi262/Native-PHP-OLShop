@@ -4,7 +4,7 @@ require('../session/session.php');
 
 $sql = "select * from tbl_proses a
         join tbl_customer b on a.cust_id = b.cust_id
-        where status != 'Pesanan dibatalkan'";
+        where status != 'Pesanan dibatalkan' and status != 'Pesanan dikirim'";
 $getPesanan = mysqli_query($conn, $sql);
 
 if (isset($_POST['get_pesanan'])) {
@@ -17,6 +17,14 @@ if (isset($_POST['acc_item'])) {
 
 if (isset($_POST['dec_item'])) {
     deletePesanan($conn);
+}
+
+if (isset($_POST['get_id'])) {
+    getPesanan($conn);
+}
+
+if (isset($_POST['kirim_pesanan'])) {
+    updatePesanan($conn);
 }
 
 function getPesanan($conn)
@@ -95,7 +103,7 @@ function terimaPesanan($conn)
         $sql4 = "insert into tbl_order (order_invoice, order_total, order_shipping, order_shipping_price, order_totprice,
                 order_transfer, order_status, cust_id, item_id) 
                 values('" . $inv . "', " . $dataOrder['order_total'] . ", '" . $dataOrder['kurir'] . "', " . $dataOrder['ongkir'] . "
-                ," . $dataOrder['price'] . ", '" . $dataOrder['img_bayar'] . "', '" . $dataOrder['status'] . "', " . $dataOrder['cust_id'] . ", " . $id . ")";
+                ," . $dataOrder['price'] . ", '" . $dataOrder['img_bayar'] . "', '" . $dataOrder['status'] . "', " . $dataOrder['cust_id'] . ", '" . $id . "')";
 
         $result4 = mysqli_query($conn, $sql4);
 
@@ -209,6 +217,31 @@ function getOrder($conn, $id)
     $result = mysqli_fetch_assoc($result);
 
     return $result;
+}
+
+function updatePesanan($conn)
+{
+    $id = $_POST['id_pesanan'];
+    $resi = $_POST['resi'];
+
+    $sql = "update tbl_order 
+            set order_resi = '" . $resi . "', order_status = 'Pesanan dikirim'
+            where item_id = '" . $id . "'";
+
+    $result = mysqli_query($conn, $sql);
+
+    $sql = "update tbl_proses 
+    set status = 'Pesanan dikirim'
+    where date_id = '" . $id . "'";
+
+    $result = mysqli_query($conn, $sql);
+
+
+    if ($result) {
+        msg('Pesanan berhasil dikirim!!', '../admin/pesanan.php');
+    } else {
+        msg('Pesanan gagal dikirim!!', '../admin/pesanan.php');
+    }
 }
 
 function msg($pesan, $url)
