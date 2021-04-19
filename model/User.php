@@ -178,55 +178,45 @@ function AddCheckout($conn)
    
    $sql = "SELECT * from tbl_checkout where cust_id = " . $_SESSION['cust_id'] . " ";
    $check = mysqli_query($conn, $sql);
-   $check1 = mysqli_query($conn, $sql);
-   $result = mysqli_fetch_assoc($check);
-   while ($data_cart = mysqli_fetch_assoc($check)) {
-      echo "chart",$data_cart['item_id'];
-   }
+   $check2 = mysqli_query($conn, $sql);
+   $result = mysqli_fetch_assoc($check2);
 
-
-   // echo "checkout ",$result['item_id'];
-
-   // if(!is_array($result['item_id'])){
-   //    echo"masuk bukan array";
-   // }
    $sql = "SELECT * from tbl_cart where cust_id = " . $_SESSION['cust_id'] . " ";
    $item = mysqli_query($conn, $sql);
-   $item1 = mysqli_query($conn, $sql);
-   // if($result){
-   //    echo "->masuk checkout ada isi ->";
-   //    while ($data_cart = mysqli_fetch_assoc($item)) {
-   //       while ($data_check = mysqli_fetch_assoc($check)) {
-   //          echo "checkout ",$data_check['item_id'];
-   //          echo "chart",$data_cart['item_id'];
-   //          echo "asasdasddsad";
-   //          if($data_check['item_id'] == $data_cart['item_id']){
-   //             echo "->masuk id item sama->";
-   //             $qty = $data_check['qty'] + $data_cart['qty'];
-   //             $sql = "UPDATE tbl_checkout SET qty = ".$qty." WHERE cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_check['item_id']."";
-   //             $result = mysqli_query($conn, $sql);
-   //             $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_cart['item_id']."";
-   //             mysqli_query($conn, $sql);
+   if($result){
+      echo "->masuk checkout ada isi ->";
+      while ($data_cart = mysqli_fetch_assoc($item)) {
+         $sql = "SELECT * from tbl_checkout where cust_id = " . $_SESSION['cust_id'] . " ";
+         $check = mysqli_query($conn, $sql);
+         while ($data_check = mysqli_fetch_assoc($check)) {
+            echo "checkout ",$data_check['item_id'];
+            echo "chart",$data_cart['item_id'];
+            if($data_check['item_id'] == $data_cart['item_id']){
+               echo "->masuk id item sama->";
+               $qty = $data_check['qty'] + $data_cart['qty'];
+               $sql = "UPDATE tbl_checkout SET qty = ".$qty." WHERE cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_check['item_id']."";
+               mysqli_query($conn, $sql);
+               $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_cart['item_id']."";
+               mysqli_query($conn, $sql);
                
-   //          }
-   //       }
+            }
+         }
          
-            // echo"->id berbeda->";
-            // $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
-            // VALUES ( '" . $data_cart['cust_id'] . "','" . $data_cart['item_id'] . "', '" . $data_cart['qty'] . "', now())";
-            // $result = mysqli_query($conn, $sql);
-            // $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_POST['cust_id'] . "";
-            // mysqli_query($conn, $sql);
-         
-      //}
-      //insertDataCheck($_SESSION['cust_id']);
-            // echo "checkout ",$data_check['item_id'];
-            // echo "chart",$data_cart['item_id'];
+      }
 
+         $sql = "SELECT * from tbl_cart where cust_id = " . $_SESSION['cust_id'] . " ";
+         $item = mysqli_query($conn, $sql);
+         while ($data = mysqli_fetch_assoc($item)) {
+         $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
+         VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "', '" . $data['qty'] . "', now())";
+         $result = mysqli_query($conn, $sql);
+         $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_POST['cust_id'] . "";
+         mysqli_query($conn, $sql);
+         }
       
-     // header("location: ../Eshopper/checkout.php");
+      header("location: ../Eshopper/checkout.php");
 
-   //}else{
+   }else{
       echo"->masuk else->";
    while ($data = mysqli_fetch_assoc($item)) {
       $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
@@ -236,50 +226,10 @@ function AddCheckout($conn)
       mysqli_query($conn, $sql);
       }
 
-   //}  
+   }  
    header("location: ../Eshopper/checkout.php");
    //return $data;
 }
-
-// function insertDataCheck(){
-//    $sql = "SELECT * from tbl_cart where cust_id = " . $_SESSION['cust_id'] . " ";
-//    $item = mysqli_query($conn, $sql);
-//    $result = mysqli_fetch_assoc($item);
-//    if($result){
-//       while ($data = mysqli_fetch_assoc($item)) {
-//          $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
-//              VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "', '" . $data['qty'] . "', now())";
-//          $result = mysqli_query($conn, $sql);
-//          $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_POST['cust_id'] . "";
-//          mysqli_query($conn, $sql);
-//          }
-//    }
-//    return 0;
-// }
-
-
-// function FilterData( $id){
-//    require('../connect/conn.php');
-//    $sql = "SELECT * from tbl_checkout where cust_id = " . $_SESSION['cust_id'] . " ";
-//    $check = mysqli_query($conn, $sql);
-//    $check1 = mysqli_query($conn, $sql);
-
-//    while ($data_cart = mysqli_fetch_assoc($check)){
-//       while ($data_cart1 = mysqli_fetch_assoc($check1)){
-//          if($data_cart['item_id'] == $data_cart1['item_id']){
-//             echo"masuk if 2";
-//             $qty = $data_cart['qty'] + $data_cart1['qty'];
-//             $sql = "UPDATE tbl_checkout SET qty = ".$qty." WHERE cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_cart['item_id']."";
-//             $result = mysqli_query($conn, $sql);
-//             $sql = "DELETE FROM tbl_checkout WHERE tbl_checkout . cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_cart1['item_id']."";
-//            mysqli_query($conn, $sql);
-
-//          }
-//       }
-//    }
-   //header("location: ../Eshopper/checkout.php");
-
-//}
 
 function UbahPassword($conn)
 {
