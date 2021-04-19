@@ -263,9 +263,15 @@ require('../model/User.php');
 							<td style="text-align: center">
 								<h4><?php echo $data['create_date']?></h4>
 							</td>
+							<?php if($data['status'] != "Pesanan dibatalkan"){ ?>
 							<td style="text-align: center">
 							<a class="btn" href="../Eshopper/detail_proses.php?id=<?php echo $data['date_id']?>" type="submit" name="detailproses" class="cart_quantity_delete">Detail</a>
 							</td>
+							<?php } else{ ?>
+							<td style="text-align: center">
+							<p style="color:red;">&#10008;</p>
+							</td>
+							<?php } ?>
 						</tr>
 					<?php }?>
 					</tbody>

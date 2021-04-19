@@ -66,7 +66,7 @@ if (isset($_GET['id'])) {
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../logout.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../login.php"><i class="fa fa-user"></i> Account</a></li>
 								<?php
 								} else {
 									$data_user = custLogin($_SESSION['cust_id']);

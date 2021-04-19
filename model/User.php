@@ -418,7 +418,8 @@ function insertUser($conn)
 {
    $sql = "SELECT * from tbl_customer where cust_email = '" . $_POST['email'] . "' ";
    $check = mysqli_query($conn, $sql); // untuk check email agar tidak bisa register dengan email yang sama
-   if ($check) { // untuk check email agar tidak bisa register dengan email yang sama
+   $check_data = mysqli_fetch_assoc($check); 
+   if ($check_data) { // untuk check email agar tidak bisa register dengan email yang sama
       msg('Email Sudah Pernah Dipakai', '../Eshopper/login.php');
    } else {
       $sql = "INSERT INTO tbl_customer (cust_name, cust_birth, cust_address, cust_province, cust_city, cust_email, cust_pass, cust_phone, cust_total_order, cust_total_price, cust_img, create_date) 

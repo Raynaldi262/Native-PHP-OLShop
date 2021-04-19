@@ -248,27 +248,51 @@ require('../model/User.php');
 		  <!-- Modal content-->
 		  	<div class="modal-content">
 		    	<div>
-		      		<h4 class="modal-title">Invoice</h4>
+		      		<h4 class="modal-title">Invoice <?php echo $data_order['order_invoice']?></h4>
 						<table id="example1" class="table table-bordered table-striped">
 		    			<thead>
-		        			<tr>
-		            		<th>Order Invoice</th>
-		            		<th>Resi</th>
-		            		<th>Kurir</th>
-							<th>Order Status</th>
-		            		<th>Ongkir</th>
-		            		<th>Harga Toral</th>
+							<tr>
+		            		<th>Nama Product</th>
+		            		<th>Tipe</th>
+		            		<th>Jumlah</th>
+		            		<th>Berat</th>
+		            		<th>Harga</th>
+							<th>Ongkir</th>
+							<th>Resi</th>
+							<th>Harga Total</th>
+							<th>Kurir</th>
 				    		</tr>
 				    		</thead>
 				    		<tbody>
+								<?php
+								$item1 = getDetailProses($_GET['id']);
+								while ($data_check1 = mysqli_fetch_assoc($item1)){
+									$item_cart1 = getItemcart($data_check1['item_id']);
+									$data_type1 = getTypeitem($item_cart1['type_id']);
+									?>	
 								<tr>
-				    		        <td><?php echo $data_order['order_invoice']?></td>
-				    		        <td><?php echo $data_order['order_resi']?></td>
-				    		        <td><?php echo $data_order['order_shipping']?></td>
-									<td><?php echo $data_order['order_status']?></td>
-				    		        <td>Rp. <?php echo number_format($data_order['order_shipping_price'])?></td>
-									<td>Rp. <?php echo number_format($data_order['order_totprice'])?></td>
+				    		        <td><?php echo $item_cart1['item_name']?></td>
+				    		        <td><?php echo $data_type1['type_name']?></td>
+				    		        <td><?php echo $data_check1['qty']?></td>
+				    		        <td><?php echo $item_cart1['item_weight']?> Grm</td>
+				    		        <td>Rp. <?php echo number_format($item_cart1['item_price'])?></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
 				    		    </tr>
+								<?php } ?>
+								<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>Rp. <?php echo number_format($data_order['order_shipping_price'])?></td>
+								<td><?php echo $data_order['order_resi']?></td>
+								<td>Rp. <?php echo number_format($data_order['order_totprice'])?></td>
+								<td><?php echo $data_order['order_shipping']?></td>
+								</tr>
 								</tbody>
 						</table>
 		  			</div>
@@ -365,8 +389,7 @@ require('../model/User.php');
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
-
+    <script src="js/main.js"></script>							
     <!-- jQuery -->
     <!-- <script src="../plugins/jquery/jquery.min.js"></script> -->
     <!-- Bootstrap 4 -->
@@ -399,7 +422,7 @@ require('../model/User.php');
                     extend: "csv",
                     messageTop: judul,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5],
+                        columns: [0,1,2,3,4,5,6,7,8],
                         modifier: {
                             page: "current"
                         }
@@ -408,7 +431,7 @@ require('../model/User.php');
                     extend: "pdf",
                     messageTop: judul,
                     exportOptions: {
-                        columns: [0,1,2,3,4,5],
+                        columns: [0,1,2,3,4,5,6,7,8],
                         modifier: {
                             page: "current"
                         }
