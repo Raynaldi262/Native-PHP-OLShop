@@ -138,7 +138,6 @@ if (isset($_GET['id'])) {
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="../">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
 							</ul>
 						</div>
 					</div>

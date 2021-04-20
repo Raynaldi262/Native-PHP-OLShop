@@ -11,7 +11,17 @@ if(isset($_SESSION['cust_id'])){
 	$proses_count['juml'] = 0;
 }
 
+if(isset($_GET['id'])){
+	$sql = "SELECT * from tbl_item WHere type_id = ".$_GET['id']." " ;
+	$item_data = mysqli_query($conn, $sql);
+}else{
+	$sql = "SELECT * from tbl_item";
+	$item_data = mysqli_query($conn, $sql);
+}
+
 $data_banner = getDataBanner($conn);
+$type_item = getDataAlltype($conn);
+
 
 ?>
 
@@ -133,15 +143,6 @@ $data_banner = getDataBanner($conn);
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="index.php" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.php" ></a></li> 
-										<li><a href="login.php">Login</a></li> 
-                                    </ul>
-                                </li> 
 							</ul>
 						</div>
 					</div>
@@ -188,7 +189,15 @@ $data_banner = getDataBanner($conn);
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#tshirt" data-toggle="tab">Item</a></li>
+							<form action="../model/User.php" method="post">
+							<select  name="tipe_item" id="tipe_item" onchange="this.form.submit()">
+							<option>Filter Tipe Barang</option>
+							<?php while ($data_type = mysqli_fetch_assoc($type_item)){ ?>
+								<option value="<?php echo $data_type['type_name']; ?>"><?php echo $data_type['type_name']; ?></option>
+									<?php } ?>	
+							<option value="Allitem">All Item</option>
+							</select>
+							</form>
 							</ul>
 						</div>
 							<?php while ($data = mysqli_fetch_assoc($item_data)){?>
@@ -301,7 +310,11 @@ $data_banner = getDataBanner($conn);
 		
 	</footer><!--/Footer-->
 	
-
+	<script>
+	$('.selector select[name=perPage]').on('change', function(e) {
+    $(e.currentTarget).closest('form').submit();
+	});
+	</script>
   
     <script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>

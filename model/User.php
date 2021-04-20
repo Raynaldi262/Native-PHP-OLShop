@@ -2,12 +2,12 @@
 require('../connect/conn.php');
 require('../session/session.php');
 
-
-$sql = "SELECT * from tbl_item";
-$item_data = mysqli_query($conn, $sql);
-
 if (isset($_POST['bayar'])) {
    ProsesBayar($conn);
+}
+if (isset($_POST['tipe_item'])) {
+    FilterItem($conn);
+   
 }
 if (isset($_POST['batalcheck'])) {
    BatalCheck($conn);
@@ -132,6 +132,12 @@ function getDataBanner($conn)
    $item = mysqli_query($conn, $sql);
    return $item;
 }
+function getDataAlltype($conn)
+{
+   $sql = "SELECT * from tbl_item_type ";
+   $item = mysqli_query($conn, $sql);
+   return $item;
+}
 function getItemcart($id_item)
 {
    require('../connect/conn.php');
@@ -172,7 +178,16 @@ function getDetailProses($date_id)
    return $item;
 }
 
-
+function FilterItem($conn){
+   if($_POST['tipe_item'] == 'Allitem'){
+   header("location: ../Eshopper/index.php");
+   }else{
+   $sql = "SELECT type_id from tbl_item_type Where type_name = '".$_POST['tipe_item']."'"  ;
+   $item_data = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item_data);
+   header("location: ../Eshopper/index.php?id=". $data['type_id']);
+   }
+}
 function AddCheckout($conn)
 {  
    
