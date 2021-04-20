@@ -5,7 +5,7 @@ $item = getDetailProses($_GET['id']);
 $datauser = getDataUser($_SESSION['cust_id']);
 $data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
-
+$linkid =  $_GET['id'];
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);
 	$data_check = getcheckCount($_SESSION['cust_id']);
@@ -245,7 +245,7 @@ $totalberat = 0;
 							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
 							<li>Total : <span>Rp. <?php echo number_format($totalharga); ?></span></li>
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
-							<a href="invoice.php">
+							<a href="invoice.php?id=<?php echo $linkid ?>">
 								<button type="button" class="btn btn-success">
 									<i class="fa fa-print"> Print Invoice</i>
 								</button>
@@ -255,64 +255,6 @@ $totalberat = 0;
 				</div>
 			</div>
 		</div>
-		<!-- Modal Invoice -->
-		<div class="modal fade" id="invoice" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div>
-						<h4 class="modal-title">Invoice <?php echo $data_order['order_invoice'] ?></h4>
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>Nama Product</th>
-									<th>Tipe</th>
-									<th>Jumlah</th>
-									<th>Berat</th>
-									<th>Harga</th>
-									<th>Ongkir</th>
-									<th>Resi</th>
-									<th>Harga Total</th>
-									<th>Kurir</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$item1 = getDetailProses($_GET['id']);
-								while ($data_check1 = mysqli_fetch_assoc($item1)) {
-									$item_cart1 = getItemcart($data_check1['item_id']);
-									$data_type1 = getTypeitem($item_cart1['type_id']);
-								?>
-									<tr>
-										<td><?php echo $item_cart1['item_name'] ?></td>
-										<td><?php echo $data_type1['type_name'] ?></td>
-										<td><?php echo $data_check1['qty'] ?></td>
-										<td><?php echo $item_cart1['item_weight'] ?> Grm</td>
-										<td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								<?php } ?>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
-									<td><?php echo $data_order['order_resi'] ?></td>
-									<td>Rp. <?php echo number_format($data_order['order_totprice']) ?></td>
-									<td><?php echo $data_order['order_shipping'] ?></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-
 	</section>
 	<!--/#do_action-->
 	<footer id="footer">

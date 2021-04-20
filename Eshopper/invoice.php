@@ -1,96 +1,111 @@
+<?php
+require('../model/User.php');
+
+$item = getDetailProses($_GET['id']);
+$datauser = getDataUser($_SESSION['cust_id']);
+$data_onkir = getDataOngkir($datauser['cust_city']);
+$data_order = getDataOrder($_GET['id']);
+
+if (isset($_SESSION['cust_id'])) {
+	$data_cart = getcartCount($_SESSION['cust_id']);
+	$data_check = getcheckCount($_SESSION['cust_id']);
+	$proses_count = getProsesCount($_SESSION['cust_id']);
+} else {
+	$data_cart['juml'] = 0;
+	$data_check['juml'] = 0;
+	$proses_count['juml'] = 0;
+}
+$totalharga = 0;
+$totalberat = 0;
+
+?>
+<style>
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+ th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: Orange;
+  color: white;
+}
+
+.harga th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: Orange;
+  color: white;
+}
+</style>
+<div style="text-align:center">
+<h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
+<h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
 <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-            <th>Engine version</th>
-            <th>CSS grade</th>
+        <th>Nama Product</th>
+		<th>Tipe Barang</th>
+		<th>Jumlah</th>
+		<th>Berat Barang</th>
+		<th>Harga Barang</th>
         </tr>
     </thead>
     <tbody>
-
-        <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.1</td>
-            <td>Mac OS 7.6-9</td>
-            <td>1</td>
-            <td>C</td>
-        </tr>
-        <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.2</td>
-            <td>Mac OS 8-X</td>
-            <td>1</td>
-            <td>C</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>NetFront 3.1</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>C</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>NetFront 3.4</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>A</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>Dillo 0.8</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>Links</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>Lynx</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>IE Mobile</td>
-            <td>Windows Mobile 6</td>
-            <td>-</td>
-            <td>C</td>
-        </tr>
-        <tr>
-            <td>Misc</td>
-            <td>PSP browser</td>
-            <td>PSP</td>
-            <td>-</td>
-            <td>C</td>
-        </tr>
-        <tr>
-            <td>Other browsers</td>
-            <td>All others</td>
-            <td>-</td>
-            <td>-</td>
-            <td>U</td>
-        </tr>
+    <?php
+		$item1 = getDetailProses($_GET['id']);
+		while ($data_check1 = mysqli_fetch_assoc($item1)) {
+			$item_cart1 = getItemcart($data_check1['item_id']);
+			$data_type1 = getTypeitem($item_cart1['type_id']);
+            $totalberat += $item_cart1['item_weight'] * $data_check1['qty'];
+		?>
+			<tr>
+				<td><?php echo $item_cart1['item_name'] ?></td>
+				<td><?php echo $data_type1['type_name'] ?></td>
+				<td><?php echo $data_check1['qty'] ?></td>
+				<td><?php echo $item_cart1['item_weight'] ?> Grm</td>
+				<td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
+			</tr>
+		<?php } ?>
     </tbody>
-    <tfoot>
-        <tr>
-            <th>Rendering engine</th>
-            <th>Browser</th>
-            <th>Platform(s)</th>
-            <th>Engine version</th>
-            <th>CSS grade</th>
-        </tr>
-    </tfoot>
 </table>
+<table id="example1" class="table table-bordered table-striped">
+
+    <!-- <thead>
+        <tr>
+        <th>Harga</th>
+        </tr>
+    </thead> -->
+    <tbody>
+			<tr>
+				<td style="background-color: Orange; text-align: left;">Kurir</td>
+				<td><?php echo $data_order['order_shipping'] ?></td>
+			</tr>
+            <tr>
+				<td style="background-color: Orange; text-align: left;">Harga Ongkir</td>
+				<td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
+			</tr>
+            <tr>
+				<td style="background-color: Orange; text-align: left;">Total Berat</td>
+				<td><?php echo $totalberat ?> Gram</td>
+			</tr>
+            <tr>
+				<td style="background-color: Orange; text-align: left;">Subtotal</td>
+				<td>Rp. <?php echo number_format($data_order['order_totprice']+$data_order['order_shipping_price']) ?></td>
+			</tr>
+    </tbody>
+</table>
+<br>
+</div>
 <?php
 $html = ob_get_contents();
 ob_end_clean();
