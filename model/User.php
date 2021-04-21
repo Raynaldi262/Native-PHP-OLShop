@@ -13,6 +13,10 @@ if (isset($_POST['batalcheck'])) {
    BatalCheck($conn);
 }
 
+if (isset($_POST['ongkir'])) {
+   HargaOngkir($conn);
+}
+
 if (isset($_POST['UbahPassword'])) {
    UbahPassword($conn);
 }
@@ -37,9 +41,21 @@ if (isset($_POST['checkout'])) {
 
 function getDataArea($conn)
 {
-   $sql = "SELECT area_name from tbl_area";
+   $sql = "SELECT * from tbl_area";
    $item = mysqli_query($conn, $sql);
    return $item;
+}
+
+function getDataKurir($kotauser){
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_area Where area_name = '".$kotauser."'";
+   $item = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item);
+   $sql = "SELECT * from tbl_ongkir Where area_id = '".$data['area_id']."' ";
+   $item = mysqli_query($conn, $sql);
+   return $item;
+
+
 }
 function KiloBarang($berat, $harga)
 {
@@ -52,13 +68,10 @@ function KiloBarang($berat, $harga)
    }
    return ($total_gram / 1000) * $harga;
 }
-function getDataOngkir($kota_user)
+function getDataOngkir($ongkir_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_area WHERE area_name = '" . $kota_user . "'";
-   $item = mysqli_query($conn, $sql);
-   $data = mysqli_fetch_assoc($item);
-   $sql = "SELECT * from tbl_ongkir WHERE area_id = '" . $data['area_id'] . "'";
+   $sql = "SELECT * from tbl_ongkir WHERE ongkir_id = '" . $ongkir_id . "'";
    $item = mysqli_query($conn, $sql);
    $data = mysqli_fetch_assoc($item);
    return $data;
@@ -187,6 +200,10 @@ function FilterItem($conn){
    $data = mysqli_fetch_assoc($item_data);
    header("location: ../Eshopper/index.php?id=". $data['type_id']);
    }
+}
+function HargaOngkir($conn){
+   echo $_POST['ongkir'];
+   header("location: ../Eshopper/checkout.php?id=". $_POST['ongkir']);
 }
 function AddCheckout($conn)
 {  
@@ -375,7 +392,7 @@ function CheckStock1($item_id, $qty)
    if ($data['item_qty'] < $qty) {
       //echo '<script>alert("Stock barang kurang")</script>';
       //header("location: ../../product_details.php/?id= $item_id"); 
-      msg('Item Gagal Ditambah', '../../index.php');
+      msg('Stock Barang Kurang', '../../index.php');
    } else {
       $sqlc = "SELECT * from tbl_cart where item_id = " . $item_id . " AND cust_id = " . $_SESSION['cust_id'] . " "; //check di cart ada item sama / tidak
       $check = mysqli_query($conn, $sqlc);
@@ -406,7 +423,7 @@ function CheckStock($item_id, $qty)
    if ($data['item_qty'] < $qty) {
       //echo '<script>alert("Stock barang kurang")</script>';
       //header("location: ../../product_details.php/?id= $item_id"); 
-      msg('Item Gagal Ditambah', '../../index.php');
+      msg('Stock Barang Kurang', '../../index.php');
    } else {
       $sqlc = "SELECT * from tbl_cart where item_id = " . $item_id . " AND cust_id = " . $_SESSION['cust_id'] . " "; //check di cart ada item sama / tidak
       $check = mysqli_query($conn, $sqlc);

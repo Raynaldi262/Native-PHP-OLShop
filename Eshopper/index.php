@@ -155,7 +155,7 @@ $type_item = getDataAlltype($conn);
 			</div>
 		</div><!--/header-bottom-->
 	</header><!--/header-->
-	
+	<?php if(!isset($_GET['id'])){ ?>
 	<section id="slider">
         <!--slider-->
         <div class="container">
@@ -181,7 +181,7 @@ $type_item = getDataAlltype($conn);
             </div>
         </div>
     </section><!--/slider-->
-	
+	<?php } ?>
 	<section>
 		<div class="container">
 			<div class="row">				
@@ -191,7 +191,7 @@ $type_item = getDataAlltype($conn);
 							<ul class="nav nav-tabs">
 							<form action="../model/User.php" method="post">
 							<select  name="tipe_item" id="tipe_item" onchange="this.form.submit()">
-							<option>Filter Tipe Barang</option>
+							<option selected disabled>Filter Tipe Barang</option>
 							<?php while ($data_type = mysqli_fetch_assoc($type_item)){ ?>
 								<option value="<?php echo $data_type['type_name']; ?>"><?php echo $data_type['type_name']; ?></option>
 									<?php } ?>	

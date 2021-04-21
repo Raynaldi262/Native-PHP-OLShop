@@ -1,9 +1,14 @@
 <?php
 require('../model/User.php');
+require('../connect/conn.php');
+
 	if(isset($_SESSION['cust_id'])){
 	$item = getDataCheck($_SESSION['cust_id']);
 	$datauser = getDataUser($_SESSION['cust_id']);
-	$data_onkir = getDataOngkir($datauser['cust_city']);
+	if(isset($_GET['id'])){
+	$data_onkir = getDataOngkir($_GET['id']);
+	}else{$data_onkir = 0;}
+	$data_kurir = getDataKurir($datauser['cust_city']);
 	}
 	if(isset($_SESSION['cust_id'])){
 		$data_cart = getcartCount($_SESSION['cust_id']);
@@ -228,12 +233,16 @@ require('../model/User.php');
 								<h3>Total Harga</h3>
 							</div>
 						<ul>
-<!-- 							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
-							<li>Shipping Cost <span>Free</span></li> -->
 							<?php $hargaongkir = KiloBarang($totalberat,$data_onkir['ongkir_price']);
 							$totalharga1 = $totalharga + $hargaongkir;?>
-							<li>Kurir :	<span><?php echo $data_onkir['ongkir_type']; ?></span></li>
+							<form action="../model/User.php" method="post">
+							<select  name="ongkir" id="ongkir" onchange="this.form.submit()">
+								<option value="" selected disabled>Pilih Kurir</option>
+								<?php while($kurir = mysqli_fetch_assoc($data_kurir)){?>
+								<option value="<?php echo $kurir['ongkir_id']?>"><?php echo $kurir['ongkir_type']?></option>
+								<?php } ?>
+							</select>
+							</form>
 							<li>Berat :	<span><?php echo $totalberat; ?> Gram</span></li>
 							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
 							<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
@@ -351,9 +360,11 @@ require('../model/User.php');
 		</div>
 		
 	</footer><!--/Footer-->
-	
-
-
+	<script>
+	$('.selector select[name=perPage]').on('change', function(e) {
+    $(e.currentTarget).closest('form').submit();
+	});
+	</script>
     <script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
