@@ -331,17 +331,24 @@
                     admin_id: adminID
                 },
                 success: function(data) {
+                    $("select option").each(function() {
+                        $(this).prop("selected", "false");
+                    });
+
+
                     $("#id").val(data.admin_id);
                     $("#nama").val(data.admin_name);
                     $("#lahir").val(data.admin_birth);
                     $("#hp").val(data.admin_phone);
                     $("select option").each(function() {
                         if ($(this).val() == data.admin_status) {
-                            $(this).attr("selected", "selected");
+                            // $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
                         }
 
                         if ($(this).val() == data.role_id) {
-                            $(this).attr("selected", "selected");
+                            // $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
                         }
                     });
 

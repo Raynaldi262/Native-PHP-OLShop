@@ -497,16 +497,23 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                     item_id: itemId
                 },
                 success: function(data) {
+                    $("select option").each(function() {
+                        $(this).prop("selected", "false");
+                    });
+
+
                     $("#edit_id").val(data.item_id);
                     $("#edit_name").val(data.item_name);
                     $("select option.type").each(function() {
                         if ($(this).val().replace(/ /g, '') == data.type_id) {
-                            $(this).attr("selected", "selected");
+                            // $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
                         }
                     });
                     $("select option.color").each(function() {
                         if ($(this).val().replace(/ /g, '') == data.color_id) {
-                            $(this).attr("selected", "selected");
+                            // $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
                         }
                     });
                     $("#edit_size").val(data.item_size);

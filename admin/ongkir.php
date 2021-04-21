@@ -360,15 +360,22 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
                     ongkir_id: ongkirId
                 },
                 success: function(data) {
+                    $("select option").each(function() {
+                        $(this).prop("selected", "false");
+                    });
+
+
                     $("#edit_id").val(data.ongkir_id);
                     $("select option.area").each(function() {
                         if ($(this).val().replace(/ /g, '') == data.area_id) {
-                            $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
+                            // $(this).attr("selected", "selected");
                         }
                     });
                     $("select option").each(function() {
                         if ($(this).val().replace(/ /g, '') == data.status) {
-                            $(this).attr("selected", "selected");
+                            $(this).prop("selected", "true");
+                            // $(this).attr("selected", "selected");
                         }
                     });
                     $("#edit_tipe").val(data.ongkir_type);

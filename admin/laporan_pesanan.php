@@ -107,7 +107,7 @@ function getItem($conn, $id)
                                     }
                                     ?>
                                     <br>
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped" style="width: 150%">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -230,8 +230,8 @@ function getItem($conn, $id)
         $(function() {
             var judul = $('.title').text();
             $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
+                // "responsive": true,
+                "autoWidth": true,
                 "lengthMenu": [
                     [10, 25, 50, -1],
                     [10, 25, 50, "All"]

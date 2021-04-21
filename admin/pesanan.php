@@ -242,7 +242,6 @@
         },
         success: function(data) {
           $('.lampiran').empty();
-          console.log(data);
           var pesanan = 0;
           var ongkir = 0;
           var total = 0;
