@@ -224,7 +224,7 @@ $totalharga = 0;
 							</ul>
 							<form action="../model/User.php" method="post" style="text-align:center;">
 								<input type="hidden" name="cust_id" value="<?php echo $_SESSION['cust_id'] ?>">
-								<button type="submit" name="checkout" class="btn btn-default check_out" style="">Check Out</button>
+								<button type="submit" name="checkout" class="btn btn-default check_out">Check Out</button>
 							</form>
 						</div>
 					</div>
