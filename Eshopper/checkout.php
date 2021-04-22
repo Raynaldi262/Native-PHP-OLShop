@@ -236,8 +236,10 @@ require('../connect/conn.php');
 							<?php $hargaongkir = KiloBarang($totalberat,$data_onkir['ongkir_price']);
 							$totalharga1 = $totalharga + $hargaongkir;?>
 							<form action="../model/User.php" method="post">
-							<select  name="ongkir" id="ongkir" onchange="this.form.submit()">
-								<option value="" selected disabled>Pilih Kurir</option>
+							<select  name="ongkir" id="ongkir" onchange="this.form.submit()" required>
+								<?php if(isset($_GET['id'])){ ?>
+								<option value="" selected disabled><?php echo $data_onkir['ongkir_type']?></option>
+								<?php }else{?><option value="" selected disabled>Pilih Ongkir</option> <?php } ?>
 								<?php while($kurir = mysqli_fetch_assoc($data_kurir)){?>
 								<option value="<?php echo $kurir['ongkir_id']?>"><?php echo $kurir['ongkir_type']?></option>
 								<?php } ?>

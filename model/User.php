@@ -275,10 +275,12 @@ function UbahPassword($conn)
 }
 
 function ProsesBayar($conn)
-{
+{  
+   if($_POST['hargaongkir'] == 0){
+      msg('Pilih Ongkir Terlebih Dahulu', '../Eshopper/checkout.php');
+   }else{
    date_default_timezone_set("Asia/Bangkok");
    $date_id = date("his") . date("Ymd");
-
    $nama = $_FILES['img']['name'];
    $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
    $x = explode('.', $nama);   // dpt nama tanpa ekstensi file
@@ -302,13 +304,14 @@ function ProsesBayar($conn)
          if ($result) {
             header("location: ../Eshopper/profile.php");
          } else {
-            msg('Gagal Upload data!!', '../Eshopper/profile.php');
+            msg('Gagal Upload data!!', '../Eshopper/checkout.php');
          }
       } else {
-         msg('Ukuran file max 4mb!!', '../Eshopper/profile.php');
+         msg('Ukuran file max 4mb!!', '../Eshopper/checkout.php');
       }
    } else {
-      msg('Ekstensi File yang diupload hanya diperbolehkan png, jpg, Jpeg!!', '../Eshopper/profile.php');
+      msg('Ekstensi File yang diupload hanya diperbolehkan png, jpg, Jpeg!!', '../Eshopper/checkout.php');
+   }
    }
 }
 
