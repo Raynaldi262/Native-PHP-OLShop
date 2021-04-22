@@ -2,7 +2,8 @@
 require('../connect/conn.php');
 require('../session/session.php');
 
-$sql = "Select * from tbl_item a join tbl_item_type b on a.type_id = b.type_id join tbl_color c on a.color_id = c.color_id";
+$sql = "Select * from tbl_item a join tbl_item_type b on a.type_id = b.type_id join tbl_color c on a.color_id = c.color_id
+         WHERE item_status = 'ACTIVE'";
 $getItem = mysqli_query($conn, $sql);
 
 $sql = "Select * from tbl_color";
@@ -98,8 +99,8 @@ function addItem($conn)
         if ($ukuran < 4044070) {
             move_uploaded_file($file_tmp, '../dist/img/item/' . $img);
 
-            $sql = "insert into tbl_item(item_name, type_id, color_id, item_size, item_weight, item_desc, item_qty, create_date, item_img, item_price) 
-            values('" . $name . "', " . $tipe . ", " . $color . ", '" . $size . "', " . $berat . ", '" . $desc . "', " . $qty . ", now(), '" . $img . "', " . $price . ")";
+            $sql = "insert into tbl_item(item_name, type_id, color_id, item_size, item_weight, item_desc, item_qty, create_date, item_img, item_price, item_status) 
+            values('" . $name . "', " . $tipe . ", " . $color . ", '" . $size . "', " . $berat . ", '" . $desc . "', " . $qty . ", now(), '" . $img . "', " . $price . ", 'ACTIVE')";
             $result = mysqli_query($conn, $sql);
 
             $sql2 = "SELECT LAST_INSERT_ID()";
@@ -196,7 +197,8 @@ function deleteItem($conn)
 {
     $id = $_POST['id_hapus'];
 
-    $sql = "delete from tbl_item where item_id = " . $id . "";
+    // $sql = "delete from tbl_item where item_id = " . $id . "";
+    $sql = "Update tbl_item set item_status = 'IN-ACTIVE' where item_id = " . $id . "";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
