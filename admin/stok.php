@@ -28,7 +28,7 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
 </head>
 <style>
     #tambah_warna {
-        margin-left: 50% !important;
+        margin-left: 62% !important;
     }
 
     img {
@@ -70,9 +70,6 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                                     <h3 class="card-title">Data stok barang</h3>
                                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-tambahWarna" id="tambah_warna">
                                         Tambah warna
-                                    </button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambahTipe" id="tambah_tipe">
-                                        Tambah Kategori
                                     </button>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-tambahItem" id="tambah_data">
                                         Tambah Item
@@ -184,35 +181,6 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal Tambah Warna-->
-
-    <!-- modal Tambah Tipe -->
-    <div class="modal fade" id="modal-tambahTipe">
-        <div class="modal-dialog">
-            <div class="modal-content col-8">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Kategori</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <form action="../model/dataStok.php" method="post">
-                        <div class="input-group mb-3">
-                            <div class="col-4 input-group-text">Tipe : </div>
-                            <input type="text" class="form-control" placeholder="Tipe Barang" name="tipe" required>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-primary" name="add_tipe" value="Tambah Tipe">
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal Tambah Tipe-->
-
 
     <!-- modal tambah item -->
     <div class="modal fade" id="modal-tambahItem">

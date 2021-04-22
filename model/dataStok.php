@@ -16,9 +16,6 @@ if (isset($_POST['add_color'])) {
     addColor($conn);
 }
 
-if (isset($_POST['add_tipe'])) {
-    addTipe($conn);
-}
 
 if (isset($_POST['add_item'])) {
     addItem($conn);
@@ -63,19 +60,6 @@ function addColor($conn)
     }
 }
 
-function addTipe($conn)
-{
-    $tipe = $_POST['tipe'];
-
-    $sql = "insert into tbl_item_type(type_name) values('" . $tipe . "')";
-    $result = mysqli_query($conn, $sql);
-
-    if ($result) {
-        msg('Tipe barang Berhasil ditambahkan!!', '../admin/stok.php');
-    } else {
-        msg('Tipe barang gagal ditambahkan!!', '../admin/stok.php');
-    }
-}
 
 function addItem($conn)
 {
