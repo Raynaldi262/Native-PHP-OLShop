@@ -2,56 +2,62 @@
 require('../model/User.php');
 require('../connect/conn.php');
 
-	if(isset($_SESSION['cust_id'])){
+if (isset($_SESSION['cust_id'])) {
 	$item = getDataCheck($_SESSION['cust_id']);
 	$datauser = getDataUser($_SESSION['cust_id']);
-	if(isset($_GET['id'])){
-	$data_onkir = getDataOngkir($_GET['id']);
-	}else{$data_onkir['ongkir_price'] = 0;}
-	$data_kurir = getDataKurir($datauser['cust_city']);
+	if (isset($_GET['id'])) {
+		$data_onkir = getDataOngkir($_GET['id']);
+	} else {
+		$data_onkir['ongkir_price'] = 0;
 	}
-	if(isset($_SESSION['cust_id'])){
-		$data_cart = getcartCount($_SESSION['cust_id']);
-		$data_check = getcheckCount($_SESSION['cust_id']);
-		$proses_count = getProsesCount($_SESSION['cust_id']);
-	}else{
+	$data_kurir = getDataKurir($datauser['cust_city']);
+}
+if (isset($_SESSION['cust_id'])) {
+	$data_cart = getcartCount($_SESSION['cust_id']);
+	$data_check = getcheckCount($_SESSION['cust_id']);
+	$proses_count = getProsesCount($_SESSION['cust_id']);
+} else {
 	$data_cart['juml'] = 0;
 	$data_check['juml'] = 0;
 	$proses_count['juml'] = 0;
-	}
-	$totalharga = 0;
-	$totalberat = 0;
+}
+$totalharga = 0;
+$totalberat = 0;
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Cart | E-Shopper</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/price-range.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Cart | E-Shopper</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/prettyPhoto.css" rel="stylesheet">
+	<link href="css/price-range.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
-</head><!--/head-->
+    <![endif]-->
+	<link rel="shortcut icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<!--/head-->
 
 <body>
-	<header id="header"><!--header-->
-		<div class="header-middle"><!--header-middle-->
+	<header id="header">
+		<!--header-->
+		<div class="header-middle">
+			<!--header-middle-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
@@ -63,68 +69,68 @@ require('../connect/conn.php');
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<?php
-								if(!isset($_SESSION['cust_id'])){
-									?>
+								if (!isset($_SESSION['cust_id'])) {
+								?>
 									<li><a href="../Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
-									<?php
-								}else{
+								<?php
+								} else {
 									$data = custLogin($_SESSION['cust_id']);
-									?>
-								<?php if($proses_count['juml'] != 0){?>
-								<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
-									 style=" width:25px;height: 25px; border-radius: 50%;"/>
-									 <span><?php echo $data['cust_name'];?></span>
-								 	<span class="badge"><?php echo $proses_count['juml']; ?></span>
-								 	</a>
-								</li>
-								<?php }else{ ?>
-									<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img']?>" 
-								 style=" width:25px;height: 25px; border-radius: 50%;"/> <?php echo $data['cust_name'];?></a></li>
-								<?php } ?>
+								?>
+									<?php if ($proses_count['juml'] != 0) { ?>
+										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+												<span><?php echo $data['cust_name']; ?></span>
+												<span class="badge"><?php echo $proses_count['juml']; ?></span>
+											</a>
+										</li>
+									<?php } else { ?>
+										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+									<?php } ?>
 								<?php
 								}
 								?>
 								<!-- checkout -->
-								<?php if($data_check['juml'] != 0){?>
-								<li><a href="checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>												
-									<span>Checkout</span>
- 									<span class="badge"><?php echo $data_check['juml']; ?></span>
-									</a>
-								</li>
-								<?php }else{ ?>
+								<?php if ($data_check['juml'] != 0) { ?>
+									<li><a href="checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>
+											<span>Checkout</span>
+											<span class="badge"><?php echo $data_check['juml']; ?></span>
+										</a>
+									</li>
+								<?php } else { ?>
 									<li><a href="checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
 								<?php } ?>
 								<!-- cart -->
-								<?php if($data_cart['juml'] != 0){?>
-								<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>												
-									<span>Cart</span>
- 									<span class="badge"><?php echo $data_cart['juml']; ?></span>
-									</a>
-								</li>
-								<?php }else{ ?>
+								<?php if ($data_cart['juml'] != 0) { ?>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
+											<span>Cart</span>
+											<span class="badge"><?php echo $data_cart['juml']; ?></span>
+										</a>
+									</li>
+								<?php } else { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
 								<?php } ?>
 								<!-- logout -->
 								<?php
-								if(!isset($_SESSION['cust_id'])){
-									?>
+								if (!isset($_SESSION['cust_id'])) {
+								?>
 									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
-									<?php
-								}else{
-									?>
+								<?php
+								} else {
+								?>
 									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
 								<?php
 								}
 								?>
-								
+
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div><!--/header-middle-->
-	
-		<div class="header-bottom"><!--header-bottom-->
+		</div>
+		<!--/header-middle-->
+
+		<div class="header-bottom">
+			<!--header-bottom-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-9">
@@ -139,14 +145,16 @@ require('../connect/conn.php');
 					</div>
 				</div>
 			</div>
-		</div><!--/header-bottom-->
-	</header><!--/header-->
+		</div>
+		<!--/header-bottom-->
+	</header>
+	<!--/header-->
 
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="../Eshopper/">Home</a></li>
+					<li><a href="../Eshopper/">Home</a></li>
 				</ol>
 			</div>
 			<div>
@@ -167,120 +175,125 @@ require('../connect/conn.php');
 					</thead>
 					<tbody>
 						<?php
-							if(isset($_SESSION['cust_id'])){
-							while ($data_check = mysqli_fetch_assoc($item)){
-							$item_cart = getItemcart($data_check['item_id']);
-							$data_type = getTypeitem($item_cart['type_id']);
-							$totalharga += $item_cart['item_price'] * $data_check['qty'] ;
-							$totalberat += $item_cart['item_weight'] * $data_check['qty'];
-							?>
-						<tr>
-							<td class="cart_product">
-							<a href="../Eshopper/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
-								<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
-							</a>
-							</td>
-							<td class="cart_description" style="text-align: center">
-								<h4><?php echo $item_cart['item_name']?></h4>
-							</td>
-							<td class="cart_price" style="text-align: center">
-								<p><?php echo $data_type['type_name']?></p>
-							</td>
+						if (isset($_SESSION['cust_id'])) {
+							while ($data_check = mysqli_fetch_assoc($item)) {
+								$item_cart = getItemcart($data_check['item_id']);
+								$data_type = getTypeitem($item_cart['type_id']);
+								$totalharga += $item_cart['item_price'] * $data_check['qty'];
+								$totalberat += $item_cart['item_weight'] * $data_check['qty'];
+						?>
+								<tr>
+									<td class="cart_product">
+										<a href="../Eshopper/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
+											<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
+										</a>
+									</td>
+									<td class="cart_description" style="text-align: center">
+										<h4><?php echo $item_cart['item_name'] ?></h4>
+									</td>
+									<td class="cart_price" style="text-align: center">
+										<p><?php echo $data_type['type_name'] ?></p>
+									</td>
 
-							<td class="cart_quantity" style="text-align: center">
-								<div class="cart_quantity_button">
-									<?php echo $data_check['qty']?>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price" style="text-align: center">Rp. <?php echo number_format($item_cart['item_price'])?></p>
-							</td>
-							<td class="cart_price" style="text-align: center">
-								<p><?php echo $item_cart['item_weight']?> Grm</p>
-							</td>
-						</tr>
-					<?php }}?>
+									<td class="cart_quantity" style="text-align: center">
+										<div class="cart_quantity_button">
+											<?php echo $data_check['qty'] ?>
+										</div>
+									</td>
+									<td class="cart_total">
+										<p class="cart_total_price" style="text-align: center">Rp. <?php echo number_format($item_cart['item_price']) ?></p>
+									</td>
+									<td class="cart_price" style="text-align: center">
+										<p><?php echo $item_cart['item_weight'] ?> Grm</p>
+									</td>
+								</tr>
+						<?php }
+						} ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
-	</section> <!--/#cart_items-->
+	</section>
+	<!--/#cart_items-->
 
 	<section id="do_action">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
-						<div class="total_area">
-							<div class="heading" style="text-align:center;">
-								<h3>Data Pribadi</h3>
-							</div>
-						<ul>
-							<?php if(isset($_SESSION['cust_id'])){?>
-							<li>Nama : <?php echo $datauser['cust_name']?></li>
-							<li>Alamat : <?php echo $datauser['cust_address']?></li>
-							<li>Kota : <?php echo $datauser['cust_city']?></li>
-							<li>no Hp : <?php echo $datauser['cust_phone']?></li>
-							<li>Email : <?php echo $datauser['cust_email']?></li>
-						<?php }?>
-						</ul>
+					<div class="total_area">
+						<div class="heading" style="text-align:center;">
+							<h3>Data Pribadi</h3>
 						</div>
+						<ul>
+							<?php if (isset($_SESSION['cust_id'])) { ?>
+								<li>Nama : <?php echo $datauser['cust_name'] ?></li>
+								<li>Alamat : <?php echo $datauser['cust_address'] ?></li>
+								<li>Kota : <?php echo $datauser['cust_city'] ?></li>
+								<li>no Hp : <?php echo $datauser['cust_phone'] ?></li>
+								<li>Email : <?php echo $datauser['cust_email'] ?></li>
+							<?php } ?>
+						</ul>
+					</div>
 				</div>
 				<!-- Jika tidak ada barang tombol bayar dihilangkan -->
-				<?php if ($totalharga != 0){ ?> 
-				<div class="col-sm-6">
-					<div class="total_area">
+				<?php if ($totalharga != 0) { ?>
+					<div class="col-sm-6">
+						<div class="total_area">
 							<div class="heading" style="text-align:center;">
 								<h3>Total Harga</h3>
 							</div>
-						<ul>
-							<?php $hargaongkir = KiloBarang($totalberat,$data_onkir['ongkir_price']);
-							$totalharga1 = $totalharga + $hargaongkir;?>
-							<form action="../model/User.php" method="post">
-							<select  name="ongkir" id="ongkir" onchange="this.form.submit()" required>
-								<?php if(isset($_GET['id'])){ ?>
-								<option value="" selected disabled><?php echo $data_onkir['ongkir_type']?></option>
-								<?php }else{?><option value="" selected disabled>Pilih Ongkir</option> <?php } ?>
-								<?php while($kurir = mysqli_fetch_assoc($data_kurir)){?>
-								<option value="<?php echo $kurir['ongkir_id']?>"><?php echo $kurir['ongkir_type']?></option>
-								<?php } ?>
-							</select>
-							</form>
-							<li>Berat :	<span><?php echo $totalberat; ?> Gram</span></li>
-							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
-							<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
-						</ul>
-						<form action="../model/User.php" method="post">
-						<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
+							<ul>
+								<?php $hargaongkir = KiloBarang($totalberat, $data_onkir['ongkir_price']);
+								$totalharga1 = $totalharga + $hargaongkir; ?>
+								<form action="../model/User.php" method="post">
+									<select name="ongkir" id="ongkir" onchange="this.form.submit()" required>
+										<?php if (isset($_GET['id'])) { ?>
+											<option value="" selected disabled><?php echo $data_onkir['ongkir_type'] ?></option>
+										<?php } else { ?><option value="" selected disabled>Pilih Ongkir</option> <?php } ?>
+										<?php while ($kurir = mysqli_fetch_assoc($data_kurir)) { ?>
+											<option value="<?php echo $kurir['ongkir_id'] ?>"><?php echo $kurir['ongkir_type'] ?></option>
+										<?php } ?>
+									</select>
+								</form>
+								<li>Berat : <span><?php echo $totalberat; ?> Gram</span></li>
+								<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
+								<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
+							</ul>
+							<form action="../model/User.php" method="post" style="text-align:center;">
+								<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
 								<button type="submit" name="batalcheck" class="btn btn-default check_out">Batal</button>
-						</form>
+							</form>
+						</div>
 					</div>
-				</div>
 				<?php } ?>
 			</div>
 		</div>
-	</section><!--/#do_action-->
-		<div class="modal fade" id="myModal" role="dialog">
-    	<div class="modal-dialog">
-    
-      <!-- Modal content-->
-      	<div class="modal-content">
-        	<div class="modal-header">
-          		<h4 class="modal-title">Unggah Bukti Pembayaran</h4>
+	</section>
+	<!--/#do_action-->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Unggah Bukti Pembayaran</h4>
 					<div class="signup-form">
 						<form action="../model/User.php" method="post" enctype="multipart/form-data">
 							<h5>Masukan Bukti Pembayaran :</h5>
-							<input type="file" name="img"/>
+							<input type="file" name="img" />
 							<input type="hidden" name="kurir" value="<?php echo $data_onkir['ongkir_type']; ?>">
 							<input type="hidden" name="hargaongkir" value="<?php echo $hargaongkir; ?>">
 							<input type="hidden" name="totalharga" value="<?php echo $totalharga; ?>">
 							<button type="submit" name="bayar" class="btn btn-default">Upload</button>
 						</form>
-					</div><!--/sign up form-->
-      			</div>
-    		</div>
- 		</div>
- 	</div>
-	<footer id="footer"><!--Footer-->
+					</div>
+					<!--/sign up form-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="footer">
+		<!--Footer-->
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
@@ -305,7 +318,7 @@ require('../connect/conn.php');
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -320,7 +333,7 @@ require('../connect/conn.php');
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -335,7 +348,7 @@ require('../connect/conn.php');
 								<h2>24 DEC 2014</h2>
 							</div>
 						</div>
-						
+
 						<div class="col-sm-3">
 							<div class="video-gallery text-center">
 								<a href="#">
@@ -360,17 +373,19 @@ require('../connect/conn.php');
 				</div>
 			</div>
 		</div>
-		
-	</footer><!--/Footer-->
+
+	</footer>
+	<!--/Footer-->
 	<script>
-	$('.selector select[name=perPage]').on('change', function(e) {
-    $(e.currentTarget).closest('form').submit();
-	});
+		$('.selector select[name=perPage]').on('change', function(e) {
+			$(e.currentTarget).closest('form').submit();
+		});
 	</script>
-    <script src="js/jquery.js"></script>
+	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+	<script src="js/main.js"></script>
 </body>
+
 </html>
