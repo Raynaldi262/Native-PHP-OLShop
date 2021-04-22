@@ -12,10 +12,10 @@ if(isset($_SESSION['cust_id'])){
 }
 
 if(isset($_GET['id'])){
-	$sql = "SELECT * from tbl_item WHere type_id = ".$_GET['id']." " ;
+	$sql = "SELECT * from tbl_item WHere type_id = ".$_GET['id']." AND item_status = 'active' " ;
 	$item_data = mysqli_query($conn, $sql);
 }else{
-	$sql = "SELECT * from tbl_item";
+	$sql = "SELECT * from tbl_item where item_status = 'active'";
 	$item_data = mysqli_query($conn, $sql);
 }
 
