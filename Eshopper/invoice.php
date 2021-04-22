@@ -5,6 +5,7 @@ $item = getDetailProses($_GET['id']);
 $datauser = getDataUser($_SESSION['cust_id']);
 $data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
+$dataproses = getProsesDataDetail($_GET['id']);
 
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);

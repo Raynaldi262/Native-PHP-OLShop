@@ -5,6 +5,7 @@ $item = getDetailProses($_GET['id']);
 $datauser = getDataUser($_SESSION['cust_id']);
 $data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
+$dataproses = getProsesDataDetail($_GET['id']);
 $linkid =  $_GET['id'];
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);
@@ -238,9 +239,9 @@ $totalberat = 0;
 							<h3>Total Harga</h3>
 						</div>
 						<ul>
-							<?php $hargaongkir = KiloBarang($totalberat, $data_onkir['ongkir_price']);
+							<?php $hargaongkir = KiloBarang($totalberat, $dataproses['ongkir']);
 							$totalharga += $hargaongkir; ?>
-							<li>Kurir : <span><?php echo $data_onkir['ongkir_type']; ?></span></li>
+							<li>Kurir : <span><?php echo $dataproses['kurir']; ?></span></li>
 							<li>Berat : <span><?php echo $totalberat; ?> Gram</span></li>
 							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
 							<li>Total : <span>Rp. <?php echo number_format($totalharga); ?></span></li>

@@ -91,6 +91,14 @@ function getDataProses($cust_id)
    $item = mysqli_query($conn, $sql);
    return $item;
 }
+function getProsesDataDetail($date_id)
+{
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_proses where cust_id = " .  $_SESSION['cust_id'] . " AND date_id = ".$date_id." ";
+   $item = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item);
+   return $data;
+}
 function getProsesCount($cust_id)
 {
    require('../connect/conn.php');

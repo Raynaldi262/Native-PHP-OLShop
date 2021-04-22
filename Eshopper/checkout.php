@@ -7,7 +7,7 @@ require('../connect/conn.php');
 	$datauser = getDataUser($_SESSION['cust_id']);
 	if(isset($_GET['id'])){
 	$data_onkir = getDataOngkir($_GET['id']);
-	}else{$data_onkir = 0;}
+	}else{$data_onkir['ongkir_price'] = 0;}
 	$data_kurir = getDataKurir($datauser['cust_city']);
 	}
 	if(isset($_SESSION['cust_id'])){
