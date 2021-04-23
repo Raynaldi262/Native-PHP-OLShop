@@ -167,7 +167,7 @@ if (isset($_GET['id'])) {
 									<span>Rp. <?php echo number_format($data['item_price']); ?></span>
 									<label>Quantity:</label>
 									<form action="./model/User.php" method="post">
-										<input type="number" min='1' value="1" required name="qty" />
+										<input type="number" min='1' value="1" required name="qty" max="<?php echo $data['item_qty'] ?>" />
 										<input type="hidden" name="item_id" value="<?php echo $data['item_id'] ?>">
 										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
 									</form>

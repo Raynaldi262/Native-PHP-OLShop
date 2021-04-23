@@ -110,10 +110,10 @@ function terimaPesanan($conn)
         if ($result == 1 && $result1 == 1 && $result2 == 1 && $result3 == 1 && $result4 == 1) {
             msg('Pesanan berhasil dikonfirmasi!!', '../admin/pesanan.php');
         } else {
-            msg('Ada kesalahan pada update !!', '../admin/stok.php');
+            msg('Ada kesalahan pada update !!', '../admin/pesanan.php');
         }
     } else {
-        msg('Tidak bisa diterima stok tidak mencukupi!!', '../admin/stok.php');
+        msg('Tidak bisa diterima stok tidak mencukupi!!', '../admin/pesanan.php');
     }
 }
 
