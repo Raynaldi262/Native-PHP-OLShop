@@ -97,7 +97,7 @@ require('../connect/conn.php');
                                                 $start = $_POST['start'];
                                                 $end = $_POST['end'];
 
-                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,stock_in, stock_out, total_qty, stok_price 
+                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
                                                         from tbl_item a join tbl_color b on a.color_id = b.color_id
                                                         left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
                                                             from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59' 
@@ -110,11 +110,11 @@ require('../connect/conn.php');
                                                         left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
                                                             from tbl_stockinout where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59') as abc where no_urut = 1) e
                                                             on a.item_id = e.item_id
-                                                        where stock_in is not null or stock_out is not null";
+                                                        where stock_in is not null or stock_out is not null and item_status = 'ACTIVE'";
 
                                                 $getStok = mysqli_query($conn, $sql);
                                             } else {
-                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,stock_in, stock_out, total_qty, stok_price 
+                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
                                                     from tbl_item a join tbl_color b on a.color_id = b.color_id
                                                     left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
                                                         from tbl_stockinout where stok_desc = 'STOCK IN' GROUP by item_id) c
@@ -125,7 +125,8 @@ require('../connect/conn.php');
                                                         on a.item_id = d.item_id
                                                     left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
                                                         from tbl_stockinout) as abc where no_urut = 1) e
-                                                        on a.item_id = e.item_id";
+                                                        on a.item_id = e.item_id
+                                                    where item_status = 'ACTIVE'";
 
                                                 $getStok = mysqli_query($conn, $sql);
                                             }
