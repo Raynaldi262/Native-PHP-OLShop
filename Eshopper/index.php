@@ -152,6 +152,13 @@ $type_item = getDataAlltype($conn);
 					<div class="mainmenu pull-left">
 						<ul class="nav navbar-nav collapse navbar-collapse">
 							<li><a href="index.php" class="active">Home</a></li>
+							<li class="dropdown"><a href="#">Kategori<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+								<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>
+                                    <li><a href="../Eshopper/index.php?id=<?php echo $data_type['type_id']; ?>"><?php echo $data_type['type_name']; ?></a></li>
+								<?php } ?>
+                                </ul>
+                            </li> 
 						</ul>
 					</div>
 				</div>
@@ -202,15 +209,7 @@ $type_item = getDataAlltype($conn);
 						<!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-								<form action="../model/User.php" method="post">
-									<select name="tipe_item" id="tipe_item" onchange="this.form.submit()">
-										<option selected disabled>Filter Tipe Barang</option>
-										<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>
-											<option value="<?php echo $data_type['type_name']; ?>"><?php echo $data_type['type_name']; ?></option>
-										<?php } ?>
-										<option value="Allitem">All Item</option>
-									</select>
-								</form>
+							<h3 style="color:white; text-align:center ;font-family:courier,arial,helvetica" >Monkers Apparel</h3>
 							</ul>
 						</div>
 						<?php while ($data = mysqli_fetch_assoc($item_data)) { ?>

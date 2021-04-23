@@ -239,18 +239,22 @@ $totalberat = 0;
 							<h3>Total Harga</h3>
 						</div>
 						<ul>
-							<?php $hargaongkir = KiloBarang($totalberat, $dataproses['ongkir']);
-							$totalharga += $hargaongkir; ?>
+							<?php $totalharga += $dataproses['ongkir']; ?>
 							<li>Kurir : <span><?php echo $dataproses['kurir']; ?></span></li>
 							<li>Berat : <span><?php echo $totalberat; ?> Gram</span></li>
-							<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
+							<li>Ongkir : <span>Rp. <?php echo number_format($dataproses['ongkir']); ?></span></li>
 							<li>Total : <span>Rp. <?php echo number_format($totalharga); ?></span></li>
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
+							<br>
+							<?php if($dataproses['status'] != 'Menunggu Konfrimasi'){ ?>
 							<a href="invoice.php?id=<?php echo $linkid ?>">
 								<button type="button" class="btn btn-success">
 									<i class="fa fa-print"> Print Invoice</i>
 								</button>
 							</a>
+							<?php }else{ ?>
+								<h5>Sedang Menunggu Konfrimasi</h5>
+							<?php } ?>
 						</ul>
 					</div>
 				</div>
