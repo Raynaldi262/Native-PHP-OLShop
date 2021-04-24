@@ -381,7 +381,7 @@ function addChart($conn)
 {
 
    if (!isset($_SESSION['cust_id'])) {
-      msg('Silakan Login dahulu', '../Eshopper/login.php');
+      msg('Silakan Login dahulu', '/../SkripsiRuby/Eshopper/login.php');
    } else {
       if (!isset($_POST['qty'])) {
          $qty = 1;
