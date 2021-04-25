@@ -35,7 +35,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Stok</h1>
+              <h1>Pesanan</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right" id="pesanan">
@@ -151,7 +151,14 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body lampiran" style="text-align: center;">
+        <div class="modal-body" style="text-align: center;">
+          <div class="modal-body lampiran" style="text-align: center;">
+          </div>
+          <a class="link" href="">
+            <button type="button" class="btn btn-success print">
+              <i class="fa fa-print"> Print Invoice</i>
+            </button>
+          </a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -169,8 +176,6 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-        <div class="modal-body lampiran2" style="text-align: center;">
         </div>
         <div class="modal-body" style="text-align: center;">
           <form action="../model/dataPesanan.php" method="post">
@@ -212,6 +217,7 @@
   <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <!-- Page specific script -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
   <script>
     $(function() {
       $("#example1").DataTable({
@@ -241,10 +247,39 @@
           pesananID: pesananID
         },
         success: function(data) {
+          // Cookies.remove('var2', {
+          //   path: ''
+          // })
+
+          // // console.log(data[0].status);
+          // if (data[0].status == 'Menunggu Konfrimasi') {
+          //   Cookies.set('var2', 0, {
+          //     path: ''
+          //   })
+          // } else {
+          //   Cookies.set('var2', 1, {
+          //     path: ''
+          //   })
+          // }
+
+          $('.link').attr('href', '');
+
+          // console.log(Cookies.get("var2"))
+          if (data[0].status == 'Menunggu Konfrimasi') {
+            $('.print').attr("disabled", true);
+            $('.link').attr('href', '#');
+
+          } else {
+            $('.print').attr("disabled", false);
+            $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id);
+          }
+
+
           $('.lampiran').empty();
           var pesanan = 0;
           var ongkir = 0;
           var total = 0;
+
           data.forEach(function(datas) {
             var kalimat = datas.item_name + ', ' + datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
             $(".lampiran").append("<span class='label label-important'>" + kalimat + '</span> <br>')
@@ -260,29 +295,6 @@
         }
       });
     });
-
-    $(document).on("click", ".kirim", function() {
-      var pesananID = $(this).attr('id');
-      $.ajax({
-        url: "../model/dataPesanan.php", //the page containing php script
-        type: "post", //request type,
-        dataType: 'json',
-        data: {
-          get_id: 1,
-          pesananID: pesananID
-        },
-        success: function(data) {
-          $('.lampiran2').empty();
-          data.forEach(function(datas) {
-            var kalimat = datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
-            $(".lampiran2").append("<span class='label label-important'>" + kalimat + '</span> <br>')
-
-            $("#id_pesanan").val(datas.id);
-          });
-        }
-      });
-    });
-
 
     // lighbox
     $(document).on("click", '[data-toggle="lightbox"]', function(event) {

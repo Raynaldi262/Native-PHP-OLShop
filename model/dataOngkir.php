@@ -5,11 +5,18 @@ require('../session/session.php');
 $sql = "Select * from tbl_ongkir a join tbl_area b on a.area_id = b.area_id";
 $getOngkir = mysqli_query($conn, $sql);
 
-$sql = "Select * from tbl_area";
-$getArea = mysqli_query($conn, $sql);
+$sql1 = "Select * from tbl_area";
+$getArea = mysqli_query($conn, $sql1);
+
+$sql2 = "Select * from tbl_provinsi";
+$getProv = mysqli_query($conn, $sql2);
 
 if (isset($_POST['add_area'])) {
     addArea($conn);
+}
+
+if (isset($_POST['add_prov'])) {
+    addProv($conn);
 }
 
 if (isset($_POST['add_ongkir'])) {
@@ -32,17 +39,40 @@ if (isset($_POST['delete_ongkir'])) {
     deleteOngkir($conn);
 }
 
+if (isset($_POST['deleteKota'])) {
+    deleteArea($conn);
+}
+
+if (isset($_POST['deleteProv'])) {
+    deleteProv($conn);
+}
+
 function addArea($conn)
 {
     $area = $_POST['Area'];
+    $prov = $_POST['provid'];
 
-    $sql = "insert into tbl_area (area_name) values ('" . $area . "')";
+    $sql = "insert into tbl_area (area_name, prov_id) values ('" . $area . "', " . $prov . ")";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
         msg('Area Berhasil ditambahkan!!', '../admin/ongkir.php');
     } else {
         msg('Area gagal ditambahkan!!', '../admin/ongkir.php');
+    }
+}
+
+function addProv($conn)
+{
+    $prov = $_POST['prov'];
+
+    $sql = "insert into tbl_provinsi (prov_name) values ('" . $prov . "')";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        msg('Provinsi Berhasil ditambahkan!!', '../admin/ongkir.php');
+    } else {
+        msg('Provinsi gagal ditambahkan!!', '../admin/ongkir.php');
     }
 }
 
@@ -107,6 +137,35 @@ function deleteOngkir($conn)
         msg('Ongkir gagal dihapus!!', '../admin/ongkir.php');
     }
 }
+
+function deleteArea($conn)
+{
+    $id = $_POST['kota_id'];
+
+    $sql = "delete from tbl_area where area_id = " . $id . "";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        msg('Kota Berhasil dihapus!!', '../admin/ongkir.php');
+    } else {
+        msg('Kota gagal dihapus!!', '../admin/ongkir.php');
+    }
+}
+
+function deleteProv($conn)
+{
+    $id = $_POST['prov_id'];
+
+    $sql = "delete from tbl_provinsi where prov_id = " . $id . "";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        msg('Provinsi Berhasil dihapus!!', '../admin/ongkir.php');
+    } else {
+        msg('Provinsi gagal dihapus!!', '../admin/ongkir.php');
+    }
+}
+
 
 function msg($pesan, $url)
 {

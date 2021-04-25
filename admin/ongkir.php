@@ -1,8 +1,14 @@
-<?php require('../model/dataOngkir.php');
+<?php
+require('../model/dataOngkir.php');
 $area = [];
+$prov = [];
 
 while ($datas = mysqli_fetch_assoc($getArea)) {
     $area[] = $datas; //assign whole values to array
+}
+
+while ($datas = mysqli_fetch_assoc($getProv)) {
+    $prov[] = $datas; //assign whole values to array
 }
 
 ?>
@@ -23,8 +29,8 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 </head>
 <style>
-    #tambah_area {
-        margin-left: 58% !important;
+    #tambahprov {
+        margin-left: 48% !important;
     }
 </style>
 
@@ -59,8 +65,11 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Data Harga Ongkir</h3>
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-tambahArea" id="tambah_area">
-                                        Tambah Wilayah
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-tambahProvinsi" id="tambahprov">
+                                        Tambah Provinsi
+                                    </button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambahArea" id="tambah_area">
+                                        Tambah Kota
                                     </button>
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-tambahOngkir" id="tambah_ongkir">
                                         Tambah Ongkir
@@ -133,6 +142,53 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
     <!-- ./wrapper -->
 
     <!-- modal Tambah Area -->
+    <div class="modal fade" id="modal-tambahProvinsi">
+        <div class="modal-dialog">
+            <div class="modal-content col-10">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Provinsi</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <div>
+                        <table class="col-12">
+                            <tbody>
+                                <?php foreach ($prov as $data) { ?>
+                                    <tr id="dataProv">
+                                        <td><?php echo $data['prov_name']; ?></td>
+                                        <td>
+                                            <form action="../model/dataOngkir.php" method="post">
+                                                <input type='hidden' name='prov_id' value="<?php echo $data['prov_id']; ?>">
+                                                <input type="submit" class="btn btn-danger" name="deleteProv" value="Hapus">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <form action="../model/dataOngkir.php" method="post">
+                        <div class="input-group mb-3">
+                            <div class="col-5 input-group-text">Provinsi : </div>
+                            <input type="text" class="form-control" placeholder="Nama Provinsi" name="prov" required>
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary" name="add_prov" value="Tambah Provinsi">
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal Tambah Area-->
+
+
+    <!-- modal Tambah Area -->
     <div class="modal fade" id="modal-tambahArea">
         <div class="modal-dialog">
             <div class="modal-content col-10">
@@ -143,9 +199,37 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
+                    <div>
+                        <table class="col-12">
+                            <tbody>
+                                <?php foreach ($area as $data) { ?>
+                                    <tr id="datakota">
+                                        <td><?php echo $data['area_name']; ?></td>
+                                        <td>
+                                            <form action="../model/dataOngkir.php" method="post">
+                                                <input type='hidden' name='kota_id' value="<?php echo $data['area_id']; ?>">
+                                                <input type="submit" class="btn btn-danger" name="deleteKota" value="Hapus">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
                     <form action="../model/dataOngkir.php" method="post">
                         <div class="input-group mb-3">
-                            <div class="col-5 input-group-text">Nama Area : </div>
+                            <div class="col-5 input-group-text">Provinsi : </div>
+                            <select id="provid" name="provid" class="col-5">
+                                <?php foreach ($prov as $data) { ?>
+                                    <option value=" <?php echo $data['prov_id']; ?> "><?php echo $data['prov_name']; ?></option>
+                                <?php } ?>
+                            </select>
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="col-5 input-group-text">Nama Kota : </div>
                             <input type="text" class="form-control" placeholder="Nama Area" name="Area" required>
                             <div class="input-group-append">
                             </div>
@@ -347,6 +431,25 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
             $("#include-navbar").load("left-navbar.php");
         });
 
+
+        // Tambah Kota
+        $(document).on("click", ".tambahArea", function() {
+            var ongkirID = $(this).attr('id');
+            $.ajax({
+                url: "../model/dataOngkir.php", //the page containing php script
+                type: "post", //request type,
+                dataType: 'json',
+                data: {
+                    get_ongkir: 1,
+                    ongkir_id: ongkirID
+                },
+                success: function(data) {
+                    $("#id_hapus").val(data.ongkir_id);
+                    $("#hapus").text('Anda yakin menghapus ongkir area ' + data.area_name + ' dengan tipe pengiriman ' + data.ongkir_type + ' ?');
+                }
+            });
+        });
+
         //isi data edit ongkir
         $(document).on("click", ".ubahOngkir", function() {
             var ongkirId = $(this).attr('id');
@@ -385,22 +488,22 @@ while ($datas = mysqli_fetch_assoc($getArea)) {
         });
 
         // konfirmasi hapus data disini
-        $(document).on("click", ".hapusOngkir", function() {
-            var ongkirID = $(this).attr('id');
-            $.ajax({
-                url: "../model/dataOngkir.php", //the page containing php script
-                type: "post", //request type,
-                dataType: 'json',
-                data: {
-                    get_ongkir: 1,
-                    ongkir_id: ongkirID
-                },
-                success: function(data) {
-                    $("#id_hapus").val(data.ongkir_id);
-                    $("#hapus").text('Anda yakin menghapus ongkir area ' + data.area_name + ' dengan tipe pengiriman ' + data.ongkir_type + ' ?');
-                }
-            });
-        });
+        // $(document).on("click", ".hapusOngkir", function() {
+        //     var ongkirID = $(this).attr('id');
+        //     $.ajax({
+        //         url: "../model/dataOngkir.php", //the page containing php script
+        //         type: "post", //request type,
+        //         dataType: 'json',
+        //         data: {
+        //             get_ongkir: 1,
+        //             ongkir_id: ongkirID
+        //         },
+        //         success: function(data) {
+        //             $("#id_hapus").val(data.ongkir_id);
+        //             $("#hapus").text('Anda yakin menghapus ongkir area ' + data.area_name + ' dengan tipe pengiriman ' + data.ongkir_type + ' ?');
+        //         }
+        //     });
+        // });
     </script>
 </body>
 

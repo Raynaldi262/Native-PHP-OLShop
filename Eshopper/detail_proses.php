@@ -246,13 +246,13 @@ $totalberat = 0;
 							<li>Total : <span>Rp. <?php echo number_format($totalharga); ?></span></li>
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
 							<br>
-							<?php if($dataproses['status'] != 'Menunggu Konfrimasi'){ ?>
-							<a href="invoice.php?id=<?php echo $linkid ?>">
-								<button type="button" class="btn btn-success">
-									<i class="fa fa-print"> Print Invoice</i>
-								</button>
-							</a>
-							<?php }else{ ?>
+							<?php if ($dataproses['status'] != 'Menunggu Konfrimasi') { ?>
+								<a href="invoice.php?id=<?php echo $linkid ?>">
+									<button type="button" class="btn btn-success">
+										<i class="fa fa-print"> Print Invoice</i>
+									</button>
+								</a>
+							<?php } else { ?>
 								<h5>Sedang Menunggu Konfrimasi</h5>
 							<?php } ?>
 						</ul>
