@@ -16,6 +16,10 @@ if (isset($_POST['add_color'])) {
     addColor($conn);
 }
 
+if (isset($_POST['deleteColor'])) {
+    deleteColor($conn);
+}
+
 
 if (isset($_POST['add_item'])) {
     addItem($conn);
@@ -46,6 +50,20 @@ if (isset($_POST['dec_stok'])) {
 }
 
 
+function deleteColor($conn)
+{
+    $id = $_POST['id'];
+
+    $sql = "delete from tbl_color where color_id = " . $id . "";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        msg('Warna Berhasil dihapus!!', '../admin/stok.php');
+    } else {
+        msg('Warna gagal dihapus!!', '../admin/stok.php');
+    }
+}
+
 function addColor($conn)
 {
     $warna = $_POST['warna'];
@@ -59,7 +77,6 @@ function addColor($conn)
         msg('Warna gagal ditambahkan!!', '../admin/stok.php');
     }
 }
-
 
 function addItem($conn)
 {

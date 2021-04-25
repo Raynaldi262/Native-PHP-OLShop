@@ -165,6 +165,24 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
+                    <div>
+                        <table class="col-12">
+                            <tbody>
+                                <?php foreach ($color as $data) { ?>
+                                    <tr id="datakota">
+                                        <td><?php echo $data['color_name']; ?></td>
+                                        <td>
+                                            <form action="../model/dataStok.php" method="post">
+                                                <input type='hidden' name='id' value="<?php echo $data['color_id']; ?>">
+                                                <input type="submit" class="btn btn-danger" name="deleteColor" value="Hapus">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
                     <form action="../model/dataStok.php" method="post">
                         <div class="input-group mb-3">
                             <div class="col-4 input-group-text">Warna : </div>

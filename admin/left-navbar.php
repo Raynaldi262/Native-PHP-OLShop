@@ -71,14 +71,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="laporan.php" class="nav-link" id="laporan">
+            <p>
+              Laporan
+            </p>
+          </a>
+        </li>
         <?php if ($_SESSION['role_id'] == 1 or $_SESSION['role_id'] == 2) { ?>
-          <li class="nav-item">
-            <a href="laporan.php" class="nav-link" id="laporan">
-              <p>
-                Laporan
-              </p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="customer.php" class="nav-link" id="data_customer">
               <p>

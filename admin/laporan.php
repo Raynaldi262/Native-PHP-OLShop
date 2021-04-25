@@ -1,3 +1,4 @@
+<?php require('../model/AdminUser.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,28 +42,43 @@
           <div class="container-fluid">
             <!-- Info boxes -->
             <div class="row">
-              <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box">
-                  <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file"></i></span>
-                  <div class="info-box-content">
-                    <a class="info-box-text" href="laporan_pesanan.php">Laporan Pesanan</a>
+
+              <?php if ($_SESSION['role_id'] == 1 or $_SESSION['role_id'] == 2) { ?>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file"></i></span>
+                    <div class="info-box-content">
+                      <a class="info-box-text" href="laporan_pesanan.php">Laporan Pesanan</a>
+                    </div>
+                    <!-- /.info-box-content -->
                   </div>
-                  <!-- /.info-box-content -->
+                  <!-- /.info-box -->
                 </div>
-                <!-- /.info-box -->
-              </div>
-              <!-- /.col -->
-              <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                  <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-file"></i></span>
-                  <div class="info-box-content">
-                    <a class="info-box-text" href="laporan_stok.php">Laporan Stok</a>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-file"></i></span>
+                    <div class="info-box-content">
+                      <a class="info-box-text" href="laporan_stok.php">Laporan Stok</a>
+                    </div>
+                    <!-- /.info-box-content -->
                   </div>
-                  <!-- /.info-box-content -->
+                  <!-- /.info-box -->
                 </div>
-                <!-- /.info-box -->
-              </div>
-              <!-- /.col -->
+                <!-- /.col -->
+              <?php } else { ?>
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fa fa-file"></i></span>
+                    <div class="info-box-content">
+                      <a class="info-box-text" href="laporan_pesanan_admin.php">Laporan Pesanan Admin</a>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              <?php } ?>
             </div>
             <!-- /.row -->
           </div>
