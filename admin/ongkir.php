@@ -81,7 +81,7 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Wilayah</th>
+                                                <th>Kota</th>
                                                 <th>Jenis Pengiriman</th>
                                                 <th>Harga</th>
                                                 <th>Status</th>
@@ -98,14 +98,12 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                                                     <td><?php echo $data['ongkir_price']; ?></td>
                                                     <td><?php echo $data['status']; ?></td>
                                                     <td>
-                                                        <?php if ($_SESSION['role_id'] != 3) { ?>
-                                                            <button type="button" class="btn btn-warning ubahOngkir" data-toggle="modal" data-target="#modal-ubahOngkir" id="<?php echo $data['ongkir_id']; ?>">
-                                                                Ubah
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger hapusOngkir" data-toggle="modal" data-target="#modal-hapusOngkir" id="<?php echo $data['ongkir_id']; ?>">
-                                                                Hapus
-                                                            </button>
-                                                        <?php } ?>
+                                                        <button type="button" class="btn btn-warning ubahOngkir" data-toggle="modal" data-target="#modal-ubahOngkir" id="<?php echo $data['ongkir_id']; ?>">
+                                                            Ubah
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger hapusOngkir" data-toggle="modal" data-target="#modal-hapusOngkir" id="<?php echo $data['ongkir_id']; ?>">
+                                                            Hapus
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             <?php $i++;

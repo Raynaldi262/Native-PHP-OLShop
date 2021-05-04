@@ -274,7 +274,6 @@
             $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id);
           }
 
-
           $('.lampiran').empty();
           var pesanan = 0;
           var ongkir = 0;

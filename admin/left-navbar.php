@@ -86,17 +86,19 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="ongkir.php" class="nav-link" id="data_ongkir">
-              <p>
-                Data Ongkir
-              </p>
-            </a>
-          </li>
+        <?php } ?>
+        <li class="nav-item">
+          <a href="ongkir.php" class="nav-link" id="data_ongkir">
+            <p>
+              Data Ongkir
+            </p>
+          </a>
+        </li>
+        <?php if ($_SESSION['role_id'] == 1 or $_SESSION['role_id'] == 2) { ?>
           <li class="nav-item">
             <a href="banner.php" class="nav-link" id="data_banner">
               <p>
-                Data Banner
+                Banner
               </p>
             </a>
           </li>

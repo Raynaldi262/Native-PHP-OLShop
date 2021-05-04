@@ -4,7 +4,8 @@ require('../session/session.php');
 
 $sql = "select * from tbl_proses a
         join tbl_customer b on a.cust_id = b.cust_id
-        where status != 'Pesanan dibatalkan' and status != 'Pesanan dikirim'";
+        where status != 'Pesanan dibatalkan' and status != 'Pesanan dikirim'
+        order by a.create_date desc";
 $getPesanan = mysqli_query($conn, $sql);
 
 if (isset($_POST['get_pesanan'])) {

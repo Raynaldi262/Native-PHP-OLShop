@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2021 at 08:15 AM
+-- Generation Time: May 04, 2021 at 01:52 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -67,8 +67,8 @@ CREATE TABLE `tbl_admin` (
 
 INSERT INTO `tbl_admin` (`admin_id`, `admin_name`, `username_adm`, `password_adm`, `admin_birth`, `admin_phone`, `admin_status`, `role_id`, `admin_img`, `create_date`) VALUES
 (1, 'Mark Zuckenbukkkkk', 'admin', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '2021-01-01', '11222331', 'active', 1, 'gbr2.png', '0000-00-00'),
-(3, 'Asep pp', 'asep', '*A4B6157319038724E3560894F7F932C8886EBFCF', '2021-03-31', '120201023', 'active', 3, 'ntr1.jpg', '2021-04-05'),
-(4, 'test', 'test', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '2021-03-28', '', 'active', 2, 'default.jpg', '2021-04-05');
+(4, 'test', 'test', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '2021-03-28', '', 'active', 2, 'default.jpg', '2021-04-05'),
+(9, 'budiiiiiiiiiiii', 'budi', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '2021-04-25', '12221122', 'active', 3, 'default.jpg', '2021-04-25');
 
 -- --------------------------------------------------------
 
@@ -317,7 +317,7 @@ CREATE TABLE `tbl_ongkir` (
 --
 
 INSERT INTO `tbl_ongkir` (`ongkir_id`, `area_id`, `ongkir_type`, `ongkir_price`, `status`) VALUES
-(5, 6, 'Jne', 1200, 'in-active'),
+(5, 6, 'Jne', 1200, 'active'),
 (6, 4, 'Jne', 3000, 'active');
 
 -- --------------------------------------------------------
@@ -587,7 +587,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_area`
@@ -617,7 +617,7 @@ ALTER TABLE `tbl_checkout`
 -- AUTO_INCREMENT for table `tbl_color`
 --
 ALTER TABLE `tbl_color`
-  MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `color_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_customer`

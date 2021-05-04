@@ -78,6 +78,19 @@
                   <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
+
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-file"></i></span>
+                    <div class="info-box-content">
+                      <a class="info-box-text" href="laporan_stok_admin.php">Laporan Stok Admin</a>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
               <?php } ?>
             </div>
             <!-- /.row -->

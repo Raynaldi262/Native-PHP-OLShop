@@ -1,27 +1,5 @@
 <?php
 require('../connect/conn.php');
-
-function getItem($conn, $id)
-{
-    $sql = "select * from 
-    (Select a.date_id id, qty, item_name, type_name, item_size, color_name, item_weight, item_qty as stock, item_price, ongkir
-    from tbl_proses a 
-    join tbl_detailorder b on a.date_id = b.date_id
-    join (select item_id, item_name, type_name, item_size, color_name, item_weight, item_qty, item_price from tbl_item a 
-        join tbl_color b on a.color_id = b.color_id 
-        join tbl_item_type c on a.type_id = c.type_id) as c
-    on b.item_id = c.item_id ) as a
-    where id = '" . $id . "' ";
-
-    $result = mysqli_query($conn, $sql);
-    $results = [];
-
-    while ($datas = mysqli_fetch_assoc($result)) {
-        $results[] = $datas; //assign whole values to array
-    }
-
-    return $results;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +7,7 @@ function getItem($conn, $id)
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Laporan Pesanan</title>
+    <title>Admin | Laporan Stok</title>
 
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -37,15 +15,7 @@ function getItem($conn, $id)
     <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet" crossorigin="anonymous">
-
 </head>
-<style>
-    img {
-        width: 100px;
-        height: 100px;
-    }
-</style>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -59,13 +29,13 @@ function getItem($conn, $id)
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Laporan Pesanan</h1>
+                            <h1>Laporan Stok</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="laporan">
                                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="laporan.php">Laporan</a></li>
-                                <li class="breadcrumb-item active">Laporan Pesanan</li>
+                                <li class="breadcrumb-item active">Laporan Stok</li>
                             </ol>
                         </div>
                     </div>
@@ -78,7 +48,7 @@ function getItem($conn, $id)
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Data Pesanan</h3>
+                                    <h3 class="card-title">Data stok barang</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -107,21 +77,18 @@ function getItem($conn, $id)
                                         </p>
                                     <?php } ?>
                                     <br>
-                                    <table id="example1" class="table table-bordered table-striped" style="width: 150%">
+                                    <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>invoice</th>
-                                                <th>resi</th>
                                                 <th>Nama</th>
-                                                <th>AlamatP</th>
-                                                <th>Pesanan</th>
-                                                <th>tgl pesanan</th>
-                                                <th>Total Harga</th>
-                                                <th>Pengiriman</th>
-                                                <th>Ongkir</th>
-                                                <th>Bukti Transfer</th>
-                                                <th>Status</th>
+                                                <th>Warna</th>
+                                                <th>Ukuran</th>
+                                                <th>Stok</th>
+                                                <th>Stok Masuk</th>
+                                                <th>Stok keluar</th>
+                                                <th>Total Stok</th>
+                                                <th>Keuntungan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -129,53 +96,51 @@ function getItem($conn, $id)
                                             if (isset($_POST['search'])) {
                                                 $start = $_POST['start'];
 
-                                                $sql = "select order_id, order_invoice, order_resi, cust_name, cust_address, a.create_date as create_date,
-                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
-                                                        from tbl_order a
-                                                        join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
-                                                        on a.cust_id = b.cust_id
-                                                        where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59'";
+                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
+                                                        from tbl_item a join tbl_color b on a.color_id = b.color_id
+                                                        left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
+                                                            from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59' 
+                                                            GROUP by item_id) c
+                                                            on a.item_id = c.item_id
+                                                        left join (select item_id, sum(stok_qty) as stock_out , sum(stok_price) as stok_price, stok_desc from tbl_stockinout 
+                                                            where stok_desc = 'STOCK OUT' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59'
+                                                            group by  item_id) d
+                                                            on a.item_id = d.item_id
+                                                        left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
+                                                            from tbl_stockinout where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59') as abc where no_urut = 1) e
+                                                            on a.item_id = e.item_id
+                                                        where stock_in is not null or stock_out is not null and item_status = 'ACTIVE'";
 
-                                                $getOrder = mysqli_query($conn, $sql);
+                                                $getStok = mysqli_query($conn, $sql);
                                             } else {
-                                                $sql = "select order_id, order_invoice, order_resi, cust_name, cust_address, a.create_date as create_date,
-                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
-                                                        from tbl_order a
-                                                        join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
-                                                        on a.cust_id = b.cust_id
-                                                        where create_date >= CURDATE()";
+                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
+                                                from tbl_item a join tbl_color b on a.color_id = b.color_id
+                                                left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
+                                                    from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= CURDATE()
+                                                    GROUP by item_id) c
+                                                    on a.item_id = c.item_id
+                                                left join (select item_id, sum(stok_qty) as stock_out , sum(stok_price) as stok_price, stok_desc from tbl_stockinout 
+                                                    where stok_desc = 'STOCK OUT' and create_date >= CURDATE()
+                                                    group by  item_id) d
+                                                    on a.item_id = d.item_id
+                                                left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
+                                                    from tbl_stockinout where create_date >= CURDATE()) as abc where no_urut = 1) e
+                                                    on a.item_id = e.item_id
+                                                where stock_in is not null or stock_out is not null and item_status = 'ACTIVE'";
 
-                                                $getOrder = mysqli_query($conn, $sql);
+                                                $getStok = mysqli_query($conn, $sql);
                                             }
-                                            while ($data = mysqli_fetch_array($getOrder)) { ?>
+                                            while ($data = mysqli_fetch_array($getStok)) { ?>
                                                 <tr>
                                                     <td><?php echo $i ?></td>
-                                                    <td><?php echo $data['order_invoice']; ?></td>
-                                                    <td><?php echo $data['order_resi']; ?></td>
-                                                    <td><?php echo $data['cust_name']; ?></td>
-                                                    <td><?php echo $data['cust_address']; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        $result = getItem($conn, $data['item_id']);
-
-                                                        foreach ($result as $datas) {
-                                                            echo $datas['item_name'] . ', ' . $datas['type_name'] . ' (' . $datas['item_size'] . ', ' . $datas['color_name']
-                                                                . ', ' . $datas['item_weight'] . 'gram/pcs ) ' . $datas['qty'] . ' x Rp ' . number_format($datas['item_price']);
-
-                                                        ?>
-                                                            <br><br>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo date('d-m-Y', strtotime($data['create_date'])); ?></td>
-                                                    <td><?php echo $data['order_totprice']; ?></td>
-                                                    <td><?php echo $data['order_shipping']; ?></td>
-                                                    <td><?php echo $data['order_shipping_price']; ?></td>
-                                                    <td> <a href='../Eshopper/images/bayar/<?php echo $data['order_transfer']; ?>' data-toggle="lightbox" data-gallery="gallery">
-                                                            <img src="../Eshopper/images/bayar/<?php echo $data['order_transfer']; ?> " alt=""></a>
-                                                    </td>
-                                                    <td><?php echo $data['order_status']; ?></td>
+                                                    <td><?php echo $data['item_name']; ?></td>
+                                                    <td><?php echo $data['color_name']; ?></td>
+                                                    <td><?php echo $data['item_size']; ?></td>
+                                                    <td><?php echo $data['stok']; ?></td>
+                                                    <td><?php echo $data['stock_in']; ?></td>
+                                                    <td><?php echo $data['stock_out']; ?></td>
+                                                    <td><?php echo $data['total_qty']; ?></td>
+                                                    <td><?php echo $data['stok_price']; ?></td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>
@@ -202,14 +167,16 @@ function getItem($conn, $id)
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>
 
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="../plugins/jquery/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-    <!-- lightbox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js" crossorigin="anonymous"></script>
     <!-- Bootstrap 4 -->
     <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables  & Plugins -->
@@ -230,8 +197,8 @@ function getItem($conn, $id)
         $(function() {
             var judul = $('.title').text();
             $("#example1").DataTable({
-                // "responsive": true,
-                "autoWidth": true,
+                "responsive": true,
+                "autoWidth": false,
                 "lengthMenu": [
                     [10, 25, 50, -1],
                     [10, 25, 50, "All"]
@@ -241,7 +208,16 @@ function getItem($conn, $id)
                     extend: "csv",
                     messageTop: judul,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+                        columns: [0, 2, 3, 4, 5, 6, 7, 8],
+                        modifier: {
+                            page: "current"
+                        }
+                    }
+                }, {
+                    extend: "pdf",
+                    messageTop: judul,
+                    exportOptions: {
+                        columns: [0, 2, 3, 4, 5, 6, 7, 8],
                         modifier: {
                             page: "current"
                         }
@@ -252,12 +228,6 @@ function getItem($conn, $id)
 
         $(function() {
             $("#include-navbar").load("left-navbar.php");
-        });
-
-
-        $(document).on("click", '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox();
         });
 
         $(function() {
