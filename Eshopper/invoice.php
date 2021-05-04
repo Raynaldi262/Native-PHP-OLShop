@@ -1,16 +1,15 @@
 <?php
 require('../model/User.php');
-
 $item = getDetailProses($_GET['id']);
-$datauser = getDataUser($_SESSION['cust_id']);
+$datauser = getDataUser($_GET['idu']);
 $data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
 $dataproses = getProsesDataDetail($_GET['id']);
 
 if (isset($_SESSION['cust_id'])) {
-	$data_cart = getcartCount($_SESSION['cust_id']);
-	$data_check = getcheckCount($_SESSION['cust_id']);
-	$proses_count = getProsesCount($_SESSION['cust_id']);
+	$data_cart = getcartCount($_GET['idu']);
+	$data_check = getcheckCount($_GET['idu']);
+	$proses_count = getProsesCount($_GET['idu']);
 } else {
 	$data_cart['juml'] = 0;
 	$data_check['juml'] = 0;
