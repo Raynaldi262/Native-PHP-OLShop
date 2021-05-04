@@ -359,7 +359,7 @@ function UpdateProfile($conn)
                msg('Gagal Mengubah data!!', '../Eshopper/profile.php');
             }
          } else {
-            msg('Ukuran file max 4mb!!', '../admin/profile.php');
+            msg('Ukuran file max 4mb!!', '../Eshopper/profile.php');
          }
       } else {
          msg('Ekstensi File yang diupload hanya diperbolehkan png / jpg!!', '../Eshopper/profile.php');

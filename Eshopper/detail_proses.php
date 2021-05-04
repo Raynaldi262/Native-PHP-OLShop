@@ -247,7 +247,7 @@ $totalberat = 0;
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
 							<br>
 							<?php if ($dataproses['status'] != 'Menunggu Konfrimasi') { ?>
-								<a href="invoice.php?id=<?php echo $linkid ?>">
+								<a href="invoice.php?id=<?php echo $linkid?>&idu=<?php echo $_SESSION['cust_id']?>">
 									<button type="button" class="btn btn-success">
 										<i class="fa fa-print"> Print Invoice</i>
 									</button>
