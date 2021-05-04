@@ -98,7 +98,7 @@
           <li class="nav-item">
             <a href="banner.php" class="nav-link" id="data_banner">
               <p>
-                Banner
+                Banner Halaman Utama
               </p>
             </a>
           </li>
