@@ -52,7 +52,7 @@ $data_area = getDataArea($conn);
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+							<a href="index.php"><img width="100" src="images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -164,8 +164,8 @@ $data_area = getDataArea($conn);
 						<br>
 					</ul>
 					<div style="text-align:center;">
-						<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">Ubah Profile</button>
-						<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal1">Ubah Password</button>
+						<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">Ubah Profile</button>
+						<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal1">Ubah Password</button>
 					</div>
 				</div>
 			</div>
@@ -242,7 +242,7 @@ $data_area = getDataArea($conn);
 			<div class="table-responsive cart_info">
 				<table id="example1" class="table table-condensed">
 					<thead>
-						<tr class="cart_menu">
+						<tr  style="background-color:grey;" class="cart_menu">
 							<td style="text-align: center">Proses id</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Kurir</td>

@@ -35,7 +35,7 @@ table, th, td {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: Orange;
+  background-color: gray;
   color: white;
 }
 
@@ -46,8 +46,15 @@ table, th, td {
   background-color: Orange;
   color: white;
 }
+img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+}
 </style>
 <div style="text-align:center">
+<img width="100" src="images/home/logo.png"/>
 <h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
 <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
 <table id="example1" class="table table-bordered table-striped">
@@ -87,19 +94,19 @@ table, th, td {
     </thead> -->
     <tbody>
 			<tr>
-				<td style="background-color: Orange; text-align: left;">Kurir</td>
+				<td style="background-color: gray; text-align: left;">Kurir</td>
 				<td><?php echo $data_order['order_shipping'] ?></td>
 			</tr>
             <tr>
-				<td style="background-color: Orange; text-align: left;">Harga Ongkir</td>
+				<td style="background-color: gray; text-align: left;">Harga Ongkir</td>
 				<td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
 			</tr>
             <tr>
-				<td style="background-color: Orange; text-align: left;">Total Berat</td>
+				<td style="background-color: gray; text-align: left;">Total Berat</td>
 				<td><?php echo $totalberat ?> Gram</td>
 			</tr>
             <tr>
-				<td style="background-color: Orange; text-align: left;">Subtotal</td>
+				<td style="background-color: gray; text-align: left;">Subtotal</td>
 				<td>Rp. <?php echo number_format($data_order['order_totprice']+$data_order['order_shipping_price']) ?></td>
 			</tr>
     </tbody>

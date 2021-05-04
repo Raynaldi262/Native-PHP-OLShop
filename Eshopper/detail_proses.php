@@ -59,7 +59,7 @@ $totalberat = 0;
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+							<a href="index.php"><img width="100" src="images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -160,7 +160,7 @@ $totalberat = 0;
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
-						<tr class="cart_menu">
+						<tr  style="background-color:grey;" class="cart_menu">
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>

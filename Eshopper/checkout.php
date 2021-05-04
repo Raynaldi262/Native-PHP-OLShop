@@ -62,7 +62,7 @@ $totalberat = 0;
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+							<a href="index.php"><img width="100" src="images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">
@@ -154,7 +154,7 @@ $totalberat = 0;
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-					<li><a href="../Eshopper/">Home</a></li>
+					<li><a style="background-color:grey;"  href="../Eshopper/">Home</a></li>
 				</ol>
 			</div>
 			<div>
@@ -163,7 +163,7 @@ $totalberat = 0;
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
-						<tr class="cart_menu">
+						<tr class="cart_menu" style="background-color:grey;">
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
@@ -260,8 +260,8 @@ $totalberat = 0;
 								<li>Total : <span>Rp. <?php echo number_format($totalharga1); ?></span></li>
 							</ul>
 							<form action="../model/User.php" method="post" style="text-align:center;">
-								<button type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
-								<button type="submit" name="batalcheck" class="btn btn-default check_out">Batal</button>
+								<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#myModal">Bayar</button>
+								<button  style="background-color:grey;" type="submit" name="batalcheck" class="btn btn-default check_out">Batal</button>
 							</form>
 						</div>
 					</div>
