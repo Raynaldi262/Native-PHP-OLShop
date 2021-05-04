@@ -260,7 +260,7 @@
           //   Cookies.set('var2', 1, {
           //     path: ''
           //   })
-          // }
+          // } 
 
           $('.link').attr('href', '');
 
@@ -271,7 +271,7 @@
 
           } else {
             $('.print').attr("disabled", false);
-            $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id);
+            $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id) + '&idu=' + data[0].cust_id;
           }
 
           $('.lampiran').empty();
