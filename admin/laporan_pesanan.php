@@ -122,6 +122,7 @@ function getItem($conn, $id)
                                                 <th>Ongkir</th>
                                                 <th>Bukti Transfer</th>
                                                 <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -130,7 +131,7 @@ function getItem($conn, $id)
                                                 $start = $_POST['start'];
                                                 $end = $_POST['end'];
 
-                                                $sql = "select order_id, order_invoice, order_resi, cust_name, cust_address, a.create_date as create_date,
+                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date,
                                                             order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
                                                         from tbl_order a
                                                         join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
@@ -139,7 +140,7 @@ function getItem($conn, $id)
 
                                                 $getOrder = mysqli_query($conn, $sql);
                                             } else {
-                                                $sql = "select order_id, order_invoice, order_resi, cust_name, cust_address, a.create_date as create_date,
+                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date,
                                                             order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
                                                         from tbl_order a
                                                         join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
@@ -155,6 +156,7 @@ function getItem($conn, $id)
                                                     <td><?php echo $data['cust_name']; ?></td>
                                                     <td><?php echo $data['cust_address']; ?></td>
                                                     <td>
+
                                                         <?php
                                                         $result = getItem($conn, $data['item_id']);
 
@@ -176,6 +178,13 @@ function getItem($conn, $id)
                                                             <img src="../Eshopper/images/bayar/<?php echo $data['order_transfer']; ?> " alt=""></a>
                                                     </td>
                                                     <td><?php echo $data['order_status']; ?></td>
+                                                    <td>
+                                                        <a class="link" href='../Eshopper/invoice.php?id=<?php echo $data['item_id']; ?>&idu=<?php echo $data['cust_id']; ?> '>
+                                                            <button type="button" class="btn btn-success print">
+                                                                <i class="fa fa-print"> Print Invoice</i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>

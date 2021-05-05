@@ -154,11 +154,11 @@
         <div class="modal-body" style="text-align: center;">
           <div class="modal-body lampiran" style="text-align: center;">
           </div>
-          <a class="link" href="">
+          <!-- <a class="link" href="">
             <button type="button" class="btn btn-success print">
               <i class="fa fa-print"> Print Invoice</i>
             </button>
-          </a>
+          </a> -->
         </div>
       </div>
       <!-- /.modal-content -->
@@ -262,17 +262,17 @@
           //   })
           // } 
 
-          $('.link').attr('href', '');
+          // $('.link').attr('href', '');
 
-          // console.log(Cookies.get("var2"))
-          if (data[0].status == 'Menunggu Konfrimasi') {
-            $('.print').attr("disabled", true);
-            $('.link').attr('href', '#');
+          // // console.log(Cookies.get("var2"))
+          // if (data[0].status == 'Menunggu Konfrimasi') {
+          //   $('.print').attr("disabled", true);
+          //   $('.link').attr('href', '#');
 
-          } else {
-            $('.print').attr("disabled", false);
-            $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id) + '&idu=' + data[0].cust_id;
-          }
+          // } else {
+          //   $('.print').attr("disabled", false);
+          //   $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id) + '&idu=' + data[0].cust_id;
+          // }
 
           $('.lampiran').empty();
           var pesanan = 0;
