@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 01:52 PM
+-- Generation Time: May 08, 2021 at 05:25 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -144,8 +144,7 @@ CREATE TABLE `tbl_checkout` (
 --
 
 INSERT INTO `tbl_checkout` (`check_id`, `cust_id`, `item_id`, `qty`, `date`) VALUES
-(33, 4, 13, 1, 2147483647),
-(48, 3, 13, 1, 2147483647);
+(33, 4, 13, 1, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -194,7 +193,7 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_birth`, `cust_address`, `cust_province`, `cust_city`, `cust_email`, `cust_pass`, `cust_phone`, `cust_total_order`, `cust_total_price`, `cust_img`, `create_date`) VALUES
-(3, 'asd', '2021-04-17', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'asd@asd.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 12, 1060040, 'default.jpeg', '2021-04-17'),
+(3, 'asd', '2021-04-17', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'asd@asd.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 13, 1080440, 'default.jpeg', '2021-04-17'),
 (4, 'Raynaldi Ginantara', '2021-04-22', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'admin@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 0, 0, 'default.jpeg', '2021-04-22');
 
 -- --------------------------------------------------------
@@ -239,7 +238,8 @@ INSERT INTO `tbl_detailorder` (`detail_id`, `date_id`, `item_id`, `cust_id`, `qt
 (33, '09101420210423', 12, 3, 12, '2021-04-23'),
 (34, '09174620210423', 14, 3, 10, '2021-04-23'),
 (35, '10485020210425', 13, 3, 1, '2021-04-25'),
-(36, '10485020210425', 16, 3, 1, '2021-04-25');
+(36, '10485020210425', 16, 3, 1, '2021-04-25'),
+(37, '10014020210504', 13, 3, 2, '2021-05-04');
 
 -- --------------------------------------------------------
 
@@ -270,7 +270,7 @@ INSERT INTO `tbl_item` (`item_id`, `item_name`, `type_id`, `color_id`, `item_siz
 (10, 'test1', 2, 2, 'xl', 100, 'asd', 9, '2021-04-17', 'gbr1.png', 10000, 'IN-ACTIVE'),
 (11, 'test2', 2, 2, 'xl', 100, 'as', 15, '2021-04-17', 'gmbr5.jpg', 1000, 'ACTIVE'),
 (12, 'test3', 1, 2, 'xl', 13, 'asd', 0, '2021-04-20', 'ntr2.jpg', 10020, 'ACTIVE'),
-(13, 'test4', 2, 3, 'xl', 500, 'tes', 4, '2021-04-22', 'ntr1.jpg', 10200, 'ACTIVE'),
+(13, 'test4', 2, 3, 'xl', 500, 'tes', 2, '2021-04-22', 'ntr1.jpg', 10200, 'ACTIVE'),
 (14, 'test5', 2, 2, 'xl', 1222, 'asd', 6, '2021-04-22', 'gbr2.png', 120000, 'ACTIVE'),
 (15, 'test6', 1, 3, 'xl', 120, 'asd', 12, '2021-04-22', 'ntr1.jpg', 1222, 'ACTIVE'),
 (16, 'test10', 5, 2, 'xxx', 12, 'asd', 11, '2021-04-22', 'ntr3.jpg', 20000, 'ACTIVE');
@@ -357,7 +357,8 @@ INSERT INTO `tbl_order` (`order_id`, `order_invoice`, `order_resi`, `order_total
 (17, 'MA/INV/23-04-21/00009', 'asdasd', 6, 'Jne', 9600, 720000, '12052120210423ntr3.jpg', 'Pesanan dikirim', 3, '12052120210423', '2021-04-23 12:06:55'),
 (18, 'MA/INV/23-04-21/00010', '', 12, 'Jne', 1200, 120240, '09101420210423ntr3.jpg', 'Proses Pengemasan', 3, '09101420210423', '2021-04-23 21:10:27'),
 (19, 'MA/INV/24-04-21/00011', '', 1, 'Jne', 1200, 10200, '03572520210422ntr3.jpg', 'Proses Pengemasan', 3, '03572520210422', '2021-04-25 00:17:34'),
-(20, 'MA/INV/25-04-21/00012', '', 2, 'Jne', 1200, 30200, '10485020210425ntr3.jpg', 'Proses Pengemasan', 3, '10485020210425', '2021-04-25 11:27:13');
+(20, 'MA/INV/25-04-21/00012', '', 2, 'Jne', 1200, 30200, '10485020210425ntr3.jpg', 'Proses Pengemasan', 3, '10485020210425', '2021-04-25 11:27:13'),
+(21, 'MA/INV/04-05-21/00013', '', 2, 'Jne', 2400, 20400, '10014020210504alur.JPG', 'Proses Pengemasan', 3, '10014020210504', '2021-05-04 22:02:15');
 
 -- --------------------------------------------------------
 
@@ -399,7 +400,8 @@ INSERT INTO `tbl_proses` (`proses_id`, `date_id`, `cust_id`, `price`, `ongkir`, 
 (26, '12052120210423', 3, 720000, 9600, 'Jne', 'Pesanan dikirim', '2021-04-23', '12052120210423ntr3.jpg'),
 (27, '09101420210423', 3, 120240, 1200, 'Jne', 'Proses Pengemasan', '2021-04-23', '09101420210423ntr3.jpg'),
 (28, '09174620210423', 3, 1200000, 15600, 'Jne', 'Menunggu Konfrimasi', '2021-04-23', '09174620210423ntr3.jpg'),
-(29, '10485020210425', 3, 30200, 1200, 'Jne', 'Proses Pengemasan', '2021-04-25', '10485020210425ntr3.jpg');
+(29, '10485020210425', 3, 30200, 1200, 'Jne', 'Proses Pengemasan', '2021-04-25', '10485020210425ntr3.jpg'),
+(30, '10014020210504', 3, 20400, 2400, 'Jne', 'Proses Pengemasan', '2021-05-04', '10014020210504alur.JPG');
 
 -- --------------------------------------------------------
 
@@ -465,7 +467,8 @@ INSERT INTO `tbl_stockinout` (`stok_id`, `item_id`, `item_name`, `stok_qty`, `st
 (65, 12, 'test3', 12, 'STOCK OUT', 120240, 0, '2021-04-23 21:10:27'),
 (66, 13, 'test4', 1, 'STOCK OUT', 10200, 5, '2021-04-25 00:17:34'),
 (67, 13, 'test4', 1, 'STOCK OUT', 10200, 4, '2021-04-25 11:27:13'),
-(68, 16, 'test10', 1, 'STOCK OUT', 20000, 11, '2021-04-25 11:27:13');
+(68, 16, 'test10', 1, 'STOCK OUT', 20000, 11, '2021-04-25 11:27:13'),
+(69, 13, 'test4', 2, 'STOCK OUT', 20400, 2, '2021-05-04 22:02:15');
 
 --
 -- Indexes for dumped tables
@@ -605,7 +608,7 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tbl_checkout`
@@ -629,7 +632,7 @@ ALTER TABLE `tbl_customer`
 -- AUTO_INCREMENT for table `tbl_detailorder`
 --
 ALTER TABLE `tbl_detailorder`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tbl_item`
@@ -653,13 +656,13 @@ ALTER TABLE `tbl_ongkir`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_proses`
 --
 ALTER TABLE `tbl_proses`
-  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_provinsi`
@@ -671,7 +674,7 @@ ALTER TABLE `tbl_provinsi`
 -- AUTO_INCREMENT for table `tbl_stockinout`
 --
 ALTER TABLE `tbl_stockinout`
-  MODIFY `stok_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `stok_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Constraints for dumped tables
