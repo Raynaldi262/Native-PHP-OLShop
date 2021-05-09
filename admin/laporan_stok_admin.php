@@ -230,39 +230,39 @@ require('../connect/conn.php');
             $("#include-navbar").load("left-navbar.php");
         });
 
-        $(function() {
-            var dtToday = new Date(Date.now() - 604800000);
-            console.log(dtToday)
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
+        // $(function() {
+        //     var dtToday = new Date(Date.now() - 604800000);
+        //     console.log(dtToday)
+        //     var month = dtToday.getMonth() + 1;
+        //     var day = dtToday.getDate();
+        //     var year = dtToday.getFullYear();
+        //     if (month < 10)
+        //         month = '0' + month.toString();
+        //     if (day < 10)
+        //         day = '0' + day.toString();
 
-            var min = year + '-' + month + '-' + day;
+        //     var min = year + '-' + month + '-' + day;
 
-            console.log(min);
-            $('#start').attr('min', min);
-        });
+        //     console.log(min);
+        //     $('#start').attr('min', min);
+        // });
 
 
-        $(function() {
-            var dtToday = new Date();
+        // $(function() {
+        //     var dtToday = new Date();
 
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
+        //     var month = dtToday.getMonth() + 1;
+        //     var day = dtToday.getDate();
+        //     var year = dtToday.getFullYear();
+        //     if (month < 10)
+        //         month = '0' + month.toString();
+        //     if (day < 10)
+        //         day = '0' + day.toString();
 
-            var max = year + '-' + month + '-' + day;
-            console.log(max);
-            $('#start').attr('max', max);
-        });
+        //     var max = year + '-' + month + '-' + day;
+        //     console.log(max);
+        //     $('#start').attr('max', max);
+        // });
     </script>
 </body>
 

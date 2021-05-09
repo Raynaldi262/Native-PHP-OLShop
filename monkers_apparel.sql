@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2021 at 05:25 PM
+-- Generation Time: May 09, 2021 at 09:54 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -88,7 +88,6 @@ CREATE TABLE `tbl_area` (
 
 INSERT INTO `tbl_area` (`area_id`, `area_name`, `prov_id`) VALUES
 (4, 'Jabodetabek', 2),
-(5, 'Bali', 2),
 (6, 'Tangerang', 2),
 (10, 'Semarang', 3);
 
@@ -144,7 +143,8 @@ CREATE TABLE `tbl_checkout` (
 --
 
 INSERT INTO `tbl_checkout` (`check_id`, `cust_id`, `item_id`, `qty`, `date`) VALUES
-(33, 4, 13, 1, 2147483647);
+(33, 4, 13, 1, 2147483647),
+(49, 3, 11, 1, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -268,10 +268,10 @@ CREATE TABLE `tbl_item` (
 
 INSERT INTO `tbl_item` (`item_id`, `item_name`, `type_id`, `color_id`, `item_size`, `item_weight`, `item_desc`, `item_qty`, `create_date`, `item_img`, `item_price`, `item_status`) VALUES
 (10, 'test1', 2, 2, 'xl', 100, 'asd', 9, '2021-04-17', 'gbr1.png', 10000, 'IN-ACTIVE'),
-(11, 'test2', 2, 2, 'xl', 100, 'as', 15, '2021-04-17', 'gmbr5.jpg', 1000, 'ACTIVE'),
-(12, 'test3', 1, 2, 'xl', 13, 'asd', 0, '2021-04-20', 'ntr2.jpg', 10020, 'ACTIVE'),
+(11, 'test1', 1, 2, 'l', 100, 'as', 15, '2021-04-17', 'gmbr5.jpg', 1000, 'ACTIVE'),
+(12, 'test1', 1, 2, 'xl', 13, 'asd', 0, '2021-04-20', 'ntr2.jpg', 10020, 'ACTIVE'),
 (13, 'test4', 2, 3, 'xl', 500, 'tes', 2, '2021-04-22', 'ntr1.jpg', 10200, 'ACTIVE'),
-(14, 'test5', 2, 2, 'xl', 1222, 'asd', 6, '2021-04-22', 'gbr2.png', 120000, 'ACTIVE'),
+(14, 'test1', 1, 2, 'S', 1222, 'asd', 6, '2021-04-22', 'gbr2.png', 120000, 'ACTIVE'),
 (15, 'test6', 1, 3, 'xl', 120, 'asd', 12, '2021-04-22', 'ntr1.jpg', 1222, 'ACTIVE'),
 (16, 'test10', 5, 2, 'xxx', 12, 'asd', 11, '2021-04-22', 'ntr3.jpg', 20000, 'ACTIVE');
 
@@ -596,7 +596,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_area`
 --
 ALTER TABLE `tbl_area`
-  MODIFY `area_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `area_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_banner`
@@ -608,13 +608,13 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_checkout`
 --
 ALTER TABLE `tbl_checkout`
-  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `tbl_color`
@@ -668,7 +668,7 @@ ALTER TABLE `tbl_proses`
 -- AUTO_INCREMENT for table `tbl_provinsi`
 --
 ALTER TABLE `tbl_provinsi`
-  MODIFY `prov_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `prov_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_stockinout`

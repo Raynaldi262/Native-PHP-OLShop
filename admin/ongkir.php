@@ -32,6 +32,16 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
     #tambahprov {
         margin-left: 48% !important;
     }
+
+    .column {
+        float: left;
+        width: 25%;
+        /* Should be removed. Only for demonstration */
+    }
+
+    .modal-content {
+        width: 900px !important;
+    }
 </style>
 
 <body class="hold-transition sidebar-mini">
@@ -141,8 +151,8 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
 
     <!-- modal Tambah Area -->
     <div class="modal fade" id="modal-tambahProvinsi">
-        <div class="modal-dialog">
-            <div class="modal-content col-10">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content col-12">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Provinsi</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,28 +160,24 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
-                    <div>
-                        <table class="col-12">
-                            <tbody>
-                                <?php foreach ($prov as $data) { ?>
-                                    <tr id="dataProv">
-                                        <td><?php echo $data['prov_name']; ?></td>
-                                        <td>
-                                            <form action="../model/dataOngkir.php" method="post">
-                                                <input type='hidden' name='prov_id' value="<?php echo $data['prov_id']; ?>">
-                                                <input type="submit" class="btn btn-danger" name="deleteProv" value="Hapus">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                    <?php foreach ($prov as $data) {  ?>
+                        <div class="column">
+                            <form action="../model/dataOngkir.php" method="post">
+                                <div class="input-group mb-3">
+                                    <div class="col-7 input-group-text"><?php echo $data['prov_name']; ?></div>
+                                    <input type='hidden' name='prov_id' value="<?php echo $data['prov_id']; ?>">
+                                    <input type="submit" class="btn btn-danger" name="deleteProv" value="Hapus">
+                                    <div class="input-group-append">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <?php } ?>
                     <br>
                     <form action="../model/dataOngkir.php" method="post">
                         <div class="input-group mb-3">
-                            <div class="col-5 input-group-text">Provinsi : </div>
-                            <input type="text" class="form-control" placeholder="Nama Provinsi" name="prov" required>
+                            <div class="col-2 input-group-text">Provinsi : </div>
+                            <input type="text" class="form-control col-4" placeholder="Nama Provinsi" name="prov" required>
                             <div class="input-group-append">
                             </div>
                         </div>
@@ -185,11 +191,10 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
     </div>
     <!-- /.modal Tambah Area-->
 
-
     <!-- modal Tambah Area -->
     <div class="modal fade" id="modal-tambahArea">
-        <div class="modal-dialog">
-            <div class="modal-content col-10">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Area Ongkir</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -197,28 +202,24 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
-                    <div>
-                        <table class="col-12">
-                            <tbody>
-                                <?php foreach ($area as $data) { ?>
-                                    <tr id="datakota">
-                                        <td><?php echo $data['area_name']; ?></td>
-                                        <td>
-                                            <form action="../model/dataOngkir.php" method="post">
-                                                <input type='hidden' name='kota_id' value="<?php echo $data['area_id']; ?>">
-                                                <input type="submit" class="btn btn-danger" name="deleteKota" value="Hapus">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                    <?php foreach ($area as $data) {  ?>
+                        <div class="column">
+                            <form action="../model/dataOngkir.php" method="post">
+                                <div class="input-group mb-3">
+                                    <div class="col-7 input-group-text"><?php echo $data['area_name']; ?></div>
+                                    <input type='hidden' name='kota_id' value="<?php echo $data['area_id']; ?>">
+                                    <input type="submit" class="btn btn-danger" name="deleteKota" value="Hapus">
+                                    <div class="input-group-append">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <?php } ?>
                     <br>
                     <form action="../model/dataOngkir.php" method="post">
                         <div class="input-group mb-3">
-                            <div class="col-5 input-group-text">Provinsi : </div>
-                            <select id="provid" name="provid" class="col-5">
+                            <div class="col-2 input-group-text">Provinsi : </div>
+                            <select id="provid" name="provid" class="col-4">
                                 <?php foreach ($prov as $data) { ?>
                                     <option value=" <?php echo $data['prov_id']; ?> "><?php echo $data['prov_name']; ?></option>
                                 <?php } ?>
@@ -227,8 +228,8 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <div class="col-5 input-group-text">Nama Kota : </div>
-                            <input type="text" class="form-control" placeholder="Nama Area" name="Area" required>
+                            <div class="col-2 input-group-text">Nama Kota : </div>
+                            <input type="text" class="form-control col-4" placeholder="Nama Area" name="Area" required>
                             <div class="input-group-append">
                             </div>
                         </div>
@@ -241,7 +242,6 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal Tambah Area-->
-
 
     <!-- modal Tambah Ongkir -->
     <div class="modal fade" id="modal-tambahOngkir">
