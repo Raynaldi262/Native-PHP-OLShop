@@ -97,36 +97,46 @@ require('../connect/conn.php');
                                                 $start = $_POST['start'];
                                                 $end = $_POST['end'];
 
-                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
-                                                        from tbl_item a join tbl_color b on a.color_id = b.color_id
-                                                        left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
-                                                            from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59' 
-                                                            GROUP by item_id) c
-                                                            on a.item_id = c.item_id
-                                                        left join (select item_id, sum(stok_qty) as stock_out , sum(stok_price) as stok_price, stok_desc from tbl_stockinout 
-                                                            where stok_desc = 'STOCK OUT' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59'
-                                                            group by  item_id) d
-                                                            on a.item_id = d.item_id
-                                                        left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
-                                                            from tbl_stockinout where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59') as abc where no_urut = 1) e
-                                                            on a.item_id = e.item_id
-                                                        where stock_in is not null or stock_out is not null and item_status = 'ACTIVE'";
+                                                $sql = "select a.item_name, color_name, size_name, (ifnull(detail_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(detail_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
+                                                        FROM (  
+                                                        select a.item_name, color_name, size_name, detail_qty, c.status, detail_id
+                                                        from tbl_item a 
+                                                        join tbl_color b on a.color_id = b.color_id
+                                                        join (select size_name, detail_qty, status, item_id, detail_id
+                                                        from tbl_item_detail a join tbl_size b on a.size_id = b.size_id) c
+                                                        on a.item_id = c.item_id
+                                                        where c.status = 'ACTIVE') a
+                                                        left join (select detail_id, sum(stok_qty) as stock_in, stok_desc 
+                                                        from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59' 
+                                                        GROUP by detail_id) b
+                                                        on b.detail_id = a.detail_id
+                                                        left join (select detail_id, sum(stok_qty) as stock_out, sum(stok_price) as stok_price, stok_desc 
+                                                        from tbl_stockinout where stok_desc = 'STOCK OUT' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59'
+                                                        GROUP by detail_id) c
+                                                        on c.detail_id = a.detail_id
+                                                        left join (select detail_id, total_qty from (select detail_id, total_qty, row_number() over (partition by detail_id order by create_date desc) as no_urut from tbl_stockinout
+                                                        where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59') as abc where no_urut = 1) d
+                                                        on d.detail_id = a.detail_id";
 
                                                 $getStok = mysqli_query($conn, $sql);
                                             } else {
-                                                $sql = "select a.item_name, color_name, item_size, (ifnull(total_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(total_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
-                                                    from tbl_item a join tbl_color b on a.color_id = b.color_id
-                                                    left join (select item_id, sum(stok_qty) as stock_in, stok_desc 
-                                                        from tbl_stockinout where stok_desc = 'STOCK IN' GROUP by item_id) c
+                                                $sql = "select a.item_name, color_name, size_name, (ifnull(detail_qty,0)+ifnull(stock_out,0)-ifnull(stock_in,0)) as stok  ,ifnull(stock_in,0) as stock_in, ifnull(stock_out,0) as stock_out, ifnull(detail_qty,0) as total_qty, ifnull(stok_price,0) as stok_price
+                                                        FROM (
+                                                        select a.item_name, color_name, size_name, detail_qty, c.status, detail_id
+                                                        from tbl_item a 
+                                                        join tbl_color b on a.color_id = b.color_id
+                                                        join (select size_name, detail_qty, status, item_id, detail_id
+                                                        from tbl_item_detail a join tbl_size b on a.size_id = b.size_id) c
                                                         on a.item_id = c.item_id
-                                                    left join (select item_id, sum(stok_qty) as stock_out , sum(stok_price) as stok_price, stok_desc from tbl_stockinout 
-                                                        where stok_desc = 'STOCK OUT'
-                                                        group by  item_id) d
-                                                        on a.item_id = d.item_id
-                                                    left join (select item_id, total_qty from (select item_id, total_qty, row_number() over (partition by item_id order by create_date desc) as no_urut 
-                                                        from tbl_stockinout) as abc where no_urut = 1) e
-                                                        on a.item_id = e.item_id
-                                                    where item_status = 'ACTIVE'";
+                                                        where c.status = 'ACTIVE') a
+                                                        left join (select detail_id, sum(stok_qty) as stock_in, stok_desc 
+                                                        from tbl_stockinout where stok_desc = 'STOCK IN' GROUP by detail_id) b
+                                                        on b.detail_id = a.detail_id
+                                                        left join (select detail_id, sum(stok_qty) as stock_out, sum(stok_price) as stok_price, stok_desc 
+                                                        from tbl_stockinout where stok_desc = 'STOCK OUT' GROUP by detail_id) c
+                                                        on c.detail_id = a.detail_id
+                                                        left join (select detail_id, total_qty from (select detail_id, total_qty, row_number() over (partition by detail_id order by create_date desc) as no_urut from tbl_stockinout) as abc where no_urut = 1) d
+                                                        on d.detail_id = a.detail_id";
 
                                                 $getStok = mysqli_query($conn, $sql);
                                             }
@@ -135,7 +145,7 @@ require('../connect/conn.php');
                                                     <td><?php echo $i ?></td>
                                                     <td><?php echo $data['item_name']; ?></td>
                                                     <td><?php echo $data['color_name']; ?></td>
-                                                    <td><?php echo $data['item_size']; ?></td>
+                                                    <td><?php echo $data['size_name']; ?></td>
                                                     <td><?php echo $data['stok']; ?></td>
                                                     <td><?php echo $data['stock_in']; ?></td>
                                                     <td><?php echo $data['stock_out']; ?></td>

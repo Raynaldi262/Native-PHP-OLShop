@@ -10,6 +10,7 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
     $tipe[] = $datas; //assign whole values to array
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +35,19 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
     img {
         width: 100px;
         height: 100px;
+    }
+
+    .column {
+        float: left;
+        width: 50%;
+    }
+
+    #gambar {
+        margin-bottom: 20px !important;
+    }
+
+    .modal-lg {
+        width: 900px !important;
     }
 </style>
 
@@ -85,40 +99,38 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                                                 <th>Nama</th>
                                                 <th>Kategori</th>
                                                 <th>Warna</th>
-                                                <th>Ukuran</th>
                                                 <th>Berat</th>
                                                 <th>Harga</th>
-                                                <th>Jumlah</th>
                                                 <th>Deskripsi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $i = 1;
-                                            while ($data = mysqli_fetch_assoc($getItem)) { ?>
+                                            while ($data = mysqli_fetch_assoc($getItem)) {
+                                                $img = getImage1($conn, $data['item_id']); ?>
                                                 <tr>
                                                     <td><?php echo $i ?></td>
-                                                    <td> <img src="../dist/img/item/<?php echo $data['item_img']; ?>" alt=""></td>
+                                                    <td> <img src="../dist/img/item/<?php echo $img['img_name']; ?>" alt=""></td>
                                                     <td><?php echo $data['item_name']; ?></td>
                                                     <td><?php echo $data['type_name']; ?></td>
                                                     <td><?php echo $data['color_name']; ?></td>
-                                                    <td><?php echo $data['item_size']; ?></td>
                                                     <td><?php echo $data['item_weight']; ?></td>
                                                     <td><?php echo $data['item_price']; ?></td>
-                                                    <td><?php echo $data['item_qty']; ?></td>
                                                     <td><?php echo $data['item_desc']; ?></td>
                                                     <td>
                                                         <?php if ($_SESSION['role_id'] != 3) { ?>
                                                             <button type="button" class="btn btn-warning ubahItem" data-toggle="modal" data-target="#modal-ubahItem" id="<?php echo $data['item_id']; ?>">
-                                                                Ubah Data
+                                                                Ubah
                                                             </button>
                                                             <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['item_id']; ?>">
                                                                 Hapus
                                                             </button>
                                                         <?php } ?>
-                                                        <button type="button" class="btn btn-success ubahStok" data-toggle="modal" data-target="#modal-ubahStok" id="<?php echo $data['item_id']; ?>">
-                                                            Ubah Stok
-                                                        </button>
+                                                        <form action="stok_detail.php">
+                                                            <input type='hidden' name='itemid' id='itemid' value="<?php echo $data['item_id']; ?>">
+                                                            <input type="submit" class="btn btn-success" value="Detail" />
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             <?php $i++;
@@ -203,7 +215,7 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
     <!-- modal tambah item -->
     <div class="modal fade" id="modal-tambahItem">
         <div class="modal-dialog">
-            <div class="modal-content col-12">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Item</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -241,12 +253,6 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <div class="col-4 input-group-text">Ukuran : </div>
-                            <input type="text" class="col-8 form-control" placeholder="Ukuran barang" name="item_size" required>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
                             <div class="col-4 input-group-text">Berat : </div>
                             <input type="number" class="col-4 form-control" placeholder="Berat barang" name="item_weight" min="1" required>
                             <div class="col-2 input-group-text">gram</div>
@@ -260,14 +266,8 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <div class="col-4 input-group-text">Jumlah : </div>
-                            <input type="number" class="col-3 form-control" placeholder="Jumlah stok " name="item_qty" min="1" required>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
                             <div class="col-4 input-group-text">Harga : </div>
-                            <input type="number" class="col-3 form-control" placeholder="Harga / barang " name="item_price" min="1" required>
+                            <input type="number" class="col-4 form-control" placeholder="Harga / barang " name="item_price" min="1" required>
                             <div class="input-group-append">
                             </div>
                         </div>
@@ -292,6 +292,8 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                     </button>
                 </div>
                 <div class="modal-body" style="text-align: center;">
+                    <div id="gambar"></div>
+                    <br>
                     <form action="../model/dataStok.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="edit_id" id="edit_id">
                         <input type="file" name="img"> <span class="text-muted">jpg, png</span></td>
@@ -319,12 +321,6 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                                     <option class="color" value=" <?php echo $data['color_id']; ?> "><?php echo $data['color_name']; ?></option>
                                 <?php } ?>
                             </select>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="col-4 input-group-text">Ukuran : </div>
-                            <input type="text" class="col-8 form-control" placeholder="Ukuran barang" name="edit_size" id="edit_size">
                             <div class="input-group-append">
                             </div>
                         </div>
@@ -381,40 +377,8 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
     </div>
     <!-- /.modal HAPUS data-->
 
-    <!-- modal Tambah Stok -->
-    <div class="modal fade" id="modal-ubahStok">
-        <div class="modal-dialog">
-            <div class="modal-content col-10">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Stok</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="text-align: center;">
-                    <form action="../model/dataStok.php" method="post">
-                        <input type="hidden" name="stok_id" id="stok_id">
-                        <input type="hidden" name="stok_name" id="stok_name">
-                        <div class="input-group mb-3">
-                            <div class="col-7 input-group-text">Stok Tersedia : </div>
-                            <input type="number" class="form-control" name="stok_old" id="stok_old" readonly>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="col-7 input-group-text">Penambahan/Pengurangan : </div>
-                            <input type="number" class="form-control" placeholder="Banyak" name="stok" min="1" required>
-                            <div class="input-group-append">
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-primary" name="add_stok" value="Tambahkan Stok">
-                        <input type="submit" class="btn btn-danger" name="dec_stok" value="Kurangkan Stok">
-                    </form>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
+    </div> -->
+    <!-- /.modal-dialog -->
     </div>
     <!-- /.modal Tambah Stok-->
 
@@ -487,7 +451,6 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                         $(this).prop("selected", "false");
                     });
 
-
                     $("#edit_id").val(data.item_id);
                     $("#edit_name").val(data.item_name);
                     $("select option.type").each(function() {
@@ -502,10 +465,10 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                             $(this).prop("selected", "true");
                         }
                     });
-                    $("#edit_size").val(data.item_size);
                     $("#edit_weight").val(data.item_weight);
                     $("#edit_desc").val(data.item_desc);
                     $("#edit_price").val(data.item_price);
+                    loadImg(data.item_id);
                 }
             });
         });
@@ -528,25 +491,38 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
             });
         });
 
-        // Tambah stok disini
-        $(document).on("click", ".ubahStok", function() {
-            var itemId = $(this).attr('id');
+        function loadImg(id) {
             $.ajax({
                 url: "../model/dataStok.php", //the page containing php script
                 type: "post", //request type,
                 dataType: 'json',
                 data: {
-                    stok_item: 1,
-                    itemId: itemId
+                    loadImg: 1,
+                    itemId: id
                 },
                 success: function(data) {
-                    $('#stok_id').val(data.item_id);
-                    $('#stok_name').val(data.item_name);
-                    $("#stok_old").val(data.item_qty);
-                    // $("#hapus").text('Anda yakin menghapus ' + data.item_name + ' ?');
+                    console.log(data);
+
+                    $('#gambar').empty();
+
+                    data.forEach(function(datas) {
+                        $('#gambar').append("<div class='column'> <form action='../model/dataStok.php' method='post'><div class='input-group mb-3'><img src='../dist/img/item/" + datas.img_name + "' alt=''><input type='hidden' name='img_id' value=" + datas.img_id + ">" +
+                            "<input type='submit' class='btn btn-danger' name='deleteImg' value='Hapus'><div class='input-group-append'></div></div></form></div>");
+
+                        // $('#gambar').append("<div class='column'>");
+                        // $('#gambar').append("<form action='../model/dataStok.php' method='post'>");
+                        // $('#gambar').append("<div class='input-group mb-3'>");
+                        // $('#gambar').append("<img src='../dist/img/item/" + datas.img_name + "' alt=''>");
+                        // $('#gambar').append("<input type='hidden' name='img_id' value=" + datas.img_id + ">");
+                        // $('#gambar').append("<input type='submit' class='btn btn-danger' name='deleteImg' value='Hapus'>");
+                        // $('#gambar').append("<div class='input-group-append'></div>");
+                        // $('#gambar').append("</div>");
+                        // $('#gambar').append("</form>");
+                        // $('#gambar').append("</div>");
+                    });
                 }
             });
-        });
+        }
     </script>
 </body>
 

@@ -12,43 +12,63 @@ $getColor = mysqli_query($conn, $sql);
 $sql = "Select * from tbl_item_type";
 $getTipe = mysqli_query($conn, $sql);
 
+
 if (isset($_POST['add_color'])) {
     addColor($conn);
 }
+
 
 if (isset($_POST['deleteColor'])) {
     deleteColor($conn);
 }
 
+if (isset($_POST['deleteImg'])) {
+    deleteImg($conn);
+}
 
-if (isset($_POST['add_item'])) {
+if (isset($_POST['add_item'])) { // tambah data
     addItem($conn);
 }
 
-if (isset($_POST['getItemWhere'])) {
+if (isset($_POST['getItemWhere'])) {    // isi data sblm edit
     getItemWhere($conn);
 }
 
-if (isset($_POST['edit_item'])) {
+if (isset($_POST['edit_item'])) {   //e dit beneran
     editItem($conn);
 }
 
-if (isset($_POST['get_item']) or isset($_POST['stok_item'])) {
+if (isset($_POST['get_item'])) {    // dpt data sblm dihapus
     getItem($conn);
 }
 
-if (isset($_POST['delete_item'])) {
+if (isset($_POST['delete_item'])) { // hapus beneran
     deleteItem($conn);
 }
 
-if (isset($_POST['add_stok'])) {
-    updateincStok($conn);
+if (isset($_POST['loadImg'])) { // namilin gambar di edit
+    getImage($conn);
 }
 
-if (isset($_POST['dec_stok'])) {
-    updateDecStok($conn);
+function getImage($conn)    // ini buat di edit
+{
+    $id = $_POST['itemId'];
+    $sql = "Select * from tbl_img where item_id = " . $id . "";
+    $getImg = mysqli_query($conn, $sql);
+    while ($datas = mysqli_fetch_assoc($getImg)) {
+        $img[] = $datas; //assign whole values to array
+    }
+
+    echo json_encode($img);
 }
 
+function getImage1($conn, $id)  //ini di dpan pas load page
+{
+    $sql = "Select * from tbl_img where item_id = " . $id . " limit 1";
+    $getImg1 = mysqli_query($conn, $sql);
+    $img = mysqli_fetch_assoc($getImg1);
+    return $img;
+}
 
 function deleteColor($conn)
 {
@@ -64,6 +84,21 @@ function deleteColor($conn)
     }
 }
 
+function deleteImg($conn)
+{
+    $id = $_POST['img_id'];
+
+    $sql = "delete from tbl_img where img_id = " . $id . "";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        msg('Gambar Berhasil dihapus!!', '../admin/stok.php');
+    } else {
+        msg('Gambar gagal dihapus!!', '../admin/stok.php');
+    }
+}
+
+
 function addColor($conn)
 {
     $warna = $_POST['warna'];
@@ -78,16 +113,15 @@ function addColor($conn)
     }
 }
 
+
 function addItem($conn)
 {
     $img = $_FILES['img']['name'];
     $name = $_POST['item_name'];
     $tipe = $_POST['item_type'];
     $color = $_POST['item_color'];
-    $size = $_POST['item_size'];
     $berat = $_POST['item_weight'];
     $desc = $_POST['item_desc'];
-    $qty = $_POST['item_qty'];
     $price = $_POST['item_price'];
 
     $ekstensi_diperbolehkan    = array('png', 'jpg');
@@ -98,19 +132,28 @@ function addItem($conn)
 
     if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {    // kalau ekstensinya bener
         if ($ukuran < 4044070) {
-            move_uploaded_file($file_tmp, '../dist/img/item/' . $img);
 
-            $sql = "insert into tbl_item(item_name, type_id, color_id, item_size, item_weight, item_desc, item_qty, create_date, item_img, item_price, item_status) 
-            values('" . $name . "', " . $tipe . ", " . $color . ", '" . $size . "', " . $berat . ", '" . $desc . "', " . $qty . ", now(), '" . $img . "', " . $price . ", 'ACTIVE')";
+            date_default_timezone_set("Asia/Bangkok");
+            $date_id = date("his") . date("Ymd");
+
+            move_uploaded_file($file_tmp, '../dist/img/item/' . $date_id . $img);
+
+            $sql = "insert into tbl_item(item_name, type_id, color_id,  item_weight, item_desc, create_date, item_price, item_status) 
+            values('" . $name . "', " . $tipe . ", " . $color . ", " . $berat . ", '" . $desc . "', now(), " . $price . ", 'ACTIVE')";
             $result = mysqli_query($conn, $sql);
 
             $sql2 = "SELECT LAST_INSERT_ID()";
             $hasil = mysqli_query($conn, $sql2);
             $item_id = mysqli_fetch_row($hasil);
 
-            $sql3 = "insert into tbl_stockinout (item_id, item_name, stok_qty , create_date, stok_desc, total_qty) 
-                    values(" . $item_id[0] . ", '" . $name . "', 0, now() , 'STOCK IN', " . $qty . ")";
-            $result2 = mysqli_query($conn, $sql3);
+            // $sql3 = "insert into tbl_stockinout (item_id, item_name, stok_qty , create_date, stok_desc, total_qty) 
+            //         values(" . $item_id[0] . ", '" . $name . "', 0, now() , 'STOCK IN', " . $qty . ")";
+            // $result2 = mysqli_query($conn, $sql3);
+
+            $sql4 = "insert into tbl_img (img_name, item_id) 
+                    values('" . $date_id . $img . "' ," . $item_id[0] . ")";
+            $result2 = mysqli_query($conn, $sql4);
+
 
             if ($result2 == 1 && $result == 1) {
                 msg('Data berhasil ditambahkan!!', '../admin/stok.php');
@@ -123,7 +166,8 @@ function addItem($conn)
     }
 }
 
-function getItemWhere($conn)
+
+function getItemWhere($conn)    // isi data sblm edit
 {
     $id = $_POST['item_id'];
 
@@ -142,7 +186,6 @@ function editItem($conn)
     $name = $_POST['edit_name'];
     $tipe = $_POST['edit_type'];
     $color = $_POST['edit_color'];
-    $size = $_POST['edit_size'];
     $berat = $_POST['edit_weight'];
     $desc = $_POST['edit_desc'];
     $price = $_POST['edit_price'];
@@ -156,34 +199,31 @@ function editItem($conn)
 
         if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {    // kalau ekstensinya bener
             if ($ukuran < 4044070) {
-                move_uploaded_file($file_tmp, '../dist/img/item/' . $img);
 
-                $sql = "update tbl_item
-                        set item_name = '" . $name . "', type_id = " . $tipe . ", color_id = " . $color . ", item_size = '" . $size . "',
-                        item_desc = '" . $desc . "' ,item_price = " . $price . ", item_img = '" . $img . "', item_weight = " . $berat . "
-                        where item_id = " . $id . "";
+                date_default_timezone_set("Asia/Bangkok");
+                $date_id = date("his") . date("Ymd");
+
+                move_uploaded_file($file_tmp, '../dist/img/item/' . $date_id . $img);
+
+                $sql = "Insert into tbl_img (img_name, item_id)  values('" . $date_id . $img . "' ," . $id . ")";
                 $result = mysqli_query($conn, $sql);
-
-                if ($result) {
-                    msg('Data berhasil diubah!!', '../admin/stok.php');
-                } else msg('Gagal mengubah data!!', '../admin/stok.php');
             } else {
                 msg('Ukuran file max 4mb!!', '../admin/stok.php');
             }
         } else {
             msg('Ekstensi File yang diupload hanya diperbolehkan png / jpg!!', '../admin/stok.php');
         }
-    } else {
-        $sql = "update tbl_item
-                set item_name = '" . $name . "', type_id = " . $tipe . ", color_id = " . $color . ", item_size = '" . $size . "',
-                item_desc = '" . $desc . "', item_price = " . $price . ", item_weight = " . $berat . "
-                where item_id = " . $id . "";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result == 1) {
-            msg('Data berhasil diubah!!', '../admin/stok.php');
-        } else msg('Gagal mengubah data!!', '../admin/stok.php');
     }
+
+    $sql = "update tbl_item
+            set item_name = '" . $name . "', type_id = " . $tipe . ", color_id = " . $color . ",
+            item_desc = '" . $desc . "', item_price = " . $price . ", item_weight = " . $berat . "
+            where item_id = " . $id . "";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result == 1) {
+        msg('Data berhasil diubah!!', '../admin/stok.php');
+    } else msg('Gagal mengubah data!!', '../admin/stok.php');
 }
 
 function getItem($conn)
@@ -208,57 +248,6 @@ function deleteItem($conn)
         msg('Data gagal dihapus!!', '../admin/stok.php');
     }
 }
-
-function updateincStok($conn)
-{
-
-    $id = $_POST['stok_id'];
-    $name = $_POST['stok_name'];
-    $stokOld = $_POST['stok_old'];
-    $stok = $_POST['stok'];
-    $total = $stokOld + $stok;
-
-    $sql = "update tbl_item set item_qty = " . $total . " where item_id = " . $id . "";
-    $result = mysqli_query($conn, $sql);
-
-    $sql2 = "insert into tbl_stockinout (item_id, item_name, stok_qty ,stok_desc, create_date, total_qty) 
-                values(" . $id . ", '" . $name . "', " . $stok . ",'STOCK IN', now(), " . $total . " )";
-    $result2 = mysqli_query($conn, $sql2);
-
-    if ($result2 == 1 && $result == 1) {
-        msg('Stok Berhasil ditambahkan!!', '../admin/stok.php');
-    } else {
-        msg('Stok gagal ditambahkan!!', '../admin/stok.php');
-    }
-}
-
-function updateDecStok($conn)
-{
-
-    $id = $_POST['stok_id'];
-    $name = $_POST['stok_name'];
-    $stokOld = $_POST['stok_old'];
-    $stok = $_POST['stok'];
-    $total = $stokOld - $stok;
-
-    if ($stok > $stokOld) {
-        msg('Stok gagal dikurangkan, jumlah stok tidak mencukupi!!', '../admin/stok.php');
-    } else {
-        $sql = "update tbl_item set item_qty = " . $total . " where item_id = " . $id . "";
-        $result = mysqli_query($conn, $sql);
-
-        $sql2 = "insert into tbl_stockinout (item_id, item_name, stok_qty ,stok_desc, create_date, total_qty) 
-                values(" . $id . ", '" . $name . "', " . $stok . ",'STOCK OUT', now(), " . $total . " )";
-        $result2 = mysqli_query($conn, $sql2);
-    }
-
-    if ($result2 == 1 && $result == 1) {
-        msg('Stok Berhasil dikurangkan!!', '../admin/stok.php');
-    } else {
-        msg('Stok gagal dikurangkan!!', '../admin/stok.php');
-    }
-}
-
 
 function msg($pesan, $url)
 {
