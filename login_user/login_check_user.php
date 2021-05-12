@@ -22,7 +22,7 @@ if (isset($_POST['login'])) {
                 <script type="text/javascript">
                     var status = "<?php echo $user['cust_name']; ?>";
                     alert("Selamat datang " + status);
-                    window.location = "../Eshopper/";
+                    window.location = "../monkers/";
                 </script>
             <?php
     
@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
             ?>
             <script type="text/javascript">
                 alert("Maaf, username / password yang dimasukan salah, silahkan coba kembali.");
-                window.location = "../Eshopper/login.php";
+                window.location = "../monkers/login.php";
             </script>
         <?php
         }
@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
         ?>
         <script type="text/javascript">
             alert("Maaf, username / password yang dimasukan salah, silahkan coba kembali.");
-            window.location = "../Eshopper/login.php";
+            window.location = "../monkers/login.php";
         </script>
 <?php
     }

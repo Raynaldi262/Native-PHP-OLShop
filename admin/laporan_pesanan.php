@@ -174,12 +174,12 @@ function getItem($conn, $id)
                                                     <td><?php echo $data['order_totprice']; ?></td>
                                                     <td><?php echo $data['order_shipping']; ?></td>
                                                     <td><?php echo $data['order_shipping_price']; ?></td>
-                                                    <td> <a href='../Eshopper/images/bayar/<?php echo $data['order_transfer']; ?>' data-toggle="lightbox" data-gallery="gallery">
-                                                            <img src="../Eshopper/images/bayar/<?php echo $data['order_transfer']; ?> " alt=""></a>
+                                                    <td> <a href='../monkers/images/bayar/<?php echo $data['order_transfer']; ?>' data-toggle="lightbox" data-gallery="gallery">
+                                                            <img src="../monkers/images/bayar/<?php echo $data['order_transfer']; ?> " alt=""></a>
                                                     </td>
                                                     <td><?php echo $data['order_status']; ?></td>
                                                     <td>
-                                                        <a class="link" href='../Eshopper/invoice.php?id=<?php echo $data['item_id']; ?>&idu=<?php echo $data['cust_id']; ?> '>
+                                                        <a class="link" href='../monkers/invoice.php?id=<?php echo $data['item_id']; ?>&idu=<?php echo $data['cust_id']; ?> '>
                                                             <button type="button" class="btn btn-success print">
                                                                 <i class="fa fa-print"> Print Invoice</i>
                                                             </button>

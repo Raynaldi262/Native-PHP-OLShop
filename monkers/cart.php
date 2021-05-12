@@ -62,19 +62,19 @@ $totalharga = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -102,7 +102,7 @@ $totalharga = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
 								<?php
 								} else {
 								?>
@@ -143,9 +143,11 @@ $totalharga = 0;
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li><a href="../Eshopper/">Home</a></li>
-				</ol>
+			<div class="mainmenu pull-left">
+				<ul class="nav navbar-nav collapse navbar-collapse">
+					<li><a href="index.php" >Home</a></li>
+				</ul>
+			</div>
 			</div>
 			<div>
 				<h1 style="text-align:center">Shopping Cart</h1>
@@ -158,6 +160,7 @@ $totalharga = 0;
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
 							<td style="text-align: center">Jumlah</td>
+							<td style="text-align: center">Ukuran</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Hapus</td>
 							<td></td>
@@ -169,12 +172,13 @@ $totalharga = 0;
 							while ($data_cart = mysqli_fetch_assoc($item)) {
 								$item_cart = getItemcart($data_cart['item_id']);
 								$data_type = getTypeitem($item_cart['type_id']);
+								$img = getImgItem($data_cart['item_id']);
 								$totalharga += $item_cart['item_price'] * $data_cart['qty'];
 						?>
 								<tr>
 									<td class="cart_product">
-										<a href="../Eshopper/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-											<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
+										<a href="../monkers/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
+											<img style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
 										</a>
 									</td>
 									<td class="cart_description" style="text-align: center">
@@ -182,6 +186,9 @@ $totalharga = 0;
 									</td>
 									<td class="cart_price" style="text-align: center">
 										<p><?php echo $data_type['type_name'] ?></p>
+									</td>
+									<td class="cart_price" style="text-align: center">
+										<p><?php echo $data_cart['size'] ?></p>
 									</td>
 									<td class="cart_quantity" style="text-align: center">
 										<div class="cart_quantity_button">

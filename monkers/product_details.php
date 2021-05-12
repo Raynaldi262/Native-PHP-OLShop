@@ -14,6 +14,9 @@ if (isset($_SESSION['cust_id'])) {
 if (isset($_GET['id'])) {
 	$id_item = $_GET['id'];
 	$data = getDetailitem($id_item);
+	$img = getImgItem($data['item_id']);
+	$img2 = getImgItem2($data['item_id']);
+	$ukuran = getUkuranItem($data['item_id']);
 	$data_type = getTypeitem($data['type_id']);
 	$data_color = getColoritem($data['color_id']);
 }
@@ -47,7 +50,13 @@ if (isset($_GET['id'])) {
 	<link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <!--/head-->
-
+<style>
+.responsive {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+</style>
 <body>
 	<header id="header">
 		<!--header-->
@@ -151,31 +160,53 @@ if (isset($_GET['id'])) {
 	<section>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-11">
+				<div class="col-sm-11 padding-right">
 					<div class="product-details">
 						<!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img style="width:500px" src="../../dist/img/item/<?php echo $data['item_img']; ?>" alt="" />
+								<img style="width:500px; height:auto;" class="responsive" src="../../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
 							</div>
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								<!-- Wrapper for slides -->
+								  <div class="carousel-inner">
+									  <div class="item active">
+									  <?php while($data_img = mysqli_fetch_assoc($img2)){?>
+										<a><img style="width:20%; height:auto;" src="../../dist/img/item/<?php echo $data_img['img_name']; ?>" alt=""></a>
+										<?php } ?>
+									  </div>
+								  </div>
+						  	</div>
 						</div>
 						<div class="col-sm-7">
-							<div class="product-information" style="float:right">
+							<div class="product-information" style="float:right;width: 300px;">
 								<!--/product-information-->
 								<h2><?php echo $data['item_name']; ?></h2>
 								<span>
 									<span>Rp. <?php echo number_format($data['item_price']); ?></span>
+									<br>
 									<label>Quantity:</label>
 									<form action="./model/User.php" method="post">
-										<input type="number" min='1' value="1" required name="qty" max="<?php echo $data['item_qty'] ?>" />
+										<input type="number" min='1' value="1" required name="qty" />
 										<input type="hidden" name="item_id" value="<?php echo $data['item_id'] ?>">
+										<br>
+										<br>
+										<p><b> Ukuran : </b>
+											<select name="ukuran">
+											<?php while($data_ukuran = mysqli_fetch_assoc($ukuran)){ ?>
+											  <option value="<?php echo $data_ukuran['size_name'] ?>"><?php echo $data_ukuran['size_name'] ?></option>
+											  <?php }?>
+											</select>
+										</p>
+											<br>
+											<p><b>Warna: </b><?php echo $data_color['color_name']; ?></p>
+											<p><b>Kategori: </b> <?php echo $data_type['type_name']; ?></p>
+											<p><b>Deskripsi: </b> <?php echo $data['item_desc']; ?></p>
+											<br>
 										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
 									</form>
 								</span>
-								<p><b>Warna: </b><?php echo $data_color['color_name']; ?></p>
-								<p><b>Size: </b> <?php echo $data['item_size']; ?></p>
-								<p><b>Kategori: </b> <?php echo $data_type['type_name']; ?></p>
-								<p><b>Deskripsi: </b> <?php echo $data['item_desc']; ?></p>
+								
 							</div>
 							<!--/product-information-->
 						</div>

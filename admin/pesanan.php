@@ -86,8 +86,8 @@
                             </button></td>
                           <td><?php echo $data['kurir']; ?></td>
                           <td><?php echo $data['price']; ?></td>
-                          <td> <a href='../Eshopper/images/bayar/<?php echo $data['img_bayar']; ?>' data-toggle="lightbox" data-gallery="gallery">
-                              <img src="../Eshopper/images/bayar/<?php echo $data['img_bayar']; ?> " alt=""></a></td>
+                          <td> <a href='../monkers/images/bayar/<?php echo $data['img_bayar']; ?>' data-toggle="lightbox" data-gallery="gallery">
+                              <img src="../monkers/images/bayar/<?php echo $data['img_bayar']; ?> " alt=""></a></td>
 
                           <td><?php echo $data['status']; ?></td>
                           <td>
@@ -271,7 +271,7 @@
 
           // } else {
           //   $('.print').attr("disabled", false);
-          //   $('.link').attr('href', '../Eshopper/invoice.php?id=' + data[0].id) + '&idu=' + data[0].cust_id;
+          //   $('.link').attr('href', '../monkers/invoice.php?id=' + data[0].id) + '&idu=' + data[0].cust_id;
           // }
 
           $('.lampiran').empty();

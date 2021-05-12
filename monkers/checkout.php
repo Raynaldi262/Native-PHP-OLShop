@@ -71,19 +71,19 @@ $totalberat = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -112,7 +112,7 @@ $totalberat = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
 								<?php
 								} else {
 								?>
@@ -153,9 +153,11 @@ $totalberat = 0;
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li><a style="background-color:grey;"  href="../Eshopper/">Home</a></li>
-				</ol>
+			<div class="mainmenu pull-left">
+				<ul class="nav navbar-nav collapse navbar-collapse">
+					<li><a href="index.php">Home</a></li>
+				</ul>
+			</div>
 			</div>
 			<div>
 				<h1 style="text-align:center">Checkout</h1>
@@ -184,7 +186,7 @@ $totalberat = 0;
 						?>
 								<tr>
 									<td class="cart_product">
-										<a href="../Eshopper/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
+										<a href="../monkers/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
 											<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
 										</a>
 									</td>

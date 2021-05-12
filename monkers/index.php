@@ -12,16 +12,15 @@ if (isset($_SESSION['cust_id'])) {
 }
 
 if (isset($_GET['id'])) {
-	$sql = "SELECT * from tbl_item WHere type_id = " . $_GET['id'] . " AND item_status = 'active' AND item_qty != 0";
+	$sql = "SELECT * from tbl_item WHere type_id = " . $_GET['id'] . " AND item_status = 'active'";
 	$item_data = mysqli_query($conn, $sql);
 } else {
-	$sql = "SELECT * from tbl_item where item_status = 'active' AND item_qty != 0";
+	$sql = "SELECT * from tbl_item where item_status = 'ACTIVE'";
 	$item_data = mysqli_query($conn, $sql);
 }
 
 $data_banner = getDataBanner($conn);
 $type_item = getDataAlltype($conn);
-
 
 ?>
 
@@ -60,6 +59,10 @@ $type_item = getDataAlltype($conn);
 		width: 200px;
 		height: 200px;
 	}
+	.img {
+ 	 max-width:500px;
+ 	 height: auto;
+	}
 </style>
 
 <body>
@@ -84,13 +87,13 @@ $type_item = getDataAlltype($conn);
 								$data = custLogin($_SESSION['cust_id']);
 							?>
 								<?php if ($proses_count['juml'] != 0) { ?>
-									<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+									<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 											<span><?php echo $data['cust_name']; ?></span>
 											<span class="badge"><?php echo $proses_count['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+									<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 								<?php } ?>
 							<?php
 							}
@@ -119,7 +122,7 @@ $type_item = getDataAlltype($conn);
 							<?php
 							if (!isset($_SESSION['cust_id'])) {
 							?>
-								<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
 							<?php
 							} else {
 							?>
@@ -155,7 +158,7 @@ $type_item = getDataAlltype($conn);
 							<li class="dropdown"><a href="#">Kategori<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
 								<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>
-                                    <li><a href="../Eshopper/index.php?id=<?php echo $data_type['type_id']; ?>"><?php echo $data_type['type_name']; ?></a></li>
+                                    <li><a href="../monkers/index.php?id=<?php echo $data_type['type_id']; ?>"><?php echo $data_type['type_name']; ?></a></li>
 								<?php } ?>
                                 </ul>
                             </li> 
@@ -207,19 +210,20 @@ $type_item = getDataAlltype($conn);
 							<h3 style="color:white; text-align:center ;font-family:courier,arial,helvetica" >Monkers Apparel</h3>
 							</ul>
 						</div>
-						<?php while ($data = mysqli_fetch_assoc($item_data)) { ?>
-							<a href="../Eshopper/product_details.php/?id=<?php echo $data['item_id']; ?>">
+						<?php while ($data = mysqli_fetch_assoc($item_data)) { 
+							$img = getImgItem($data['item_id']);
+							?>
+							<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>">
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
 										<div class="single-products">
 											<div class="productinfo text-center">
-												<img src="../dist/img/item/<?php echo $data['item_img']; ?>" alt="" />
+												<img class="img" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
 												<h2>Rp. <?php echo number_format($data['item_price']); ?></h2>
 												<p><?php echo $data['item_name']; ?></p>
-												<form action="../model/User.php" method="post">
-													<input type="hidden" name="item_id" value="<?php echo $data['item_id'] ?>">
-													<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-												</form>
+												<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>" >
+													<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detail Item</button>
+												</a>
 											</div>
 										</div>
 									</div>
