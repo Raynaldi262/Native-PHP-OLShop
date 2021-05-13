@@ -4,13 +4,21 @@ require('../connect/conn.php');
 
 if (isset($_SESSION['cust_id'])) {
 	$item = getDataCheck($_SESSION['cust_id']);
+
+	if (!isset($_GET['ida'])) {
 	$datauser = getDataUser($_SESSION['cust_id']);
+	}else{
+	$datauser = getDataAlamat2($_GET['ida']);
+	}
+
+
 	if (isset($_GET['id'])) {
 		$data_onkir = getDataOngkir($_GET['id']);
 	} else {
 		$data_onkir['ongkir_price'] = 0;
 	}
 	$data_kurir = getDataKurir($datauser['cust_city']);
+	$data_alamat = getDataAlamat($_SESSION['cust_id']);
 }
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);
@@ -21,8 +29,10 @@ if (isset($_SESSION['cust_id'])) {
 	$data_check['juml'] = 0;
 	$proses_count['juml'] = 0;
 }
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $totalharga = 0;
 $totalberat = 0;
+$data_area = getDataArea($conn);
 
 ?>
 <!DOCTYPE html>
@@ -52,7 +62,14 @@ $totalberat = 0;
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <!--/head-->
-
+<style>
+.responsive {
+  width: 70%;
+  max-width: 200px;
+  min-width: 100px;
+  height: auto;
+}
+</style>
 <body>
 	<header id="header">
 		<!--header-->
@@ -169,9 +186,10 @@ $totalberat = 0;
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
+							<td style="text-align: center">Ukuran</td>
 							<td style="text-align: center">Jumlah</td>
 							<td style="text-align: center">Harga</td>
-							<td style="text-align: center">Berat</td>
+							<!-- <td style="text-align: center">Berat</td> -->
 							<td></td>
 						</tr>
 					</thead>
@@ -181,33 +199,36 @@ $totalberat = 0;
 							while ($data_check = mysqli_fetch_assoc($item)) {
 								$item_cart = getItemcart($data_check['item_id']);
 								$data_type = getTypeitem($item_cart['type_id']);
+								$img = getImgItem($data_check['item_id']);
 								$totalharga += $item_cart['item_price'] * $data_check['qty'];
 								$totalberat += $item_cart['item_weight'] * $data_check['qty'];
 						?>
 								<tr>
-									<td class="cart_product">
+									<td>
 										<a href="../monkers/product_details.php/?id=<?php echo $item_cart['item_id']; ?>">
-											<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
+											<img class="responsive" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
 										</a>
 									</td>
-									<td class="cart_description" style="text-align: center">
+									<td style="text-align: center">
 										<h4><?php echo $item_cart['item_name'] ?></h4>
 									</td>
-									<td class="cart_price" style="text-align: center">
+									<td style="text-align: center">
 										<p><?php echo $data_type['type_name'] ?></p>
 									</td>
-
-									<td class="cart_quantity" style="text-align: center">
+									<td style="text-align: center">
+										<p><?php echo $data_check['size'] ?></p>
+									</td>
+									<td style="text-align: center">
 										<div class="cart_quantity_button">
 											<?php echo $data_check['qty'] ?>
 										</div>
 									</td>
-									<td class="cart_total">
+									<td>
 										<p class="cart_total_price" style="text-align: center">Rp. <?php echo number_format($item_cart['item_price']) ?></p>
 									</td>
-									<td class="cart_price" style="text-align: center">
-										<p><?php echo $item_cart['item_weight'] ?> Grm</p>
-									</td>
+									<!-- <td class="cart_price" style="text-align: center">
+										<p><?php //echo $item_cart['item_weight'] ?> Grm</p>
+									</td> -->
 								</tr>
 						<?php }
 						} ?>
@@ -224,9 +245,23 @@ $totalberat = 0;
 				<div class="col-sm-6">
 					<div class="total_area">
 						<div class="heading" style="text-align:center;">
-							<h3>Data Pribadi</h3>
+							<h3>Alamat <?php echo $datauser['cust_name'] ?></h3>
 						</div>
 						<ul>
+						<form action="../model/User.php" method="post">
+							<select name="alamat" onchange="this.form.submit()" required>
+								<?php if (isset($_GET['ida'])) { ?>
+									<option value="" selected disabled><?php echo $datauser['cust_name'] ?></option>
+								<?php } else { ?><option value="" selected disabled>Pilih Alamat</option> <?php } ?>
+								<?php while ($alamat = mysqli_fetch_assoc($data_alamat)) { ?>
+									<option value="<?php echo $alamat['address_id'] ?>"><?php echo $alamat['cust_name'] ?></option>
+								<?php } ?>
+							</select>
+							<?php if(isset($_GET['id'])){ ?>
+							<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
+						<?php }?>
+						<input type="hidden" name="link" value="<?php echo $actual_link?>">
+						</form>
 							<?php if (isset($_SESSION['cust_id'])) { ?>
 								<li>Nama : <?php echo $datauser['cust_name'] ?></li>
 								<li>Alamat : <?php echo $datauser['cust_address'] ?></li>
@@ -235,6 +270,8 @@ $totalberat = 0;
 								<li>Email : <?php echo $datauser['cust_email'] ?></li>
 							<?php } ?>
 						</ul>
+						<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button>
+						
 					</div>
 				</div>
 				<!-- Jika tidak ada barang tombol bayar dihilangkan -->
@@ -256,6 +293,10 @@ $totalberat = 0;
 											<option value="<?php echo $kurir['ongkir_id'] ?>"><?php echo $kurir['ongkir_type'] ?></option>
 										<?php } ?>
 									</select>
+								<?php if(isset($_GET['ida'])){ ?>
+									<input type="hidden" name="ida" value="<?php echo $_GET['ida']?>">
+								<?php }?>
+									<input type="hidden" name="link" value="<?php echo $actual_link?>">
 								</form>
 								<li>Berat : <span><?php echo $totalberat; ?> Gram</span></li>
 								<li>Ongkir : <span>Rp. <?php echo number_format($hargaongkir); ?></span></li>
@@ -271,7 +312,7 @@ $totalberat = 0;
 			</div>
 		</div>
 	</section>
-	<!--/#do_action-->
+	<!--Bayarrrrrrrrrrrrrrrn-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
@@ -287,6 +328,42 @@ $totalberat = 0;
 							<input type="hidden" name="hargaongkir" value="<?php echo $hargaongkir; ?>">
 							<input type="hidden" name="totalharga" value="<?php echo $totalharga; ?>">
 							<button type="submit" name="bayar" class="btn btn-default">Upload</button>
+						</form>
+					</div>
+					<!--/sign up form-->
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--add alamat-->
+	<div class="modal fade" id="tambahalamat" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Tambah Alamat</h4>
+					<div class="signup-form">
+						<form action="../model/User.php" method="post">
+							<h5>Nama :</h5>
+							<input type="text" name="nama" placeholder="Name" required />
+							<h5>Email :</h5>
+							<input type="email" name="email" placeholder="Email" required />
+							<h5>No Hp :</h5>
+							<input type="number" name="nohp" placeholder="Nomor Hp" required />
+							<h5>Alamat :</h5>
+							<input type="text" name="address" placeholder="Alamat" required />
+							<h5>Provinsi :</h5>
+							<input type="text" name="provinsi" placeholder="Provinsi" required />
+							<h5>Kota :</h5>
+							<select name="kota" id="kota">
+								<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
+									<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>
+								<?php } ?>
+							</select>
+							<br>
+							<br>
+							<button type="submit" name="tambahalamat"  style="background-color:grey;" class="btn btn-default">Tambah</button>
 						</form>
 					</div>
 					<!--/sign up form-->

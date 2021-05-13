@@ -43,7 +43,14 @@ $totalharga = 0;
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <!--/head-->
-
+<style>
+.responsive {
+  width: 70%;
+  max-width: 200px;
+  min-width: 100px;
+  height: auto;
+}
+</style>
 <body>
 	<header id="header">
 		<!--header-->
@@ -178,24 +185,24 @@ $totalharga = 0;
 								<tr>
 									<td class="cart_product">
 										<a href="../monkers/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-											<img style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
+											<img class="responsive" style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
 										</a>
 									</td>
-									<td class="cart_description" style="text-align: center">
+									<td  style="text-align: center">
 										<h4><?php echo $item_cart['item_name'] ?></h4>
 									</td>
-									<td class="cart_price" style="text-align: center">
+									<td  style="text-align: center">
 										<p><?php echo $data_type['type_name'] ?></p>
 									</td>
-									<td class="cart_price" style="text-align: center">
+									<td  style="text-align: center">
 										<p><?php echo $data_cart['size'] ?></p>
 									</td>
-									<td class="cart_quantity" style="text-align: center">
-										<div class="cart_quantity_button">
+									<td style="text-align: center">
+										<div >
 											<?php echo $data_cart['qty'] ?>
 										</div>
 									</td>
-									<td class="cart_total">
+									<td>
 										<p class="cart_total_price" style="text-align: center">Rp. <?php echo number_format($item_cart['item_price']) ?></p>
 									</td>
 									<td class="cart_delete" style="text-align: center">

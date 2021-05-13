@@ -16,6 +16,9 @@ if (isset($_POST['batalcheck'])) {
 if (isset($_POST['ongkir'])) {
    HargaOngkir($conn);
 }
+if (isset($_POST['alamat'])) {
+   DataAlamat($conn);
+}
 
 if (isset($_POST['UbahPassword'])) {
    UbahPassword($conn);
@@ -37,6 +40,9 @@ if (isset($_POST['deletecart'])) {
 }
 if (isset($_POST['checkout'])) {
    AddCheckout($conn);
+}
+if (isset($_POST['tambahalamat'])) {
+   AddAddress($conn);
 }
 
 function getDataArea($conn)
@@ -79,7 +85,16 @@ function getDataOngkir($ongkir_id)
 function getDataUser($cust_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_customer where cust_id = " . $cust_id . " ";
+   $sql = "SELECT * from tbl_customer where cust_id = '" . $cust_id . "' ";
+   $item = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item);
+   return $data;
+
+}
+
+function getDataAlamat2($alamat_id){
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_address where address_id = '" . $alamat_id . "' ";
    $item = mysqli_query($conn, $sql);
    $data = mysqli_fetch_assoc($item);
    return $data;
@@ -88,6 +103,13 @@ function getDataProses($cust_id)
 {
    require('../connect/conn.php');
    $sql = "SELECT * from tbl_proses where cust_id = " . $cust_id . " ";
+   $item = mysqli_query($conn, $sql);
+   return $item;
+}
+function getDataAlamat($cust_id)
+{
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_address where cust_id = " . $cust_id . " ";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -233,9 +255,25 @@ function FilterItem($conn){
    }
 }
 function HargaOngkir($conn){
-   echo $_POST['ongkir'];
-   header("location: ../monkers/checkout.php?id=". $_POST['ongkir']);
+   if(isset($_POST['ida'])){
+   $url = '../monkers/checkout.php?id='.$_POST['ongkir'].'&ida='.$_POST['ida'];
+   }else{
+   $url = '../monkers/checkout.php?id='.$_POST['ongkir'];
+   }
+    header("location:". $url);
+  // msg('Alamat berhasil diubah!!', $url);
 }
+
+function DataAlamat($conn){
+   if(isset($_POST['id'])){
+      $url = '../monkers/checkout.php?id='.$_POST['id'].'&ida='.$_POST['alamat'];
+   }else{
+     $url = '../monkers/checkout.php?ida='.$_POST['alamat']; 
+   }
+   msg('Alamat berhasil diubah!!', $url);
+}
+
+
 function AddCheckout($conn)
 {  
    
@@ -254,7 +292,7 @@ function AddCheckout($conn)
          while ($data_check = mysqli_fetch_assoc($check)) {
             echo "checkout ",$data_check['item_id'];
             echo "chart",$data_cart['item_id'];
-            if($data_check['item_id'] == $data_cart['item_id']){
+            if($data_check['item_id'] == $data_cart['item_id'] && $data_check['size'] == $data_cart['size'] ){
                echo "->masuk id item sama->";
                $qty = $data_check['qty'] + $data_cart['qty'];
                $sql = "UPDATE tbl_checkout SET qty = ".$qty." WHERE cust_id = " . $_SESSION['cust_id'] . " AND item_id = ".$data_check['item_id']."";
@@ -270,8 +308,8 @@ function AddCheckout($conn)
          $sql = "SELECT * from tbl_cart where cust_id = " . $_SESSION['cust_id'] . " ";
          $item = mysqli_query($conn, $sql);
          while ($data = mysqli_fetch_assoc($item)) {
-         $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
-         VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "', '" . $data['qty'] . "', now())";
+         $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,size ,qty, date) 
+         VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "','" . $data['size'] . "', '" . $data['qty'] . "', now())";
          $result = mysqli_query($conn, $sql);
          $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_POST['cust_id'] . "";
          mysqli_query($conn, $sql);
@@ -282,10 +320,10 @@ function AddCheckout($conn)
    }else{
       echo"->masuk else->";
    while ($data = mysqli_fetch_assoc($item)) {
-      $sql = "INSERT INTO tbl_checkout ( cust_id, item_id,qty, date) 
-          VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "', '" . $data['qty'] . "', now())";
+      $sql = "INSERT INTO tbl_checkout ( cust_id, item_id, size, qty, date) 
+          VALUES ( '" . $data['cust_id'] . "','" . $data['item_id'] . "','" . $data['size'] . "', '" . $data['qty'] . "', now())";
       $result = mysqli_query($conn, $sql);
-      $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cust_id = " . $_POST['cust_id'] . "";
+      $sql = "DELETE FROM tbl_cart WHERE tbl_cart . cart_id = " .$data['cart_id'] . "";
       mysqli_query($conn, $sql);
       }
 
@@ -407,7 +445,6 @@ function addChart($conn)
       msg('Silakan Login dahulu', '/../SkripsiRuby/monkers/login.php');
    } else {
          $qty = $_POST['qty'];
-         echo $_POST['qty'];
          CheckStock($_POST['item_id'], $_POST['qty'], $_POST['ukuran']); // untuk check stock habis/tidak
    }
 }
@@ -462,6 +499,19 @@ function insertUser($conn)
          msg('Register Gagal', '../monkers/login.php');
       }
    }
+}
+
+function AddAddress($conn)
+{
+      $sql = "INSERT INTO tbl_address (cust_id,cust_name, cust_address, cust_province, cust_city, cust_email, cust_phone, create_date) 
+         VALUES ('" . $_SESSION['cust_id'] . "','" . $_POST['nama'] . "', '" . $_POST['address'] . "', '" . $_POST['provinsi'] . "', '" . $_POST['kota'] . "', '" . $_POST['email'] . "', '" . $_POST['nohp'] . "', now()) ";
+      $result = mysqli_query($conn, $sql);
+
+      if ($result) {
+         msg('Alamat Telah Berhasil Ditambah!!', '../monkers/checkout.php');
+      } else {
+         msg('Alamat Gagal', '../monkers/checkout.php');
+      }
 }
 
 
