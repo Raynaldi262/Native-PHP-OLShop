@@ -76,6 +76,7 @@ function KiloBarang($berat, $harga)
 }
 function getDataOngkir($ongkir_id)
 {
+   echo $ongkir_id;
    require('../connect/conn.php');
    $sql = "SELECT * from tbl_ongkir WHERE ongkir_id = '" . $ongkir_id . "'";
    $item = mysqli_query($conn, $sql);
@@ -265,8 +266,13 @@ function HargaOngkir($conn){
 }
 
 function DataAlamat($conn){
-   if(isset($_POST['id'])){
-      $url = '../monkers/checkout.php?id='.$_POST['id'].'&ida='.$_POST['alamat'];
+   if ($_POST['alamat'] == 0 && isset($_POST['id'])) {
+      $url = '../monkers/checkout.php?id='.$_POST['id'];
+   }elseif ($_POST['alamat'] == 0 ) {
+      $url = '../monkers/checkout.php';
+   }
+   elseif(isset($_POST['id'])){
+   $url = '../monkers/checkout.php?id='.$_POST['id'].'&ida='.$_POST['alamat'];
    }else{
      $url = '../monkers/checkout.php?ida='.$_POST['alamat']; 
    }
@@ -359,13 +365,16 @@ function ProsesBayar($conn)
    if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {    // kalau ekstensinya bener
       if ($ukuran < 4044070) {        // max 4 mb
          move_uploaded_file($file_tmp, '../monkers/images/bayar/' . $date_id . $nama);
-         $sql = "INSERT INTO tbl_proses (date_id,cust_id, price, ongkir, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " , '" . $_POST['totalharga'] . "','" . $_POST['hargaongkir'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', now(),'" . $date_id . $nama . "') ";
+
+         $sql = "INSERT INTO tbl_proses (date_id,cust_id,address_id,name, price, ongkir, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " ,'" .  $_POST['addressid'] . "' ,'" .  $_POST['nama'] . "', '" . $_POST['totalharga'] . "','" . $_POST['hargaongkir'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', now(),'" . $date_id . $nama . "') ";
          $result = mysqli_query($conn, $sql);
+         
+
          $sql = "SELECT * from tbl_checkout where cust_id = " . $_SESSION['cust_id'] . " ";
          $item = mysqli_query($conn, $sql);
          while ($data = mysqli_fetch_assoc($item)) {
-            $sql = "INSERT INTO tbl_detailorder ( date_id, item_id,cust_id,qty, create_date) 
-                 VALUES ( '" . $date_id . "','" . $data['item_id'] . "','" . $data['cust_id'] . "', '" . $data['qty'] . "', now())";
+            $sql = "INSERT INTO tbl_detailorder ( date_id, item_id, cust_id, size ,qty, create_date) 
+                 VALUES ( '" . $date_id . "','" . $data['item_id'] . "','" . $data['cust_id'] . "','" . $data['size'] . "', '" . $data['qty'] . "', now())";
             $result = mysqli_query($conn, $sql);
             $sql = "DELETE FROM tbl_checkout WHERE tbl_checkout . cust_id = " . $_SESSION['cust_id'] . "";
             mysqli_query($conn, $sql);

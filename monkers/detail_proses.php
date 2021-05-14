@@ -2,10 +2,15 @@
 require('../model/User.php');
 
 $item = getDetailProses($_GET['id']);
-$datauser = getDataUser($_SESSION['cust_id']);
-$data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
 $dataproses = getProsesDataDetail($_GET['id']);
+$dataprofile = getDataUser($_SESSION['cust_id']);
+if ($_GET['ida']!=0) {
+	$datauser = getDataAlamat2($_GET['ida']);	
+}else{
+	$datauser = getDataUser($_SESSION['cust_id']);
+}
+
 $linkid =  $_GET['id'];
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);
@@ -74,13 +79,13 @@ $totalberat = 0;
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -164,6 +169,7 @@ $totalberat = 0;
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
+							<td style="text-align: center">Ukuran</td>
 							<td style="text-align: center">Jumlah</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Berat</td>
@@ -176,13 +182,14 @@ $totalberat = 0;
 							while ($data_check = mysqli_fetch_assoc($item)) {
 								$item_cart = getItemcart($data_check['item_id']);
 								$data_type = getTypeitem($item_cart['type_id']);
+								$img = getImgItem($data_check['item_id']);
 								$totalharga += $item_cart['item_price'] * $data_check['qty'];
 								$totalberat += $item_cart['item_weight'] * $data_check['qty'];
 						?>
 								<tr>
 									<td class="cart_product">
 										<a href="../monkers/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-											<img style="width:200px" src="../dist/img/item/<?php echo $item_cart['item_img']; ?>" alt="">
+											<img style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
 										</a>
 									</td>
 									<td class="cart_description" style="text-align: center">
@@ -191,7 +198,11 @@ $totalberat = 0;
 									<td class="cart_price" style="text-align: center">
 										<p><?php echo $data_type['type_name'] ?></p>
 									</td>
-
+									<td class="cart_quantity" style="text-align: center">
+										<div class="cart_quantity_button">
+											<?php echo $data_check['size'] ?>
+										</div>
+									</td>
 									<td class="cart_quantity" style="text-align: center">
 										<div class="cart_quantity_button">
 											<?php echo $data_check['qty'] ?>
@@ -247,7 +258,7 @@ $totalberat = 0;
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
 							<br>
 							<?php if ($dataproses['status'] != 'Menunggu Konfrimasi') { ?>
-								<a href="invoice.php?id=<?php echo $linkid?>&idu=<?php echo $_SESSION['cust_id']?>">
+								<a href="invoice.php?id=<?php echo $linkid?>&idu=<?php echo $_SESSION['cust_id']?>&ida=<?php echo $_GET['ida']?>">
 									<button type="button" class="btn btn-success">
 										<i class="fa fa-print"> Print Invoice</i>
 									</button>

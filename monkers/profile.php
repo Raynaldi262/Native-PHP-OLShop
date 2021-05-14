@@ -61,19 +61,19 @@ $data_area = getDataArea($conn);
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../Eshopper/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -101,7 +101,7 @@ $data_area = getDataArea($conn);
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../Eshopper/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
 								<?php
 								} else {
 								?>
@@ -245,7 +245,7 @@ $data_area = getDataArea($conn);
 				<table id="example1" class="table table-condensed">
 					<thead>
 						<tr  style="background-color:grey;" class="cart_menu">
-							<td style="text-align: center">Proses id</td>
+							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Kurir</td>
 							<td style="text-align: center">Ongkir</td>
@@ -259,7 +259,7 @@ $data_area = getDataArea($conn);
 						while ($data = mysqli_fetch_assoc($data_proses)) { ?>
 							<tr>
 								<td style="text-align: center">
-									<h4><?php echo $data['date_id'] ?></h4>
+									<h4><?php echo $data['name'] ?></h4>
 								</td>
 								<td style="text-align: center">
 									<h4>Rp. <?php echo number_format($data['price']) ?></h4>
@@ -278,7 +278,7 @@ $data_area = getDataArea($conn);
 								</td>
 								<?php if ($data['status'] != "Pesanan dibatalkan") { ?>
 									<td style="text-align: center">
-										<a class="btn" href="../Eshopper/detail_proses.php?id=<?php echo $data['date_id'] ?>" type="submit" name="detailproses" class="cart_quantity_delete">Detail</a>
+										<a class="btn" href="../monkers/detail_proses.php?id=<?php echo $data['date_id'] ?>&ida=<?php echo $data['address_id'] ?>" type="submit" name="detailproses" class="cart_quantity_delete">Detail</a>
 									</td>
 								<?php } else { ?>
 									<td style="text-align: center">
@@ -385,11 +385,6 @@ $data_area = getDataArea($conn);
 	<script src="js/jquery.prettyPhoto.js"></script>
 	<script src="js/main.js"></script>
 
-	<!-- jQuery -->
-	<!-- <script src="../plugins/jquery/jquery.min.js"></script> -->
-	<!-- Bootstrap 4 -->
-	<!-- <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-	<!-- DataTables  & Plugins -->
 	<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

@@ -1,6 +1,7 @@
 <?php
 require('../model/User.php');
 require('../connect/conn.php');
+$dataprofile = getDataUser($_SESSION['cust_id']);
 
 if (isset($_SESSION['cust_id'])) {
 	$item = getDataCheck($_SESSION['cust_id']);
@@ -9,6 +10,7 @@ if (isset($_SESSION['cust_id'])) {
 	$datauser = getDataUser($_SESSION['cust_id']);
 	}else{
 	$datauser = getDataAlamat2($_GET['ida']);
+	$address_id = $datauser['address_id'];
 	}
 
 
@@ -94,13 +96,13 @@ $data_area = getDataArea($conn);
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -256,6 +258,7 @@ $data_area = getDataArea($conn);
 								<?php while ($alamat = mysqli_fetch_assoc($data_alamat)) { ?>
 									<option value="<?php echo $alamat['address_id'] ?>"><?php echo $alamat['cust_name'] ?></option>
 								<?php } ?>
+									<option value="0" >Alamat Pribadi</option>
 							</select>
 							<?php if(isset($_GET['id'])){ ?>
 							<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
@@ -326,6 +329,8 @@ $data_area = getDataArea($conn);
 							<input type="file" name="img" />
 							<input type="hidden" name="kurir" value="<?php echo $data_onkir['ongkir_type']; ?>">
 							<input type="hidden" name="hargaongkir" value="<?php echo $hargaongkir; ?>">
+							<input type="hidden" name="addressid" value="<?php echo $address_id; ?>">
+							<input type="hidden" name="nama" value="<?php echo $datauser['cust_name']; ?>">
 							<input type="hidden" name="totalharga" value="<?php echo $totalharga; ?>">
 							<button type="submit" name="bayar" class="btn btn-default">Upload</button>
 						</form>

@@ -1,20 +1,22 @@
 <?php
 require('../model/User.php');
-$item = getDetailProses($_GET['id']);
-$datauser = getDataUser($_GET['idu']);
-$data_onkir = getDataOngkir($datauser['cust_city']);
 $data_order = getDataOrder($_GET['id']);
-$dataproses = getProsesDataDetail($_GET['id']);
 
-if (isset($_SESSION['cust_id'])) {
-	$data_cart = getcartCount($_GET['idu']);
-	$data_check = getcheckCount($_GET['idu']);
-	$proses_count = getProsesCount($_GET['idu']);
-} else {
-	$data_cart['juml'] = 0;
-	$data_check['juml'] = 0;
-	$proses_count['juml'] = 0;
+if ($_GET['ida']!=0) {
+  $datauser = getDataAlamat2($_GET['ida']); 
+}else{
+  $datauser = getDataUser($_GET['idu']);
 }
+
+// if (isset($_SESSION['cust_id'])) {
+// 	$data_cart = getcartCount($_GET['idu']);
+// 	$data_check = getcheckCount($_GET['idu']);
+// 	$proses_count = getProsesCount($_GET['idu']);
+// } else {
+// 	$data_cart['juml'] = 0;
+// 	$data_check['juml'] = 0;
+// 	$proses_count['juml'] = 0;
+// }
 $totalharga = 0;
 $totalberat = 0;
 
@@ -114,15 +116,15 @@ img {
 <br>
 </div>
 <?php
-$html = ob_get_contents();
-ob_end_clean();
+// $html = ob_get_contents();
+// ob_end_clean();
 
-require __DIR__ . '../../vendor/autoload.php';
+// require __DIR__ . '../../vendor/autoload.php';
 
-use Spipu\Html2Pdf\Html2Pdf;
+// use Spipu\Html2Pdf\Html2Pdf;
 
-$html2pdf = new Html2Pdf('P', 'A4', 'en');
-$html2pdf->writeHTML($html);
-$html2pdf->output('Invoice_Pemesanan.pdf', 'D');
+// $html2pdf = new Html2Pdf('P', 'A4', 'en');
+// $html2pdf->writeHTML($html);
+// $html2pdf->output('Invoice_Pemesanan.pdf', 'D');
 
 ?>
