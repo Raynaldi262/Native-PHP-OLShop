@@ -19,7 +19,7 @@ $data_area = getDataArea($conn);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Cart | E-Shopper</title>
+	<title>Monkers Apparel</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/prettyPhoto.css" rel="stylesheet">
@@ -144,6 +144,7 @@ $data_area = getDataArea($conn);
 			<div class="mainmenu pull-left">
 				<ul class="nav navbar-nav collapse navbar-collapse">
 					<li><a href="index.php">Home</a></li>
+					<li><a href="alamat_lain.php">Alamat lain</a></li>
 				</ul>
 			</div>
 			</div>

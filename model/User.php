@@ -5,6 +5,9 @@ require('../session/session.php');
 if (isset($_POST['bayar'])) {
    ProsesBayar($conn);
 }
+if (isset($_POST['updatealamat'])) {
+   UpdateAlamat($conn);
+}
 if (isset($_POST['tipe_item'])) {
     FilterItem($conn);
    
@@ -37,6 +40,9 @@ if (isset($_POST['addchart'])) {
 
 if (isset($_POST['deletecart'])) {
    deleteCart($conn);
+}
+if (isset($_POST['deletealamat'])) {
+   DeleteAlamat($conn);
 }
 if (isset($_POST['checkout'])) {
    AddCheckout($conn);
@@ -400,6 +406,14 @@ function deleteCart($conn)
    header("location: ../monkers/cart.php");
 }
 
+function DeleteAlamat($conn)
+{
+   $sql = "DELETE FROM tbl_address WHERE tbl_address . address_id = " . $_POST['address_id'] . "";
+   mysqli_query($conn, $sql);
+   header("location: ../monkers/alamat_lain.php");
+}
+
+
 function BatalCheck($conn){
    $sql = "DELETE FROM tbl_checkout WHERE tbl_checkout . cust_id = " . $_SESSION['cust_id'] . "";
    mysqli_query($conn, $sql);
@@ -444,6 +458,19 @@ function UpdateProfile($conn)
          msg('Gagal Mengubah data!!', '../monkers/profile.php');
       }
    }
+}
+
+function UpdateAlamat($conn)
+{
+      $sql = "UPDATE tbl_address SET cust_name = '" . $_POST['nama'] . "'  , cust_address = '" . $_POST['address'] . "', cust_province = '" . $_POST['provinsi'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
+      $result = mysqli_query($conn, $sql);
+
+      if ($result) {
+         msg('Data berhasil diubah!!', '../monkers/alamat_lain.php');
+      } else {
+         msg('Gagal Mengubah data!!', '../monkers/alamat_lain.php');
+      }
+   
 }
 
 

@@ -1,8 +1,26 @@
 <?php
 require('../model/User.php');
+require('../connect/conn.php');
+$dataprofile = getDataUser($_SESSION['cust_id']);
+
 if (isset($_SESSION['cust_id'])) {
-	$item = getDataCart($_SESSION['cust_id']);
+	$item = getDataCheck($_SESSION['cust_id']);
+
+	if (!isset($_GET['ida'])) {
 	$datauser = getDataUser($_SESSION['cust_id']);
+	}else{
+	$datauser = getDataAlamat2($_GET['ida']);
+	$address_id = $datauser['address_id'];
+	}
+
+
+	if (isset($_GET['id'])) {
+		$data_onkir = getDataOngkir($_GET['id']);
+	} else {
+		$data_onkir['ongkir_price'] = 0;
+	}
+	$data_kurir = getDataKurir($datauser['cust_city']);
+	$data_alamat = getDataAlamat($_SESSION['cust_id']);
 }
 if (isset($_SESSION['cust_id'])) {
 	$data_cart = getcartCount($_SESSION['cust_id']);
@@ -13,7 +31,10 @@ if (isset($_SESSION['cust_id'])) {
 	$data_check['juml'] = 0;
 	$proses_count['juml'] = 0;
 }
-$totalharga = 0;
+
+$data_area = getDataArea($conn);
+
+$data_alamat = getDataAlamat($_SESSION['cust_id']);
 
 ?>
 <!DOCTYPE html>
@@ -50,6 +71,32 @@ $totalharga = 0;
   min-width: 100px;
   height: auto;
 }
+
+input[type=text], select,input[type=number],input[type=email],input[type=date] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
 </style>
 <body>
 	<header id="header">
@@ -75,13 +122,13 @@ $totalharga = 0;
 									$data = custLogin($_SESSION['cust_id']);
 								?>
 									<?php if ($proses_count['juml'] != 0) { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" />
 												<span><?php echo $data['cust_name']; ?></span>
 												<span class="badge"><?php echo $proses_count['juml']; ?></span>
 											</a>
 										</li>
 									<?php } else { ?>
-										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $datauser['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
+										<li><a href="../monkers/profile.php"><img src="images/Profile/<?php echo $dataprofile['cust_img'] ?>" style=" width:25px;height: 25px; border-radius: 50%;" /> <?php echo $data['cust_name']; ?></a></li>
 									<?php } ?>
 								<?php
 								}
@@ -106,6 +153,7 @@ $totalharga = 0;
 								<?php } else { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
 								<?php } ?>
+								<!-- logout -->
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
@@ -152,101 +200,93 @@ $totalharga = 0;
 			<div class="breadcrumbs">
 			<div class="mainmenu pull-left">
 				<ul class="nav navbar-nav collapse navbar-collapse">
-					<li><a href="index.php" >Home</a></li>
+					<li><a href="index.php">Home</a></li>
 				</ul>
 			</div>
 			</div>
 			<div>
-				<h1 style="text-align:center">Shopping Cart</h1>
+				<h1 style="text-align:center">Alamat Lain</h1>
 			</div>
 			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr  style="background-color:grey;" class="cart_menu">
-							<td style="text-align: center">Gambar</td>
-							<td style="text-align: center">Nama</td>
-							<td style="text-align: center">Tipe</td>
-							<td style="text-align: center">Jumlah</td>
-							<td style="text-align: center">Ukuran</td>
-							<td style="text-align: center">Harga</td>
-							<td style="text-align: center">Hapus</td>
-							<td></td>
-						</tr>
-					</thead>
+						<table class="table table-condensed">
+							<thead>
+								<tr  style="background-color:grey;" class="cart_menu">
+									<td style="text-align: center">Nama</td>
+									<td style="text-align: center">Alamat</td>
+									<td style="text-align: center">Email</td>
+									<td style="text-align: center">NoHp</td>
+									<td></td>
+								</tr>
+						</thead>
 					<tbody>
-						<?php
-						if (isset($_SESSION['cust_id'])) {
-							while ($data_cart = mysqli_fetch_assoc($item)) {
-								$item_cart = getItemcart($data_cart['item_id']);
-								$data_type = getTypeitem($item_cart['type_id']);
-								$img = getImgItem($data_cart['item_id']);
-								$totalharga += $item_cart['item_price'] * $data_cart['qty'];
-						?>
+						<?php $i=0; while ($alamat = mysqli_fetch_assoc($data_alamat)) { ; ?>
 								<tr>
-									<td class="cart_product">
-										<a href="../monkers/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
-											<img class="responsive" style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
-										</a>
+									<td  style="text-align: center">
+										<h4><?php echo $alamat['cust_name'] ?></h4>
 									</td>
 									<td  style="text-align: center">
-										<h4><?php echo $item_cart['item_name'] ?></h4>
-									</td>
-									<td  style="text-align: center">
-										<p><?php echo $data_type['type_name'] ?></p>
-									</td>
-									<td  style="text-align: center">
-										<p><?php echo $data_cart['size'] ?></p>
+										<p><?php echo $alamat['cust_address'] ?></p>
 									</td>
 									<td style="text-align: center">
 										<div >
-											<?php echo $data_cart['qty'] ?>
+											<?php echo $alamat['cust_email'],$i ?>
 										</div>
 									</td>
-									<td>
-										<p class="cart_total_price" style="text-align: center">Rp. <?php echo number_format($item_cart['item_price']) ?></p>
+									<td style="text-align: center">
+										<div >
+											<?php echo $alamat['cust_phone'] ?>
+										</div>
 									</td>
 									<td class="cart_delete" style="text-align: center">
 										<form action="../model/User.php" method="post">
-											<input type="hidden" name="cart_id" value="<?php echo $data_cart['cart_id'] ?>">
-											<button type="submit" name="deletecart" class="cart_quantity_delete"><i class="fa fa-times"></i></button>
+											<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
+											<button style="background-color:red;" type="submit" name="deletealamat" class="btn cart_quantity_delete"><i class="fa fa-times"></i></button>
+											<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-dismiss="modal" data-target="#update_alamat<?php echo $i?>">Update</button>
 										</form>
 									</td>
 								</tr>
-						<?php }
-						} ?>
+								<div class="modal fade" id="update_alamat<?php echo $i?>" role="dialog">
+									<div class="modal-dialog">
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">Update Alamat</h4>
+												<div class="signup-form">
+													<!--sign up form-->
+													<form action="../model/User.php" method="post" enctype="multipart/form-data">
+														<h5>Nama :</h5>
+														<input type="text" name="nama" value="<?php echo $alamat['cust_name'] ?>" required />
+														<h5>Email :</h5>
+														<input type="email" name="email" value="<?php echo $alamat['cust_email'] ?>" required />
+														<h5>No Hp :</h5>
+														<input type="number" name="nohp" value="<?php echo $alamat['cust_phone'] ?>" required />
+														<h5>Alamat :</h5>
+														<input type="text" name="address" value="<?php echo $alamat['cust_address'] ?>" required />
+														<h5>Provinsi :</h5>
+														<input type="text" name="provinsi" value="<?php echo $alamat['cust_province'] ?>" required />
+														<h5>Kota :</h5>
+														<select name="kota" id="kota">
+															<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
+																<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>
+															<?php } ?>
+														</select>
+														<br>
+														<br>
+														<button type="submit" name="updatealamat" class="btn btn-default">Update</button>
+													</form>
+												</div>
+												<!--/sign up form-->
+											</div>
+										</div>
+									</div>
+								</div>
+						<?php $i+=1; } ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
 	<!--/#cart_items-->
-
-	<?php if ($totalharga != 0) { ?>
-		<section id="do_action">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6 col-md-offset-3">
-						<div class="total_area">
-							<div class="heading" style="text-align:center;">
-								<h3>Total Harga</h3>
-							</div>
-							<ul>
-								<!-- 							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
-							<li>Shipping Cost <span>Free</span></li> -->
-								<li>Total <span>Rp. <?php echo number_format($totalharga); ?></span></li>
-							</ul>
-							<form action="../model/User.php" method="post" style="text-align:center;">
-								<input type="hidden" name="cust_id" value="<?php echo $_SESSION['cust_id'] ?>">
-								<button type="submit" name="checkout" class="btn btn-default check_out">Check Out</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!--/#do_action-->
-	<?php } ?>
 	<footer id="footer">
 		<!--Footer-->
 		<div class="footer-top">
@@ -331,9 +371,11 @@ $totalharga = 0;
 
 	</footer>
 	<!--/Footer-->
-
-
-
+	<script>
+		$('.selector select[name=perPage]').on('change', function(e) {
+			$(e.currentTarget).closest('form').submit();
+		});
+	</script>
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.scrollUp.min.js"></script>
