@@ -20,11 +20,6 @@ if (isset($_POST['dec_item'])) {
     deletePesanan($conn);
 }
 
-// if (isset($_POST['get_id'])) {
-//     getPesanan($conn);
-// }
-
-
 if (isset($_POST['getAlamat1'])) {
     getAlamat1($conn);
 }
@@ -134,7 +129,7 @@ function terimaPesanan($conn)
 
             //update history stok
             $sql3 = "insert into tbl_stockinout(detail_id, stok_qty, stok_desc, stok_price, total_qty)
-                    values(" . $data['item_id'] . ", " . $data['qty'] . ", 'STOCK OUT'
+                    values(" . $data['detail_id'] . ", " . $data['qty'] . ", 'STOCK OUT'
                     ," . $item_price . ", " . $stok . " )";
 
             $result3 = mysqli_query($conn, $sql3);
@@ -145,9 +140,10 @@ function terimaPesanan($conn)
 
         //insert tbl order
         $sql4 = "insert into tbl_order (order_invoice, order_total, order_shipping, order_shipping_price, order_totprice,
-                order_transfer, order_status, cust_id, date_id) 
+                order_transfer, order_status, cust_id, date_id, address_id) 
                 values('" . $inv . "', " . $dataOrder['order_total'] . ", '" . $dataOrder['kurir'] . "', " . $dataOrder['ongkir'] . "
-                ," . $dataOrder['price'] . ", '" . $dataOrder['img_bayar'] . "', '" . $dataOrder['status'] . "', " . $dataOrder['cust_id'] . ", '" . $id . "')";
+                ," . $dataOrder['price'] . ", '" . $dataOrder['img_bayar'] . "', '" . $dataOrder['status'] . "', " . $dataOrder['cust_id'] . ", '" . $id . "'
+                ," . $dataOrder['address_id'] . ")";
 
         $result4 = mysqli_query($conn, $sql4);
 
@@ -265,10 +261,10 @@ function checkStok($conn, $id)
 
 function getOrder($conn, $id)
 {
-    $sql = "select sum(qty) as order_total, kurir, ongkir, price, img_bayar, status, cust_id, id
+    $sql = "select sum(qty) as order_total, kurir, ongkir, price, img_bayar, status, cust_id, id, address_id
             from 
             (Select proses_id, a.date_id id, a.cust_id as cust_id, price, kurir, a.status as status, img_bayar,
-               ongkir, qty 
+               ongkir, qty , address_id
             from tbl_proses a 
             join tbl_detailorder b on a.date_id = b.date_id) a
             where id = '" . $id . "' group by id";
@@ -286,7 +282,7 @@ function updatePesanan($conn)
 
     $sql = "update tbl_order 
             set order_resi = '" . $resi . "', order_status = 'Pesanan dikirim'
-            where item_id = '" . $id . "'";
+            where date_id = '" . $id . "'";
 
     $result = mysqli_query($conn, $sql);
 

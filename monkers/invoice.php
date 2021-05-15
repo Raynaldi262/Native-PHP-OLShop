@@ -2,9 +2,9 @@
 require('../model/User.php');
 $data_order = getDataOrder($_GET['id']);
 
-if ($_GET['ida']!=0) {
-  $datauser = getDataAlamat2($_GET['ida']); 
-}else{
+if ($_GET['ida'] != 0) {
+  $datauser = getDataAlamat2($_GET['ida']);
+} else {
   $datauser = getDataUser($_GET['idu']);
 }
 
@@ -22,95 +22,98 @@ $totalberat = 0;
 
 ?>
 <style>
-table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+  table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-table, th, td {
-  border: 1px solid #ddd;
-  padding: 20px;
-}
+  table,
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
 
- th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: gray;
-  color: white;
-}
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: gray;
+    color: white;
+  }
 
-.harga th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: Orange;
-  color: white;
-}
-img {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-}
+  .harga th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: Orange;
+    color: white;
+  }
+
+  img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+  }
 
 
-* {
-  box-sizing: border-box;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 50%;
-  padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
+  /* Create two equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px;
+    /* Should be removed. Only for demonstration */
+  }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 </style>
 <div style="text-align:center">
-<img width="100" src="images/home/logo.png"/>
-<h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
-<h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
-<table id="example1" class="table table-bordered table-striped">
+  <img width="100" src="images/home/logo.png" />
+  <h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
+  <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
+  <table id="example1" class="table table-bordered table-striped">
     <thead>
-        <tr>
+      <tr>
         <th>Nama Product</th>
-		<th>Tipe Barang</th>
-		<th>Jumlah</th>
-		<th>Berat Barang</th>
-		<th>Harga Barang</th>
-        </tr>
+        <th>Tipe Barang</th>
+        <th>Jumlah</th>
+        <th>Berat Barang</th>
+        <th>Harga Barang</th>
+      </tr>
     </thead>
     <tbody>
-    <?php
-		$item1 = getDetailProses($_GET['id']);
-		while ($data_check1 = mysqli_fetch_assoc($item1)) {
-			$item_cart1 = getItemcart($data_check1['item_id']);
-			$data_type1 = getTypeitem($item_cart1['type_id']);
-            $totalberat += $item_cart1['item_weight'] * $data_check1['qty'];
-		?>
-			<tr>
-				<td><?php echo $item_cart1['item_name'] ?></td>
-				<td><?php echo $data_type1['type_name'] ?></td>
-				<td><?php echo $data_check1['qty'] ?></td>
-				<td><?php echo $item_cart1['item_weight'] ?> Grm</td>
-				<td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
-			</tr>
-		<?php } ?>
+      <?php
+      $item1 = getDetailProses($_GET['id']);
+      while ($data_check1 = mysqli_fetch_assoc($item1)) {
+        $item_cart1 = getItemcart($data_check1['item_id']);
+        $data_type1 = getTypeitem($item_cart1['type_id']);
+        $totalberat += $item_cart1['item_weight'] * $data_check1['qty'];
+      ?>
+        <tr>
+          <td><?php echo $item_cart1['item_name'] ?></td>
+          <td><?php echo $data_type1['type_name'] ?></td>
+          <td><?php echo $data_check1['qty'] ?></td>
+          <td><?php echo $item_cart1['item_weight'] ?> Grm</td>
+          <td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
+        </tr>
+      <?php } ?>
     </tbody>
-</table>
+  </table>
 
 
-<table id="example1" class="table table-bordered table-striped">
+  <table id="example1" class="table table-bordered table-striped">
 
 
     <tbody>
@@ -118,47 +121,47 @@ img {
         <td style="background-color: gray; text-align: left;">Kurir</td>
         <td><?php echo $data_order['order_shipping'] ?></td>
       </tr>
-            <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Harga Ongkir</td>
         <td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
       </tr>
-            <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Total Berat</td>
         <td><?php echo $totalberat ?> Gram</td>
       </tr>
-            <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Subtotal</td>
-        <td>Rp. <?php echo number_format($data_order['order_totprice']+$data_order['order_shipping_price']) ?></td>
+        <td>Rp. <?php echo number_format($data_order['order_totprice'] + $data_order['order_shipping_price']) ?></td>
       </tr>
     </tbody>
-</table>
-<h3> data Pembeli</h3>
-<table id="example1" class="table table-bordered table-striped">
+  </table>
+  <h3> data Pembeli</h3>
+  <table id="example1" class="table table-bordered table-striped">
     <tbody>
       <tr>
         <td style="background-color: gray; text-align: left;">Nama Pembeli</td>
         <td><?php echo $datauser['cust_name'] ?></td>
       </tr>
-            <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Alamat</td>
         <td>Rp. <?php echo $datauser['cust_address'] ?></td>
       </tr>
-            <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Kota</td>
         <td><?php echo $datauser['cust_city'] ?> Gram</td>
       </tr>
-                  <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">Provinsi</td>
         <td><?php echo $datauser['cust_province'] ?> Gram</td>
       </tr>
-                  <tr>
+      <tr>
         <td style="background-color: gray; text-align: left;">No hp</td>
         <td><?php echo $datauser['cust_phone'] ?> Gram</td>
       </tr>
 
     </tbody>
-</table>
-<br>
+  </table>
+  <br>
 </div>
 <?php
 $html = ob_get_contents();

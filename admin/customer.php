@@ -55,7 +55,7 @@ $getCust = mysqli_query($conn, $sql);
                                 </div>
                                 <!-- /.card-header -->
                                 <div class=" card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped" style="width: 150%;">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -83,7 +83,7 @@ $getCust = mysqli_query($conn, $sql);
                                                     <td><?php echo $data['cust_phone']; ?></td>
                                                     <td><?php echo $data['cust_email']; ?></td>
                                                     <td><?php echo $data['cust_total_order']; ?></td>
-                                                    <td><?php echo $data['cust_total_price']; ?></td>
+                                                    <td><?php echo 'Rp ' . number_format($data['cust_total_price']); ?></td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>

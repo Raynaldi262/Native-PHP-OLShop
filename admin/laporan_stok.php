@@ -151,7 +151,7 @@ require('../connect/conn.php');
                                                     <td><?php echo $data['stock_in']; ?></td>
                                                     <td><?php echo $data['stock_out']; ?></td>
                                                     <td><?php echo $data['total_qty']; ?></td>
-                                                    <td><?php echo $data['stok_price']; ?></td>
+                                                    <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>

@@ -106,15 +106,15 @@ require('../connect/conn.php');
                                                         on a.item_id = c.item_id
                                                         where c.status = 'ACTIVE') a
                                                         left join (select detail_id, sum(stok_qty) as stock_in, stok_desc 
-                                                        from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59' 
+                                                        from tbl_stockinout where stok_desc = 'STOCK IN' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59' 
                                                         GROUP by detail_id) b
                                                         on b.detail_id = a.detail_id
                                                         left join (select detail_id, sum(stok_qty) as stock_out, sum(stok_price) as stok_price, stok_desc 
-                                                        from tbl_stockinout where stok_desc = 'STOCK OUT' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59'
+                                                        from tbl_stockinout where stok_desc = 'STOCK OUT' and create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59'
                                                         GROUP by detail_id) c
                                                         on c.detail_id = a.detail_id
                                                         left join (select detail_id, total_qty from (select detail_id, total_qty, row_number() over (partition by detail_id order by create_date desc) as no_urut from tbl_stockinout
-                                                        where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59') as abc where no_urut = 1) d
+                                                        where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59') as abc where no_urut = 1) d
                                                         on d.detail_id = a.detail_id
                                                         where stock_in is not null or stock_out is not null";
 
@@ -154,7 +154,7 @@ require('../connect/conn.php');
                                                     <td><?php echo $data['stock_in']; ?></td>
                                                     <td><?php echo $data['stock_out']; ?></td>
                                                     <td><?php echo $data['total_qty']; ?></td>
-                                                    <td><?php echo $data['stok_price']; ?></td>
+                                                    <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>

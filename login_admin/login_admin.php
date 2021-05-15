@@ -36,7 +36,7 @@ if (logged_in()) {
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" style="max-height: 150; width: auto;">
+                <img src="../dist/img/logo.png" style="max-height: 150px; width: 150px;">
                 <div class="row">
                     <div class="col-6" style="text-align: right;">
                         <h3>Monkers <b>Apparel</b></h3>

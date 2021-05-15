@@ -4,14 +4,22 @@ require('../connect/conn.php');
 function getItem($conn, $id)
 {
     $sql = "select * from 
-    (Select a.date_id id, qty, item_name, type_name, item_size, color_name, item_weight, item_qty as stock, item_price, ongkir
-    from tbl_proses a 
-    join tbl_detailorder b on a.date_id = b.date_id
-    join (select item_id, item_name, type_name, item_size, color_name, item_weight, item_qty, item_price from tbl_item a 
-        join tbl_color b on a.color_id = b.color_id 
-        join tbl_item_type c on a.type_id = c.type_id) as c
-    on b.item_id = c.item_id ) as a
-    where id = '" . $id . "' ";
+        (Select proses_id, a.date_id id, a.cust_id as cust_id, price, kurir, a.status as status, img_bayar,b.item_id,qty,
+        item_name, type_name, size_name, color_name, item_weight, detail_qty as stock, item_price, ongkir
+        from tbl_proses a 
+        join tbl_detailorder b on a.date_id = b.date_id
+        join (select a.item_id, item_name, type_name, color_name, item_weight, item_price,
+            size_name,  detail_qty 
+            from tbl_item a 
+            join tbl_color b on a.color_id = b.color_id 
+            join tbl_item_type c on a.type_id = c.type_id
+            join (select item_id, detail_id, size_name, detail_qty
+            from tbl_item_detail a join tbl_size b
+            on a.size_id = b.size_id
+            where status = 'ACTIVE') d
+            on a.item_id = d.item_id) as c
+        on b.item_id = c.item_id and b.size = c.size_name ) as a
+        where id = '" . $id . "' ";
 
     $result = mysqli_query($conn, $sql);
     $results = [];
@@ -19,6 +27,17 @@ function getItem($conn, $id)
     while ($datas = mysqli_fetch_assoc($result)) {
         $results[] = $datas; //assign whole values to array
     }
+
+    return $results;
+}
+
+
+function getAlamat2($conn, $id)
+{
+    $sql = "select * from tbl_address where address_id = " . $id . "";
+
+    $result = mysqli_query($conn, $sql);
+    $results = mysqli_fetch_assoc($result);
 
     return $results;
 }
@@ -130,19 +149,19 @@ function getItem($conn, $id)
                                             if (isset($_POST['search'])) {
                                                 $start = $_POST['start'];
 
-                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date,
-                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
+                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date, address_id,
+                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, date_id, cust_province, cust_city
                                                         from tbl_order a
-                                                        join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
+                                                        join (select cust_id, cust_name, cust_address, cust_phone, cust_province, cust_city from tbl_customer) as b
                                                         on a.cust_id = b.cust_id
                                                         where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $start . " 23:59:59'";
 
                                                 $getOrder = mysqli_query($conn, $sql);
                                             } else {
-                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date,
-                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, item_id
+                                                $sql = "select order_id, order_invoice, order_resi, b.cust_id, cust_name, cust_address, a.create_date as create_date, address_id,
+                                                            order_totprice, order_shipping, order_shipping_price, order_transfer, order_status, date_id, cust_province, cust_city
                                                         from tbl_order a
-                                                        join (select cust_id, cust_name, cust_address, cust_phone from tbl_customer) as b
+                                                        join (select cust_id, cust_name, cust_address, cust_phone, cust_province, cust_city from tbl_customer) as b
                                                         on a.cust_id = b.cust_id
                                                         where create_date >= CURDATE()";
 
@@ -154,13 +173,18 @@ function getItem($conn, $id)
                                                     <td><?php echo $data['order_invoice']; ?></td>
                                                     <td><?php echo $data['order_resi']; ?></td>
                                                     <td><?php echo $data['cust_name']; ?></td>
-                                                    <td><?php echo $data['cust_address']; ?></td>
+                                                    <?php if ($data['address_id'] == 0) { ?>
+                                                        <td><?php echo $data['cust_address'] . ', ' . $data['cust_city'] . ', ' . $data['cust_province'] ?></td>
+                                                    <?php } else {
+                                                        $alamat2 = getAlamat2($conn, $data['address_id']); ?>
+                                                        <td><?php echo $alamat2['cust_address'] . ', ' . $alamat2['cust_city'] . ', ' . $alamat2['cust_province'] ?></td>
+                                                    <?php } ?>
                                                     <td>
                                                         <?php
-                                                        $result = getItem($conn, $data['item_id']);
+                                                        $result = getItem($conn, $data['date_id']);
 
                                                         foreach ($result as $datas) {
-                                                            echo $datas['item_name'] . ', ' . $datas['type_name'] . ' (' . $datas['item_size'] . ', ' . $datas['color_name']
+                                                            echo $datas['item_name'] . ', ' . $datas['type_name'] . ' (' . $datas['size_name'] . ', ' . $datas['color_name']
                                                                 . ', ' . $datas['item_weight'] . 'gram/pcs ) ' . $datas['qty'] . ' x Rp ' . number_format($datas['item_price']);
 
                                                         ?>
@@ -178,7 +202,7 @@ function getItem($conn, $id)
                                                     </td>
                                                     <td><?php echo $data['order_status']; ?></td>
                                                     <td>
-                                                        <a class="link" href='../monkers/invoice.php?id=<?php echo $data['item_id']; ?>&idu=<?php echo $data['cust_id']; ?> '>
+                                                        <a class="link" href='../monkers/invoice.php?id=<?php echo $data['date_id']; ?>&idu=<?php echo $data['cust_id']; ?>&ida=<?php echo $data['address_id'] ?> '>
                                                             <button type="button" class="btn btn-success print">
                                                                 <i class="fa fa-print"> Print Invoice</i>
                                                             </button>
