@@ -116,7 +116,8 @@ require('../connect/conn.php');
                                                         on c.detail_id = a.detail_id
                                                         left join (select detail_id, total_qty from (select detail_id, total_qty, row_number() over (partition by detail_id order by create_date desc) as no_urut from tbl_stockinout
                                                         where create_date >= '" . $start . " 00:00:00' and create_date <= '" . $end . " 23:59:59') as abc where no_urut = 1) d
-                                                        on d.detail_id = a.detail_id";
+                                                        on d.detail_id = a.detail_id
+                                                        where stock_in is not null or stock_out is not null";
 
                                                 $getStok = mysqli_query($conn, $sql);
                                             } else {

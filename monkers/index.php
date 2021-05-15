@@ -55,13 +55,14 @@ $type_item = getDataAlltype($conn);
 		width: 50%;
 	}
 
-	.productinfo>img {
+	.productinfo>a>img {
 		width: 200px;
 		height: 200px;
 	}
+
 	.img {
- 	 max-width:500px;
- 	 height: auto;
+		max-width: 500px;
+		height: auto;
 	}
 </style>
 
@@ -156,12 +157,12 @@ $type_item = getDataAlltype($conn);
 						<ul class="nav navbar-nav collapse navbar-collapse">
 							<li><a href="index.php" class="active">Home</a></li>
 							<li class="dropdown"><a href="#">Kategori<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-								<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>
-                                    <li><a href="../monkers/index.php?id=<?php echo $data_type['type_id']; ?>"><?php echo $data_type['type_name']; ?></a></li>
-								<?php } ?>
-                                </ul>
-                            </li> 
+								<ul role="menu" class="sub-menu">
+									<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>
+										<li><a href="../monkers/index.php?id=<?php echo $data_type['type_id']; ?>"><?php echo $data_type['type_name']; ?></a></li>
+									<?php } ?>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -207,12 +208,12 @@ $type_item = getDataAlltype($conn);
 						<!--category-tab-->
 						<div class="col-sm-12">
 							<ul class="nav nav-tabs">
-							<h3 style="color:white; text-align:center ;font-family:courier,arial,helvetica" >Monkers Apparel</h3>
+								<h3 style="color:white; text-align:center ;font-family:courier,arial,helvetica">Monkers Apparel</h3>
 							</ul>
 						</div>
-						<?php while ($data = mysqli_fetch_assoc($item_data)) { 
+						<?php while ($data = mysqli_fetch_assoc($item_data)) {
 							$img = getImgItem($data['item_id']);
-							?>
+						?>
 							<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>">
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -221,7 +222,7 @@ $type_item = getDataAlltype($conn);
 												<img class="img" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
 												<h2>Rp. <?php echo number_format($data['item_price']); ?></h2>
 												<p><?php echo $data['item_name']; ?></p>
-												<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>" >
+												<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>">
 													<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detail Item</button>
 												</a>
 											</div>

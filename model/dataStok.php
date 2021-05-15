@@ -205,7 +205,7 @@ function editItem($conn)
 
                 move_uploaded_file($file_tmp, '../dist/img/item/' . $date_id . $img);
 
-                $sql = "Insert into tbl_img (img_name, item_id)  values('" . $date_id . $img . "' ," . $id . ")";
+                $sql = "insert into tbl_img (img_name, item_id, create_date)  values('" . $date_id . $img . "' ," . $id . ", now())";
                 $result = mysqli_query($conn, $sql);
             } else {
                 msg('Ukuran file max 4mb!!', '../admin/stok.php');

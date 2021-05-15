@@ -94,7 +94,7 @@ while ($datas = mysqli_fetch_assoc($getSize)) {
                                                 <td><?php echo $item['item_name']; ?></td>
                                             </tr>
                                             <tr>
-                                                <td>Type: </td>
+                                                <td>Tipe: </td>
                                                 <td><?php echo $item['type_name']; ?></td>
                                             </tr>
                                             <tr>
