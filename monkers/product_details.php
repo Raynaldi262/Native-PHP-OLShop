@@ -56,6 +56,26 @@ if (isset($_GET['id'])) {
   max-width: 400px;
   height: auto;
 }
+
+.thumb:hover{
+    opacity: 50%;
+    cursor: pointer;
+}
+
+@keyframes fadeIn{
+    to{
+        opacity: 1;
+    }
+}
+
+.fade{
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.aktif{
+    opacity: 0.5;
+}
 </style>
 <body>
 	<header id="header">
@@ -164,18 +184,20 @@ if (isset($_GET['id'])) {
 					<div class="product-details">
 						<!--product-details-->
 						<div class="col-sm-5">
-							<div class="view-product">
-								<img style="width:500px; height:auto;" class="responsive" src="../../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
-							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-								<!-- Wrapper for slides -->
-								  <div class="carousel-inner">
-									  <div class="item active">
-									  <?php while($data_img = mysqli_fetch_assoc($img2)){?>
-										<a><img style="width:20%; height:auto;" src="../../dist/img/item/<?php echo $data_img['img_name']; ?>" alt=""></a>
-										<?php } ?>
+							<div class="containere">
+								<div class="view-product">
+									<img style="width:500px; height:auto;" class="responsive jumbo" src="../../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
+								</div>
+								<div id="similar-product" class="carousel slide" data-ride="carousel">
+									<!-- Wrapper for slides -->
+									  <div class="carousel-inner">
+										  <div class="item active thumbnail">
+										  <?php while($data_img = mysqli_fetch_assoc($img2)){?>
+											<a><img style="width:20%; height:auto;" class="thumb" src="../../dist/img/item/<?php echo $data_img['img_name']; ?>" alt=""></a>
+											<?php } ?>
+										  </div>
 									  </div>
-								  </div>
+								</div>
 						  	</div>
 						</div>
 						<div class="col-sm-7">
@@ -308,6 +330,30 @@ if (isset($_GET['id'])) {
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/jquery.prettyPhoto.js"></script>
 	<script src="../js/main.js"></script>
+	<script type="text/javascript">
+		const jumb = document.querySelector('.jumbo');
+		const asd = document.querySelector('.containere');
+		const thumb = document.querySelectorAll('div.thumbnail img');
+
+	asd.addEventListener('click',function(e){
+	console.log(e.target)
+
+	jumb.classList.add('fade'); //tambah class
+	setTimeout(function(){
+		jumb.classList.remove('fade');
+	},500)
+	jumb.src = e.target.getAttribute('src');	
+	
+	
+	for(let i = 0 ; i < thumb.length ; i++){
+		thumb[i].className = 'thumb'
+	}
+		
+		//row2.className = 'thumb';
+	e.target.classList.add('aktif');
+	})
+
+	</script>
 </body>
 
 </html>

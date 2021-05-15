@@ -12,11 +12,9 @@ if (isset($_SESSION['cust_id'])) {
 }
 
 if (isset($_GET['id'])) {
-	$sql = "SELECT * from tbl_item WHere type_id = " . $_GET['id'] . " AND item_status = 'active'";
-	$item_data = mysqli_query($conn, $sql);
+	$item_data = FilterItem($conn, $_GET['id']);
 } else {
-	$sql = "SELECT * from tbl_item where item_status = 'ACTIVE'";
-	$item_data = mysqli_query($conn, $sql);
+	$item_data = AllItem($conn);
 }
 
 $data_banner = getDataBanner($conn);

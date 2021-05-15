@@ -8,10 +8,9 @@ if (isset($_POST['bayar'])) {
 if (isset($_POST['updatealamat'])) {
    UpdateAlamat($conn);
 }
-if (isset($_POST['tipe_item'])) {
-    FilterItem($conn);
-   
-}
+// if (isset($_POST['tipe_item'])) {
+//     FilterItem($conn);
+// }
 if (isset($_POST['batalcheck'])) {
    BatalCheck($conn);
 }
@@ -251,16 +250,21 @@ function getDetailProses($date_id)
    return $item;
 }
 
-function FilterItem($conn){
-   if($_POST['tipe_item'] == 'Allitem'){
-   header("location: ../monkers/index.php");
-   }else{
-   $sql = "SELECT type_id from tbl_item_type Where type_name = '".$_POST['tipe_item']."'"  ;
+function AllItem($conn)
+{
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_item a left join (select count(detail_id) detail_id , item_id, detail_qty from tbl_item_detail group by item_id) b on a.item_id = b.item_id WHERE b.detail_id IS NOT NULL && b.detail_qty > 0";
    $item_data = mysqli_query($conn, $sql);
-   $data = mysqli_fetch_assoc($item_data);
-   header("location: ../monkers/index.php?id=". $data['type_id']);
-   }
+   return $item_data;
 }
+
+function FilterItem($conn,$id){
+  // $sql = "SELECT * FROM tbl_item_detail INNER JOIN tbl_size on tbl_item_detail.size_id = tbl_size.size_id INNER JOIN tbl_item ON tbl_item_detail.item_id = tbl_item.item_id WHERE tbl_item_detail.status = 'ACTIVE' && tbl_item_detail.detail_qty > 0 && tbl_item.type_id = " . $id . " ";
+   $sql = "SELECT * from tbl_item a left join (select count(detail_id) detail_id , item_id, detail_qty from tbl_item_detail group by item_id) b on a.item_id = b.item_id WHERE b.detail_id IS NOT NULL && b.detail_qty > 0 && item_status = 'ACTIVE'&& a.type_id = '".$id."' ";
+   $item_data = mysqli_query($conn, $sql);
+   return $item_data;
+   }
+
 function HargaOngkir($conn){
    if(isset($_POST['ida'])){
    $url = '../monkers/checkout.php?id='.$_POST['ongkir'].'&ida='.$_POST['ida'];
