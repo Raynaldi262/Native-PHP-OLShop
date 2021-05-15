@@ -66,9 +66,9 @@
                         <th>Nama</th>
                         <th>Alamat</th>
                         <th>Pesanan</th>
-                        <th>Jenis Pengiriman</th>
-                        <th>Total Harga</th>
-                        <th>Bukti Transfer</th>
+                        <th>Jenis <br> Pengiriman</th>
+                        <th>Total <br> Harga</th>
+                        <th>Bukti <br> Transfer</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -80,7 +80,15 @@
                           <td><?php echo $i ?></td>
                           <td><?php echo $data['date_id']; ?></td>
                           <td><?php echo $data['cust_name']; ?></td>
-                          <td><?php echo $data['cust_address']; ?></td>
+                          <?php if ($data['address_id'] == 0) { ?>
+                            <td> <button type="button" class="btn btn-primary detailAlamat1" data-toggle="modal" data-target="#modal-detailAlamat1" id="<?php echo $data['cust_id']; ?>">
+                                Detail
+                              </button></td>
+                          <?php } else { ?>
+                            <td> <button type="button" class="btn btn-primary detailAlamat2" data-toggle="modal" data-target="#modal-detailAlamat2" id="<?php echo $data['address_id']; ?>">
+                                Detail
+                              </button></td>
+                          <?php } ?>
                           <td> <button type="button" class="btn btn-primary detailPesanan" data-toggle="modal" data-target="#modal-detailPesanan" id="<?php echo $data['date_id']; ?>">
                               Detail
                             </button></td>
@@ -88,11 +96,10 @@
                           <td><?php echo $data['price']; ?></td>
                           <td> <a href='../monkers/images/bayar/<?php echo $data['img_bayar']; ?>' data-toggle="lightbox" data-gallery="gallery">
                               <img src="../monkers/images/bayar/<?php echo $data['img_bayar']; ?> " alt=""></a></td>
-
                           <td><?php echo $data['status']; ?></td>
                           <td>
                             <form action="../model/dataPesanan.php" method="post">
-                              <input type="hidden" name="item_id" id="item_id" value="<?php echo $data['date_id']; ?>">
+                              <input type="hidden" name="date_id" id="date_id" value="<?php echo $data['date_id']; ?>">
                               <input type="hidden" name="cust_id" id="cust_id" value="<?php echo $data['cust_id']; ?>">
                               <input type="hidden" name="price" id="price" value="<?php echo $data['price']; ?>">
 
@@ -141,7 +148,52 @@
   </div>
   <!-- ./wrapper -->
 
-  <!-- modal DETAIL Data -->
+
+  <!-- modal DETAIL alamat Data -->
+  <div class="modal fade" id="modal-detailAlamat1">
+    <div class="modal-dialog">
+      <div class="modal-content col-12">
+        <div class="modal-header">
+          <h4 class="modal-title">Detail Alamat</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          <div class="modal-body alamat" style="text-align: left;">
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal alamat data-->
+
+
+  <!-- modal DETAIL alamat Data -->
+  <div class="modal fade" id="modal-detailAlamat2">
+    <div class="modal-dialog">
+      <div class="modal-content col-12">
+        <div class="modal-header">
+          <h4 class="modal-title">Detail Alamat</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          <div class="modal-body alamat" style="text-align: center;">
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal alamat data-->
+
+
+  <!-- modal DETAIL pesanan Data -->
   <div class="modal fade" id="modal-detailPesanan">
     <div class="modal-dialog">
       <div class="modal-content col-12">
@@ -165,7 +217,7 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal DETAIL data-->
+  <!-- /.modal pesanan data-->
 
   <!-- modal Kirim Data -->
   <div class="modal fade" id="modal-kirim">
@@ -194,7 +246,7 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal HAPUS data-->
+  <!-- /.modal Kirim data-->
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
@@ -233,6 +285,46 @@
 
     $(function() {
       $("#include-navbar").load("left-navbar.php");
+    });
+
+    // Detail alamat 1
+    $(document).on("click", ".detailAlamat1", function() {
+      var id = $(this).attr('id');
+      $.ajax({
+        url: "../model/dataPesanan.php", //the page containing php script
+        type: "post", //request type,
+        dataType: 'json',
+        data: {
+          getAlamat1: 1,
+          alamatID: id
+        },
+        success: function(data) {
+          $('.alamat').empty();
+          $(".alamat").append('<span> <b>Nama:</b> ' + data.cust_name + '<br></span>');
+          $(".alamat").append('<span> <b>No Telp:</b> ' + data.cust_phone + '<br></span>');
+          $(".alamat").append('<span> <b>Alamat:</b> ' + data.cust_address + ', ' + data.cust_city + ', ' + data.cust_province + '<br></span>');
+        }
+      });
+    });
+
+    // Detail alamat 2
+    $(document).on("click", ".detailAlamat2", function() {
+      var id = $(this).attr('id');
+      $.ajax({
+        url: "../model/dataPesanan.php", //the page containing php script
+        type: "post", //request type,
+        dataType: 'json',
+        data: {
+          getAlamat1: 1,
+          alamatID: id
+        },
+        success: function(data) {
+          $('.alamat').empty();
+          $(".alamat").append('<span> <b>Nama:</b> ' + data.cust_name + '<br></span>');
+          $(".alamat").append('<span> <b>No Telp:</b> ' + data.cust_phone + '<br></span>');
+          $(".alamat").append('<span> <b>Alamat:</b> ' + data.cust_address + ', ' + data.cust_city + ', ' + data.cust_province + '<br></span>');
+        }
+      });
     });
 
     // Detail pesanan
@@ -280,7 +372,7 @@
           var total = 0;
 
           data.forEach(function(datas) {
-            var kalimat = datas.item_name + ', ' + datas.type_name + ' (' + datas.color_name + ', ' + datas.item_size + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
+            var kalimat = datas.item_name + ', ' + datas.type_name + ' (' + datas.color_name + ', ' + datas.size_name + ', ' + datas.item_weight + ' gram / pcs) ' + datas.qty + ' X Rp ' + numeral(datas.item_price).format('0,0');
             $(".lampiran").append("<span class='label label-important'>" + kalimat + '</span> <br>')
             pesanan += datas.qty * datas.item_price;
             ongkir = datas.ongkir;
