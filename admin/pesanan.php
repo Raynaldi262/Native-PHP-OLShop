@@ -387,6 +387,12 @@
       });
     });
 
+    // Detail alamat 1
+    $(document).on("click", ".kirim", function() {
+      var id = $(this).attr('id');
+      $('#id_pesanan').val(id);
+    });
+
     // lighbox
     $(document).on("click", '[data-toggle="lightbox"]', function(event) {
       event.preventDefault();

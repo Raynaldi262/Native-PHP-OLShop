@@ -272,6 +272,7 @@ $data_area = getDataArea($conn);
 							<?php if (isset($_SESSION['cust_id'])) { ?>
 								<li>Nama : <?php echo $datauser['cust_name'] ?></li>
 								<li>Alamat : <?php echo $datauser['cust_address'] ?></li>
+								<li>Provinsi : <?php echo $datauser['cust_province'] ?></li>
 								<li>Kota : <?php echo $datauser['cust_city'] ?></li>
 								<li>no Hp : <?php echo $datauser['cust_phone'] ?></li>
 								<li>Email : <?php echo $datauser['cust_email'] ?></li>
@@ -362,8 +363,6 @@ $data_area = getDataArea($conn);
 							<input type="number" name="nohp" placeholder="Nomor Hp" required />
 							<h5>Alamat :</h5>
 							<input type="text" name="address" placeholder="Alamat" required />
-							<h5>Provinsi :</h5>
-							<input type="text" name="provinsi" placeholder="Provinsi" required />
 							<h5>Kota :</h5>
 							<select name="kota" id="kota">
 								<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>

@@ -81,13 +81,13 @@ $data_area = getDataArea($conn)
 							<input type="text" placeholder="email" name="email" required />
 							<h5>Kata Sandi :</h5>
 							<input type="password" placeholder="password" name="password" required />
-							<button type="submit" name="login" class="btn btn-default">Login</button>
+							<button type="submit" style="background-color:grey;" name="login" class="btn btn-default">Login</button>
 						</form>
 					</div>
 					<!--/login form-->
 				</div>
 				<div class="col-sm-1">
-					<h2 class="or">Atau</h2>
+					<h2 style="background-color:grey;" class="or">Atau</h2>
 				</div>
 				<div class="col-sm-4">
 					<div class="signup-form">
@@ -106,8 +106,6 @@ $data_area = getDataArea($conn)
 							<input type="number" name="nohp" placeholder="Nomor Hp" required />
 							<h5>Alamat :</h5>
 							<input type="text" name="address" placeholder="Alamat" required />
-							<h5>Provinsi :</h5>
-							<input type="text" name="provinsi" placeholder="Provinsi" required />
 							<h5>Kota :</h5>
 							<select name="kota" id="kota">
 								<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
@@ -116,7 +114,7 @@ $data_area = getDataArea($conn)
 							</select>
 							<br>
 							<br>
-							<button type="submit" name="singup" class="btn btn-default">Signup</button>
+							<button type="submit" style="background-color:grey;" name="singup" class="btn btn-default">Signup</button>
 						</form>
 					</div>
 					<!--/sign up form-->

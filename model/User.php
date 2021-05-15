@@ -53,7 +53,7 @@ if (isset($_POST['tambahalamat'])) {
 
 function getDataArea($conn)
 {
-   $sql = "SELECT * from tbl_area";
+   $sql = "SELECT * FROM tbl_area INNER JOIN tbl_provinsi ON tbl_area.prov_id = tbl_provinsi.prov_id";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -101,7 +101,7 @@ function getDataUser($cust_id)
 
 function getDataAlamat2($alamat_id){
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_address where address_id = '" . $alamat_id . "' ";
+   $sql = "SELECT * from tbl_address where address_id = '" . $alamat_id . "' AND status = 'ACTIVE' ";
    $item = mysqli_query($conn, $sql);
    $data = mysqli_fetch_assoc($item);
    return $data;
@@ -116,7 +116,7 @@ function getDataProses($cust_id)
 function getDataAlamat($cust_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_address where cust_id = " . $cust_id . " ";
+   $sql = "SELECT * from tbl_address where cust_id = '" . $cust_id . "' AND status = 'ACTIVE' ";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -237,7 +237,7 @@ function getDataCheck($cust_id)
 function getDataOrder($date_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_order where cust_id = " .  $_SESSION['cust_id']. " AND item_id = ".$date_id." ";
+   $sql = "SELECT * from tbl_order where cust_id = " .  $_SESSION['cust_id']. " AND date_id = ".$date_id." ";
    $item = mysqli_query($conn, $sql);
    $data = mysqli_fetch_assoc($item);
    return $data;
@@ -408,7 +408,7 @@ function deleteCart($conn)
 
 function DeleteAlamat($conn)
 {
-   $sql = "DELETE FROM tbl_address WHERE tbl_address . address_id = " . $_POST['address_id'] . "";
+   $sql = "UPDATE tbl_address SET status = 'IN-ACTIVE' WHERE tbl_address.address_id = '" . $_POST['address_id'] . "' ";
    mysqli_query($conn, $sql);
    header("location: ../monkers/alamat_lain.php");
 }
@@ -422,6 +422,10 @@ function BatalCheck($conn){
 
 function UpdateProfile($conn)
 {
+   $sql = "SELECT prov_name FROM tbl_area INNER JOIN tbl_provinsi ON tbl_area.prov_id = tbl_provinsi.prov_id where area_name = '" . $_POST['kota'] . "' ";
+   $check = mysqli_query($conn, $sql); // untuk mencari provinsi
+   $prov = mysqli_fetch_assoc($check);
+
    $img = $_FILES['img']['name'];
    if ($img) {  // kalau upload gambar
       $nama = $_FILES['img']['name'];
@@ -434,7 +438,7 @@ function UpdateProfile($conn)
          if ($ukuran < 4044070) {        // max 4 mb
             move_uploaded_file($file_tmp, '../monkers/images/Profile/' . $nama);
 
-            $sql = "UPDATE tbl_customer SET cust_name = '" . $_POST['nama'] . "'  , cust_birth = '" . $_POST['ultah'] . "' , cust_address = '" . $_POST['address'] . "', cust_province = '" . $_POST['provinsi'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "', cust_img = '" . $img . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
+            $sql = "UPDATE tbl_customer SET cust_name = '" . $_POST['nama'] . "'  , cust_birth = '" . $_POST['ultah'] . "' , cust_address = '" . $_POST['address'] . "', cust_province = '" .  $prov['prov_name'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "', cust_img = '" . $img . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
             $result = mysqli_query($conn, $sql);
 
             if ($result) {
@@ -449,7 +453,7 @@ function UpdateProfile($conn)
          msg('Ekstensi File yang diupload hanya diperbolehkan png / jpg!!', '../monkers/profile.php');
       }
    } else {
-      $sql = "UPDATE tbl_customer SET cust_name = '" . $_POST['nama'] . "'  , cust_birth = '" . $_POST['ultah'] . "' , cust_address = '" . $_POST['address'] . "', cust_province = '" . $_POST['provinsi'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
+      $sql = "UPDATE tbl_customer SET cust_name = '" . $_POST['nama'] . "'  , cust_birth = '" . $_POST['ultah'] . "' , cust_address = '" . $_POST['address'] . "', cust_province = '" .$prov['prov_name'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
       $result = mysqli_query($conn, $sql);
 
       if ($result) {
@@ -462,7 +466,11 @@ function UpdateProfile($conn)
 
 function UpdateAlamat($conn)
 {
-      $sql = "UPDATE tbl_address SET cust_name = '" . $_POST['nama'] . "'  , cust_address = '" . $_POST['address'] . "', cust_province = '" . $_POST['provinsi'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE cust_id = " . $_SESSION['cust_id'] . " ";
+      $sql = "SELECT prov_name FROM tbl_area INNER JOIN tbl_provinsi ON tbl_area.prov_id = tbl_provinsi.prov_id where area_name = '" . $_POST['kota'] . "' ";
+      $check = mysqli_query($conn, $sql); // untuk mencari provinsi
+      $prov = mysqli_fetch_assoc($check);
+
+      $sql = "UPDATE tbl_address SET cust_name = '" . $_POST['nama'] . "'  , cust_address = '" . $_POST['address'] . "', cust_province = '" . $prov['prov_name'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE address_id = " . $_POST['address_id'] . " ";
       $result = mysqli_query($conn, $sql);
 
       if ($result) {
@@ -525,8 +533,13 @@ function insertUser($conn)
    if ($check_data) { // untuk check email agar tidak bisa register dengan email yang sama
       msg('Email Sudah Pernah Dipakai', '../monkers/login.php');
    } else {
+
+         $sql = "SELECT prov_name FROM tbl_area INNER JOIN tbl_provinsi ON tbl_area.prov_id = tbl_provinsi.prov_id where area_name = '" . $_POST['kota'] . "' ";
+         $check = mysqli_query($conn, $sql); // untuk mencari provinsi
+         $prov = mysqli_fetch_assoc($check);
+
       $sql = "INSERT INTO tbl_customer (cust_name, cust_birth, cust_address, cust_province, cust_city, cust_email, cust_pass, cust_phone, cust_total_order, cust_total_price, cust_img, create_date) 
-         VALUES ('" . $_POST['nama'] . "', '" . $_POST['ultah'] . "', '" . $_POST['address'] . "', '" . $_POST['provinsi'] . "', '" . $_POST['kota'] . "', '" . $_POST['email'] . "',  password('" . $_POST['password'] . "'), '" . $_POST['nohp'] . "', '0', '0', 'default.jpeg', now()) ";
+         VALUES ('" . $_POST['nama'] . "', '" . $_POST['ultah'] . "', '" . $_POST['address'] . "', '" . $prov['prov_name'] . "', '" . $_POST['kota'] . "', '" . $_POST['email'] . "',  password('" . $_POST['password'] . "'), '" . $_POST['nohp'] . "', '0', '0', 'default.jpeg', now()) ";
       $result = mysqli_query($conn, $sql);
 
       if ($result) {
@@ -539,8 +552,13 @@ function insertUser($conn)
 
 function AddAddress($conn)
 {
-      $sql = "INSERT INTO tbl_address (cust_id,cust_name, cust_address, cust_province, cust_city, cust_email, cust_phone, create_date) 
-         VALUES ('" . $_SESSION['cust_id'] . "','" . $_POST['nama'] . "', '" . $_POST['address'] . "', '" . $_POST['provinsi'] . "', '" . $_POST['kota'] . "', '" . $_POST['email'] . "', '" . $_POST['nohp'] . "', now()) ";
+
+      $sql = "SELECT prov_name FROM tbl_area INNER JOIN tbl_provinsi ON tbl_area.prov_id = tbl_provinsi.prov_id where area_name = '" . $_POST['kota'] . "' ";
+      $check = mysqli_query($conn, $sql); // untuk mencari provinsi
+      $prov = mysqli_fetch_assoc($check);
+
+      $sql = "INSERT INTO tbl_address (cust_id,cust_name, cust_address, cust_province, cust_city, cust_email, cust_phone, create_date,status) 
+         VALUES ('" . $_SESSION['cust_id'] . "','" . $_POST['nama'] . "', '" . $_POST['address'] . "', '" . $prov['prov_name'] . "', '" . $_POST['kota'] . "', '" . $_POST['email'] . "', '" . $_POST['nohp'] . "', now(), 'ACTIVE') ";
       $result = mysqli_query($conn, $sql);
 
       if ($result) {

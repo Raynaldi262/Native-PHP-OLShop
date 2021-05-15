@@ -196,10 +196,7 @@ $data_area = getDataArea($conn);
 							<h5>No Hp :</h5>
 							<input type="number" name="nohp" value="<?php echo $datauser['cust_phone'] ?>" required />
 							<h5>Alamat :</h5>
-							<input type="text" name="address" value="<?php echo $datauser['cust_address'] ?>" required />
-							<h5>Provinsi :</h5>
-							<input type="text" name="provinsi" value="<?php echo $datauser['cust_province'] ?>" required />
-							<h5>Kota :</h5>
+							<input type="text" name="address" value="<?php echo $datauser['cust_address'] ?>" required />							<h5>Kota :</h5>
 							<select name="kota" id="kota">
 								<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
 									<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>

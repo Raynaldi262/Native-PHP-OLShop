@@ -54,6 +54,27 @@ img {
   top: 0px;
   z-index: -1;
 }
+
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 </style>
 <div style="text-align:center">
 <img width="100" src="images/home/logo.png"/>
@@ -87,44 +108,68 @@ img {
 		<?php } ?>
     </tbody>
 </table>
+
+
 <table id="example1" class="table table-bordered table-striped">
 
-    <!-- <thead>
-        <tr>
-        <th>Harga</th>
-        </tr>
-    </thead> -->
+
     <tbody>
-			<tr>
-				<td style="background-color: gray; text-align: left;">Kurir</td>
-				<td><?php echo $data_order['order_shipping'] ?></td>
-			</tr>
+      <tr>
+        <td style="background-color: gray; text-align: left;">Kurir</td>
+        <td><?php echo $data_order['order_shipping'] ?></td>
+      </tr>
             <tr>
-				<td style="background-color: gray; text-align: left;">Harga Ongkir</td>
-				<td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
-			</tr>
+        <td style="background-color: gray; text-align: left;">Harga Ongkir</td>
+        <td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
+      </tr>
             <tr>
-				<td style="background-color: gray; text-align: left;">Total Berat</td>
-				<td><?php echo $totalberat ?> Gram</td>
-			</tr>
+        <td style="background-color: gray; text-align: left;">Total Berat</td>
+        <td><?php echo $totalberat ?> Gram</td>
+      </tr>
             <tr>
-				<td style="background-color: gray; text-align: left;">Subtotal</td>
-				<td>Rp. <?php echo number_format($data_order['order_totprice']+$data_order['order_shipping_price']) ?></td>
-			</tr>
+        <td style="background-color: gray; text-align: left;">Subtotal</td>
+        <td>Rp. <?php echo number_format($data_order['order_totprice']+$data_order['order_shipping_price']) ?></td>
+      </tr>
+    </tbody>
+</table>
+<h3> data Pembeli</h3>
+<table id="example1" class="table table-bordered table-striped">
+    <tbody>
+      <tr>
+        <td style="background-color: gray; text-align: left;">Nama Pembeli</td>
+        <td><?php echo $datauser['cust_name'] ?></td>
+      </tr>
+            <tr>
+        <td style="background-color: gray; text-align: left;">Alamat</td>
+        <td>Rp. <?php echo $datauser['cust_address'] ?></td>
+      </tr>
+            <tr>
+        <td style="background-color: gray; text-align: left;">Kota</td>
+        <td><?php echo $datauser['cust_city'] ?> Gram</td>
+      </tr>
+                  <tr>
+        <td style="background-color: gray; text-align: left;">Provinsi</td>
+        <td><?php echo $datauser['cust_province'] ?> Gram</td>
+      </tr>
+                  <tr>
+        <td style="background-color: gray; text-align: left;">No hp</td>
+        <td><?php echo $datauser['cust_phone'] ?> Gram</td>
+      </tr>
+
     </tbody>
 </table>
 <br>
 </div>
 <?php
-// $html = ob_get_contents();
-// ob_end_clean();
+$html = ob_get_contents();
+ob_end_clean();
 
-// require __DIR__ . '../../vendor/autoload.php';
+require __DIR__ . '../../vendor/autoload.php';
 
-// use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Html2Pdf;
 
-// $html2pdf = new Html2Pdf('P', 'A4', 'en');
-// $html2pdf->writeHTML($html);
-// $html2pdf->output('Invoice_Pemesanan.pdf', 'D');
+$html2pdf = new Html2Pdf('P', 'A4', 'en');
+$html2pdf->writeHTML($html);
+$html2pdf->output('Invoice_Pemesanan.pdf', 'D');
 
 ?>

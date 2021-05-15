@@ -213,13 +213,17 @@ input[type=submit]:hover {
 								<tr  style="background-color:grey;" class="cart_menu">
 									<td style="text-align: center">Nama</td>
 									<td style="text-align: center">Alamat</td>
+									<td style="text-align: center">Provinsi</td>
+									<td style="text-align: center">Kota</td>
 									<td style="text-align: center">Email</td>
 									<td style="text-align: center">NoHp</td>
 									<td></td>
 								</tr>
 						</thead>
 					<tbody>
-						<?php $i=0; while ($alamat = mysqli_fetch_assoc($data_alamat)) { ; ?>
+						<?php $i=0; while ($alamat = mysqli_fetch_assoc($data_alamat)) { ;
+							$data_area = getDataArea($conn);
+						 ?>
 								<tr>
 									<td  style="text-align: center">
 										<h4><?php echo $alamat['cust_name'] ?></h4>
@@ -227,9 +231,15 @@ input[type=submit]:hover {
 									<td  style="text-align: center">
 										<p><?php echo $alamat['cust_address'] ?></p>
 									</td>
+									<td  style="text-align: center">
+										<p><?php echo $alamat['cust_province'] ?></p>
+									</td>
+									<td  style="text-align: center">
+										<p><?php echo $alamat['cust_city'] ?></p>
+									</td>																		
 									<td style="text-align: center">
 										<div >
-											<?php echo $alamat['cust_email'],$i ?>
+											<?php echo $alamat['cust_email'] ?>
 										</div>
 									</td>
 									<td style="text-align: center">
@@ -262,8 +272,6 @@ input[type=submit]:hover {
 														<input type="number" name="nohp" value="<?php echo $alamat['cust_phone'] ?>" required />
 														<h5>Alamat :</h5>
 														<input type="text" name="address" value="<?php echo $alamat['cust_address'] ?>" required />
-														<h5>Provinsi :</h5>
-														<input type="text" name="provinsi" value="<?php echo $alamat['cust_province'] ?>" required />
 														<h5>Kota :</h5>
 														<select name="kota" id="kota">
 															<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
@@ -272,6 +280,7 @@ input[type=submit]:hover {
 														</select>
 														<br>
 														<br>
+														<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
 														<button type="submit" name="updatealamat" class="btn btn-default">Update</button>
 													</form>
 												</div>
