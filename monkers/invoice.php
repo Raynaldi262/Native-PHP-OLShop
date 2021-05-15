@@ -148,15 +148,15 @@ $totalberat = 0;
       </tr>
       <tr>
         <td style="background-color: gray; text-align: left;">Kota</td>
-        <td><?php echo $datauser['cust_city'] ?> Gram</td>
+        <td><?php echo $datauser['cust_city'] ?> </td>
       </tr>
       <tr>
         <td style="background-color: gray; text-align: left;">Provinsi</td>
-        <td><?php echo $datauser['cust_province'] ?> Gram</td>
+        <td><?php echo $datauser['cust_province'] ?> </td>
       </tr>
       <tr>
         <td style="background-color: gray; text-align: left;">No hp</td>
-        <td><?php echo $datauser['cust_phone'] ?> Gram</td>
+        <td><?php echo $datauser['cust_phone'] ?> </td>
       </tr>
 
     </tbody>
