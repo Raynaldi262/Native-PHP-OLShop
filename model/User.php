@@ -255,7 +255,8 @@ function getDetailProses($date_id)
 function AllItem($conn)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_item a left join (select count(detail_id) detail_id , item_id, detail_qty from tbl_item_detail group by item_id) b on a.item_id = b.item_id WHERE b.detail_id IS NOT NULL && item_status = 'ACTIVE' ";
+   // $sql = "SELECT * from tbl_item a left join (select count(detail_id) detail_id , item_id, detail_qty from tbl_item_detail group by item_id) b on a.item_id = b.item_id WHERE b.detail_id IS NOT NULL && item_status = 'ACTIVE' ";
+   $sql = "SELECT * from tbl_item a left join (select count(detail_id) detail_id , item_id, sum(detail_qty) qty from tbl_item_detail group by item_id) b on a.item_id = b.item_id WHERE b.detail_id IS NOT NULL && item_status = 'ACTIVE' && qty !=0 ";
    $item_data = mysqli_query($conn, $sql);
    return $item_data;
 }
