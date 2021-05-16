@@ -186,14 +186,14 @@ if (isset($_GET['id'])) {
 									<br>
 									<label>Quantity:</label>
 									<form action="./model/User.php" method="post">
-										<input type="number" min='1' value="1" required name="qty" />
+										<input type="number" min='1' value="1" required name="qty" id="qty" />
 										<input type="hidden" name="item_id" id="item_id" value="<?php echo $data['item_id'] ?>">
 										<br>
 										<br>
 										<p><b> Ukuran : </b>
 											<select name="ukuran" id="ukuran">
 												<?php while ($data_ukuran = mysqli_fetch_assoc($ukuran)) { ?>
-													<option value="<?php echo $data_ukuran['size_name'] ?>"><?php echo $data_ukuran['size_name'] ?></option>
+													<option id="<?php echo $data_ukuran['detail_qty'] ?>" value="<?php echo $data_ukuran['size_name'] ?>"><?php echo $data_ukuran['size_name'] ?></option>
 												<?php } ?>
 											</select>
 										</p>
@@ -313,37 +313,19 @@ if (isset($_GET['id'])) {
 
 	<script>
 		$(function() {
-			var id = $("#item_id").val();
-			var ukuran = $("#ukuran").val();
-			dataQty(id, ukuran);
-			// $("#qty1").max();
+			var qty = $("#ukuran > option:selected").attr('id');
+			$("#qty").attr('max', qty);
 		});
 
+		$('#ukuran').change(function() {
+			var qty = $("#ukuran > option:selected").attr('id');
+			$("#qty").attr('max', qty);
+		})
 		// lighbox
 		$(document).on("click", '[data-toggle="lightbox"]', function(event) {
 			event.preventDefault();
 			$(this).ekkoLightbox();
 		});
-
-		function dataQty(id, size) {
-			$.ajax({
-				url: "./model/User.php",
-				type: "post",
-				dataType: 'json',
-				data: {
-					getQty: 1,
-					itemID: id,
-					size: size
-				},
-				success: function(data) {
-					console.log(data);
-				},
-				error: function(xhr, status, error) {
-					var err = eval("(" + xhr.responseText + ")");
-					alert(err.Message);
-				}
-			});
-		}
 	</script>
 </body>
 

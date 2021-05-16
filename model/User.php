@@ -49,9 +49,9 @@ if (isset($_POST['checkout'])) {
 if (isset($_POST['tambahalamat'])) {
    AddAddress($conn);
 }
-if (isset($_POST['getQty'])) {
-   getQty($conn);
-}
+// if (isset($_POST['getQty'])) {
+//    getQty($conn);
+// }
 
 function getDataArea($conn)
 {
@@ -156,7 +156,7 @@ function getcheckCount($cust_id)
 function getUkuranItem($id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT tbl_size.size_name as size_name, tbl_item.item_id as item_id FROM tbl_item_detail INNER JOIN tbl_size on tbl_item_detail.size_id = tbl_size.size_id INNER JOIN tbl_item ON tbl_item_detail.item_id = tbl_item.item_id WHERE tbl_item_detail.status = 'ACTIVE' && tbl_item.item_id = '" . $id . "'";
+   $sql = "SELECT tbl_size.size_name as size_name, tbl_item.item_id as item_id, tbl_item_detail.detail_qty FROM tbl_item_detail INNER JOIN tbl_size on tbl_item_detail.size_id = tbl_size.size_id INNER JOIN tbl_item ON tbl_item_detail.item_id = tbl_item.item_id WHERE tbl_item_detail.status = 'ACTIVE' && tbl_item.item_id = '" . $id . "'";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -592,18 +592,18 @@ function url()
    );
 }
 
-function getQty($conn)
-{
-   $id = $_POST['itemID'];
-   $size = $_POST['size'];
+// function getQty($conn)
+// {
+//    $id = $_POST['itemID'];
+//    $size = $_POST['size'];
 
-   $sql = "select detail_qty from tbl_item_detail a join tbl_size b on a.size_id = b.size_id
-            where item_id = " . $id . " and  size_name = '" . $size . "'";
+//    $sql = "select detail_qty from tbl_item_detail a join tbl_size b on a.size_id = b.size_id
+//             where item_id = " . $id . " and  size_name = '" . $size . "'";
 
-   $result = mysqli_query($conn, $sql);
-   $result = mysqli_fetch_assoc($result);
-   echo json_encode($result);
-}
+//    $result = mysqli_query($conn, $sql);
+//    $result = mysqli_fetch_assoc($result);
+//    echo json_encode($result);
+// }
 
 function msg($pesan, $url)
 {
