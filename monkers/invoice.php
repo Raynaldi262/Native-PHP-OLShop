@@ -83,6 +83,7 @@ $totalberat = 0;
   <img width="100" src="images/home/logo.png" />
   <h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
   <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
+  <p><?php echo $datauser['cust_name'] . ', ' . $datauser['cust_address'] . ', ' . $datauser['cust_city'] . ', ' . $datauser['cust_province'] . ', ' . $datauser['cust_phone'] ?></p>
   <table id="example1" class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -133,32 +134,6 @@ $totalberat = 0;
         <td style="background-color: gray; text-align: left;">Subtotal</td>
         <td>Rp. <?php echo number_format($data_order['order_totprice'] + $data_order['order_shipping_price']) ?></td>
       </tr>
-    </tbody>
-  </table>
-  <h3> data Pembeli</h3>
-  <table id="example1" class="table table-bordered table-striped">
-    <tbody>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Nama Pembeli</td>
-        <td><?php echo $datauser['cust_name'] ?></td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Alamat</td>
-        <td>Rp. <?php echo $datauser['cust_address'] ?></td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Kota</td>
-        <td><?php echo $datauser['cust_city'] ?> </td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Provinsi</td>
-        <td><?php echo $datauser['cust_province'] ?> </td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">No hp</td>
-        <td><?php echo $datauser['cust_phone'] ?> </td>
-      </tr>
-
     </tbody>
   </table>
   <br>
