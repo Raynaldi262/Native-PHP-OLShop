@@ -81,12 +81,12 @@ $data_area = getDataArea($conn);
 								<!-- checkout -->
 								<?php if ($data_check['juml'] != 0) { ?>
 									<li><a href="checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Checkout</span>
+											<span>Pengiriman</span>
 											<span class="badge"><?php echo $data_check['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
+									<li><a href="checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Pengiriman</a></li>
 								<?php } ?>
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
@@ -143,7 +143,7 @@ $data_area = getDataArea($conn);
 			<div class="breadcrumbs">
 			<div class="mainmenu pull-left">
 				<ul class="nav navbar-nav collapse navbar-collapse">
-					<li><a href="index.php">Home</a></li>
+					<li><a href="index.php">Beranda</a></li>
 					<li><a href="alamat_lain.php">Alamat lain</a></li>
 				</ul>
 			</div>

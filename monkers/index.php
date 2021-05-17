@@ -100,12 +100,12 @@ $type_item = getDataAlltype($conn);
 							<!-- checkout -->
 							<?php if ($data_check['juml'] != 0) { ?>
 								<li><a href="checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>
-										<span>Checkout</span>
+										<span>Pengiriman</span>
 										<span class="badge"><?php echo $data_check['juml']; ?></span>
 									</a>
 								</li>
 							<?php } else { ?>
-								<li><a href="checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
+								<li><a href="checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Pengiriman</a></li>
 							<?php } ?>
 							<!-- cart -->
 							<?php if ($data_cart['juml'] != 0) { ?>
@@ -153,7 +153,7 @@ $type_item = getDataAlltype($conn);
 					</div>
 					<div class="mainmenu pull-left">
 						<ul class="nav navbar-nav collapse navbar-collapse">
-							<li><a href="index.php" class="active">Home</a></li>
+							<li><a href="index.php" class="active">Beranda</a></li>
 							<li class="dropdown"><a href="#">Kategori<i class="fa fa-angle-down"></i></a>
 								<ul role="menu" class="sub-menu">
 									<?php while ($data_type = mysqli_fetch_assoc($type_item)) { ?>

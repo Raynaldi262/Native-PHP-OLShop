@@ -94,12 +94,12 @@ if (isset($_GET['id'])) {
 								<!-- checkout -->
 								<?php if ($data_check['juml'] != 0) { ?>
 									<li><a href="../checkout.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Checkout</span>
+											<span>Pengiriman</span>
 											<span class="badge"><?php echo $data_check['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="../checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Checkout</a></li>
+									<li><a href="../checkout.php" class="notification"><i class="fa fa-crosshairs"></i>Pengiriman</a></li>
 								<?php } ?>
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
@@ -145,7 +145,7 @@ if (isset($_GET['id'])) {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="../">Home</a></li>
+								<li><a href="../">Beranda</a></li>
 							</ul>
 						</div>
 					</div>

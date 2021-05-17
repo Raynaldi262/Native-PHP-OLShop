@@ -40,7 +40,7 @@ $data_area = getDataArea($conn)
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
-								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Pengiriman</a></li>
 								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
 								<li><a href="login.php" class="active"><i class="fa fa-lock"></i> Masuk</a></li>
 							</ul>
@@ -58,7 +58,7 @@ $data_area = getDataArea($conn)
 					<div class="col-sm-9">
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.php">Home</a></li>
+								<li><a href="index.php">Beranda</a></li>
 							</ul>
 						</div>
 					</div>

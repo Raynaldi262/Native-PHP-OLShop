@@ -92,7 +92,6 @@ $totalberat = 0;
         <th>Ukuran</th>
         <th>Warna</th>
         <th>Jumlah</th>
-        <th>Berat Barang</th>
         <th>Harga Barang</th>
       </tr>
     </thead>
@@ -110,7 +109,6 @@ $totalberat = 0;
           <td><?php echo $data_check1['size'] ?></td>
           <td><?php echo $data_check1['color_name'] ?></td>
           <td><?php echo $data_check1['qty'] ?></td>
-          <td><?php echo $item_cart1['item_weight'] ?> Grm</td>
           <td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
         </tr>
       <?php } ?>
