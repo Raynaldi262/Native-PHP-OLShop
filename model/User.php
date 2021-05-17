@@ -156,11 +156,7 @@ function getcheckCount($cust_id)
 function getUkuranItem($id)
 {
    require('../connect/conn.php');
-<<<<<<< HEAD
    $sql = "SELECT tbl_size.size_name as size_name, tbl_item.item_id as item_id, tbl_item_detail.detail_qty FROM tbl_item_detail INNER JOIN tbl_size on tbl_item_detail.size_id = tbl_size.size_id INNER JOIN tbl_item ON tbl_item_detail.item_id = tbl_item.item_id WHERE tbl_item_detail.status = 'ACTIVE' && tbl_item.item_id = '" . $id . "' && tbl_item_detail.detail_qty > 0 ";
-=======
-   $sql = "SELECT tbl_size.size_name as size_name, tbl_item.item_id as item_id, tbl_item_detail.detail_qty FROM tbl_item_detail INNER JOIN tbl_size on tbl_item_detail.size_id = tbl_size.size_id INNER JOIN tbl_item ON tbl_item_detail.item_id = tbl_item.item_id WHERE tbl_item_detail.status = 'ACTIVE' && tbl_item.item_id = '" . $id . "'";
->>>>>>> 2b6718878addb89c97e608aef5d0511712b2fcc3
    $item = mysqli_query($conn, $sql);
    return $item;
 }
