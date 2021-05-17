@@ -202,7 +202,11 @@ if (isset($_GET['id'])) {
 										<p><b>Kategori: </b> <?php echo $data_type['type_name']; ?></p>
 										<p><b>Deskripsi: </b> <?php echo $data['item_desc']; ?></p>
 										<br>
+<<<<<<< HEAD
 										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Masukan Keranjang</button>
+=======
+										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+>>>>>>> 2b6718878addb89c97e608aef5d0511712b2fcc3
 									</form>
 								</span>
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2021 at 10:20 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Generation Time: May 16, 2021 at 04:36 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -57,16 +57,20 @@ CREATE TABLE `tbl_address` (
   `cust_city` varchar(255) NOT NULL,
   `cust_email` varchar(255) NOT NULL,
   `cust_phone` varchar(255) NOT NULL,
-  `create_date` date NOT NULL
+  `create_date` date NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_address`
 --
 
-INSERT INTO `tbl_address` (`address_id`, `cust_id`, `cust_name`, `cust_address`, `cust_province`, `cust_city`, `cust_email`, `cust_phone`, `create_date`) VALUES
-(2, 3, 'aaa', 'asdasdads', '123123', 'Jabodetabek', 'wahyuhaw@gmail.com', '131231', '2021-05-13'),
-(3, 3, 'wahyu', '23adsdas ', 'asdasdas', 'Jabodetabek', 'wahyuhaw@gmail.comm', '12312332', '2021-05-13');
+INSERT INTO `tbl_address` (`address_id`, `cust_id`, `cust_name`, `cust_address`, `cust_province`, `cust_city`, `cust_email`, `cust_phone`, `create_date`, `status`) VALUES
+(3, 3, 'dinda', 'asdasdads', '123123', 'Jabodetabek', 'wahyuhaw@gmail.com', '02155468265', '2021-05-13', 'IN-ACTIVE'),
+(4, 3, 'ddddd', 'Jl. Scientia Boulevard, Curug Sangereng duar duar', 'Banten', 'Jabodetabek', 'asd@asd.com', '087889577799', '2021-05-15', 'ACTIVE'),
+(5, 5, 'aaa', 'asdasdads', 'Banten', 'Tangerang', 'asd@asd.com', '21123', '2021-05-15', 'ACTIVE'),
+(6, 5, 'dinda', 'asdasdads', 'Jawa', 'Semarang', 'wahyuhaw@gmail.com', '1231', '2021-05-15', 'ACTIVE'),
+(7, 5, 'dinda', 'dasasd', 'Banten', 'Tangerang', 'wahyuhaw@gmail.com', '12232', '2021-05-15', 'IN-ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -151,15 +155,6 @@ CREATE TABLE `tbl_cart` (
   `create_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_cart`
---
-
-INSERT INTO `tbl_cart` (`cart_id`, `item_id`, `cust_id`, `size`, `qty`, `create_date`) VALUES
-(42, 23, 3, 'XL', 2, '2021-05-12'),
-(43, 22, 3, 'S', 1, '2021-05-13'),
-(44, 23, 3, 'L', 1, '2021-05-13');
-
 -- --------------------------------------------------------
 
 --
@@ -174,18 +169,6 @@ CREATE TABLE `tbl_checkout` (
   `qty` int(11) NOT NULL,
   `date` int(11) NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_checkout`
---
-
-INSERT INTO `tbl_checkout` (`check_id`, `cust_id`, `item_id`, `size`, `qty`, `date`) VALUES
-(53, 3, 23, 'XL', 4, 2147483647),
-(54, 3, 22, 'S', 2, 2147483647),
-(55, 3, 23, 'L', 4, 2147483647),
-(56, 3, 23, 'XL', 2, 2147483647),
-(57, 3, 22, 'S', 1, 2147483647),
-(58, 3, 23, 'L', 1, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -234,8 +217,9 @@ CREATE TABLE `tbl_customer` (
 --
 
 INSERT INTO `tbl_customer` (`cust_id`, `cust_name`, `cust_birth`, `cust_address`, `cust_province`, `cust_city`, `cust_email`, `cust_pass`, `cust_phone`, `cust_total_order`, `cust_total_price`, `cust_img`, `create_date`) VALUES
-(3, 'asd', '2021-04-17', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'asd@asd.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 13, 1080440, 'default.jpeg', '2021-04-17'),
-(4, 'Raynaldi Ginantara', '2021-04-22', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'admin@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 0, 0, 'default.jpeg', '2021-04-22');
+(3, 'asd', '2021-04-17', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'asd@asd.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 3, 62400, 'default.jpeg', '2021-04-17'),
+(4, 'Raynaldi Ginantara', '2021-04-22', 'Jl. Scientia Boulevard, Curug Sangereng', 'banten', 'Tangerang', 'admin@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', '087889577799', 0, 0, 'default.jpeg', '2021-04-22'),
+(5, 'asd', '2021-04-26', 'asdasdads', 'Banten', 'Tangerang', 'anjay@anjay.com', '*F6DD0C0AC75395CB5BFC12C46B8880CD156B4799', '1313', 0, 0, 'IMG-20210510-WA0013.jpg', '2021-05-15');
 
 -- --------------------------------------------------------
 
@@ -248,9 +232,20 @@ CREATE TABLE `tbl_detailorder` (
   `date_id` varchar(100) DEFAULT NULL,
   `item_id` int(11) NOT NULL,
   `cust_id` int(11) NOT NULL,
+  `size` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `create_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_detailorder`
+--
+
+INSERT INTO `tbl_detailorder` (`detail_id`, `date_id`, `item_id`, `cust_id`, `size`, `qty`, `create_date`) VALUES
+(71, '07420120210515', 24, 3, 'XL', 1, '2021-05-15'),
+(72, '07420120210515', 24, 3, 'L', 2, '2021-05-15'),
+(73, '07483520210515', 26, 3, 'XL', 1, '2021-05-15'),
+(74, '08152420210515', 26, 3, 'XL', 1, '2021-05-15');
 
 -- --------------------------------------------------------
 
@@ -261,19 +256,19 @@ CREATE TABLE `tbl_detailorder` (
 CREATE TABLE `tbl_img` (
   `img_id` int(11) NOT NULL,
   `img_name` varchar(255) NOT NULL,
-  `item_id` int(11) NOT NULL
+  `item_id` int(11) NOT NULL,
+  `create_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_img`
 --
 
-INSERT INTO `tbl_img` (`img_id`, `img_name`, `item_id`) VALUES
-(2, '04171720210509gmbr5.jpg', 22),
-(4, '07050720210509ntr3.jpg', 22),
-(5, '07053220210509gbr2.png', 22),
-(6, '08232420210509gbr3.png', 23),
-(7, '08234220210509gbr1.png', 23);
+INSERT INTO `tbl_img` (`img_id`, `img_name`, `item_id`, `create_date`) VALUES
+(9, '07364020210515MCJ-02-LONG-SHIRT-BLACK_1-1024x1024.jpg', 24, '0000-00-00 00:00:00'),
+(10, '07365720210515Apprel-for-web-17-819x1024.jpg', 24, '2021-05-15 19:36:57'),
+(11, '07375320210515MCJ-03-JACKET-BLACK_1-1024x1024.jpg', 25, '0000-00-00 00:00:00'),
+(12, '07382020210515Apprel-for-web-03-819x1024.jpg', 26, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -298,8 +293,9 @@ CREATE TABLE `tbl_item` (
 --
 
 INSERT INTO `tbl_item` (`item_id`, `item_name`, `type_id`, `color_id`, `item_weight`, `item_desc`, `create_date`, `item_price`, `item_status`) VALUES
-(22, 'test1', 2, 2, 200, 'xl', '2021-05-09', 12000, 'ACTIVE'),
-(23, 'test2', 1, 2, 200, 'asd', '2021-05-09', 12000, 'ACTIVE');
+(24, 'test1', 1, 2, 200, 'test', '2021-05-15', 12000, 'ACTIVE'),
+(25, 'test2', 4, 2, 100, 'testtttt', '2021-05-15', 20000, 'ACTIVE'),
+(26, 'test1', 1, 1, 50, 'test', '2021-05-15', 12000, 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -320,16 +316,10 @@ CREATE TABLE `tbl_item_detail` (
 --
 
 INSERT INTO `tbl_item_detail` (`detail_id`, `size_id`, `detail_qty`, `status`, `item_id`) VALUES
-(1, 1, 10, 'IN-ACTIVE', 22),
-(2, 9, 20, 'IN-ACTIVE', 22),
-(3, 1, 1, 'IN-ACTIVE', 22),
-(4, 1, 2, 'IN-ACTIVE', 22),
-(5, 1, 200, 'ACTIVE', 22),
-(6, 9, 50, 'ACTIVE', 22),
-(7, 1, 40, 'ACTIVE', 23),
-(8, 9, 70, 'ACTIVE', 23),
-(9, 12, 1, 'ACTIVE', 22),
-(10, 11, 50, 'ACTIVE', 22);
+(12, 1, 99, 'ACTIVE', 24),
+(13, 9, 48, 'ACTIVE', 24),
+(14, 1, 78, 'ACTIVE', 26),
+(15, 12, 230, 'ACTIVE', 25);
 
 -- --------------------------------------------------------
 
@@ -393,7 +383,8 @@ CREATE TABLE `tbl_order` (
   `order_transfer` varchar(255) NOT NULL COMMENT 'buat gambar',
   `order_status` varchar(50) NOT NULL,
   `cust_id` int(11) NOT NULL,
-  `item_id` varchar(255) NOT NULL,
+  `address_id` int(11) NOT NULL,
+  `date_id` varchar(255) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -401,20 +392,10 @@ CREATE TABLE `tbl_order` (
 -- Dumping data for table `tbl_order`
 --
 
-INSERT INTO `tbl_order` (`order_id`, `order_invoice`, `order_resi`, `order_total`, `order_shipping`, `order_shipping_price`, `order_totprice`, `order_transfer`, `order_status`, `cust_id`, `item_id`, `create_date`) VALUES
-(9, 'MA/INV/17-04-21/00001', 'sadad122121', 5, 'Jne', 1200, 50000, 'gmbr5.jpg', 'Pesanan dikirim', 3, '01060020210417', '2021-04-17 23:20:22'),
-(10, 'MA/INV/17-04-21/00002', 'asdasd', 3, 'Jne', 1200, 3000, 'ntr2.jpg', 'Pesanan dikirim', 3, '10213320210417', '2021-04-17 23:21:28'),
-(11, 'MA/INV/18-04-21/00003', '13123', 3, 'Jne', 1200, 30000, '10392420210418gbr4.png', 'Pesanan dikirim', 3, '10392420210418', '2021-04-18 10:40:07'),
-(12, 'MA/INV/18-04-21/00004', '', 1, 'Jne', 1200, 1000, '10442820210418ntr3.jpg', 'Proses Pengemasan', 3, '10442820210418', '2021-04-18 10:48:59'),
-(13, 'MA/INV/18-04-21/00005', '', 1, 'Jne', 1200, 1000, '10505620210418gmbr5.jpg', 'Proses Pengemasan', 3, '10505620210418', '2021-04-18 10:51:28'),
-(14, 'MA/INV/18-04-21/00006', '1212', 2, 'Jne', 1200, 11000, '11570520210418ntr3.jpg', 'Pesanan dikirim', 3, '11570520210418', '2021-04-18 11:57:19'),
-(15, 'MA/INV/18-04-21/00007', '1212', 3, 'Jne', 1200, 21000, '12015620210418gbr2.png', 'Pesanan dikirim', 3, '12015620210418', '2021-04-18 12:06:17'),
-(16, 'MA/INV/22-04-21/00008', '', 6, 'Jne', 4800, 61200, '07464320210422ntr3.jpg', 'Proses Pengemasan', 3, '07464320210422', '2021-04-22 19:47:26'),
-(17, 'MA/INV/23-04-21/00009', 'asdasd', 6, 'Jne', 9600, 720000, '12052120210423ntr3.jpg', 'Pesanan dikirim', 3, '12052120210423', '2021-04-23 12:06:55'),
-(18, 'MA/INV/23-04-21/00010', '', 12, 'Jne', 1200, 120240, '09101420210423ntr3.jpg', 'Proses Pengemasan', 3, '09101420210423', '2021-04-23 21:10:27'),
-(19, 'MA/INV/24-04-21/00011', '', 1, 'Jne', 1200, 10200, '03572520210422ntr3.jpg', 'Proses Pengemasan', 3, '03572520210422', '2021-04-25 00:17:34'),
-(20, 'MA/INV/25-04-21/00012', '', 2, 'Jne', 1200, 30200, '10485020210425ntr3.jpg', 'Proses Pengemasan', 3, '10485020210425', '2021-04-25 11:27:13'),
-(21, 'MA/INV/04-05-21/00013', '', 2, 'Jne', 2400, 20400, '10014020210504alur.JPG', 'Proses Pengemasan', 3, '10014020210504', '2021-05-04 22:02:15');
+INSERT INTO `tbl_order` (`order_id`, `order_invoice`, `order_resi`, `order_total`, `order_shipping`, `order_shipping_price`, `order_totprice`, `order_transfer`, `order_status`, `cust_id`, `address_id`, `date_id`, `create_date`) VALUES
+(25, 'MA/INV/15-05-21/00001', '14045', 3, 'Jne', 1200, 36000, '07420120210515Apprel-for-web-2-17-819x1024.jpg', 'Pesanan dikirim', 3, 0, '07420120210515', '2021-05-15 19:42:36'),
+(26, 'MA/INV/15-05-21/00002', '1212', 1, 'Jne', 1200, 12000, '07483520210515Apprel-for-web-2-17-819x1024.jpg', 'Pesanan dikirim', 3, 0, '07483520210515', '2021-05-15 19:58:32'),
+(27, 'MA/INV/15-05-21/00003', '21', 1, 'Jne', 1200, 12000, '08152420210515Apprel-for-web-2-17-819x1024.jpg', 'Pesanan dikirim', 3, 4, '08152420210515', '2021-05-15 20:16:58');
 
 -- --------------------------------------------------------
 
@@ -426,6 +407,8 @@ CREATE TABLE `tbl_proses` (
   `proses_id` int(11) NOT NULL,
   `date_id` varchar(100) DEFAULT NULL,
   `cust_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `price` int(100) DEFAULT NULL,
   `ongkir` int(11) NOT NULL,
   `kurir` varchar(50) DEFAULT NULL,
@@ -433,6 +416,15 @@ CREATE TABLE `tbl_proses` (
   `create_date` date NOT NULL DEFAULT current_timestamp(),
   `img_bayar` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_proses`
+--
+
+INSERT INTO `tbl_proses` (`proses_id`, `date_id`, `cust_id`, `address_id`, `name`, `price`, `ongkir`, `kurir`, `status`, `create_date`, `img_bayar`) VALUES
+(44, '07420120210515', 3, 0, 'asd', 36000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '07420120210515Apprel-for-web-2-17-819x1024.jpg'),
+(45, '07483520210515', 3, 0, 'asd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '07483520210515Apprel-for-web-2-17-819x1024.jpg'),
+(46, '08152420210515', 3, 4, 'ddddd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '08152420210515Apprel-for-web-2-17-819x1024.jpg');
 
 -- --------------------------------------------------------
 
@@ -495,26 +487,16 @@ CREATE TABLE `tbl_stockinout` (
 --
 
 INSERT INTO `tbl_stockinout` (`stok_id`, `detail_id`, `stok_qty`, `stok_desc`, `stok_price`, `total_qty`, `create_date`) VALUES
-(70, 5, 0, 'STOCK IN', 0, 20, '2021-05-10 20:24:14'),
-(71, 5, 10, 'STOCK IN', 0, 30, '2021-05-10 20:30:22'),
-(73, 5, 20, 'STOCK OUT', 0, 10, '2021-05-10 20:34:05'),
-(75, 5, 30, 'STOCK IN', 0, 40, '2021-05-10 20:36:14'),
-(78, 5, 10, 'STOCK IN', 0, 50, '2021-05-10 20:37:13'),
-(79, 6, 0, 'STOCK IN', 0, 20, '2021-05-10 20:38:11'),
-(80, 6, 30, 'STOCK IN', 0, 50, '2021-05-10 20:39:51'),
-(82, 5, 60, 'STOCK IN', 0, 110, '2021-05-10 20:40:41'),
-(83, 5, 10, 'STOCK OUT', 0, 100, '2021-05-10 20:41:02'),
-(85, 5, 20, 'STOCK IN', 0, 120, '2021-05-10 20:41:15'),
-(87, 5, 30, 'STOCK IN', 0, 150, '2021-05-10 20:44:26'),
-(89, 5, 50, 'STOCK IN', 0, 200, '2021-05-10 20:45:14'),
-(91, 5, 10, 'STOCK IN', 0, 210, '2021-05-10 20:47:06'),
-(92, 5, 200, 'STOCK IN', 0, 410, '2021-05-10 20:47:40'),
-(93, 5, 210, 'STOCK OUT', 0, 200, '2021-05-10 20:47:46'),
-(94, 7, 0, 'STOCK IN', 0, 40, '2021-05-10 20:48:15'),
-(95, 8, 0, 'STOCK IN', 0, 20, '2021-05-10 20:48:22'),
-(96, 8, 50, 'STOCK IN', 0, 70, '2021-05-10 20:48:29'),
-(97, 9, 0, 'STOCK IN', 0, 1, '2021-05-12 19:19:27'),
-(98, 10, 0, 'STOCK IN', 0, 50, '2021-05-12 19:19:36');
+(105, 12, 0, 'STOCK IN', 0, 100, '2021-05-15 19:37:13'),
+(106, 13, 0, 'STOCK IN', 0, 50, '2021-05-15 19:37:24'),
+(107, 14, 0, 'STOCK IN', 0, 120, '2021-05-15 19:38:37'),
+(108, 14, 20, 'STOCK IN', 0, 140, '2021-05-15 19:38:43'),
+(109, 12, 1, 'STOCK OUT', 12000, 99, '2021-05-15 19:42:36'),
+(110, 13, 2, 'STOCK OUT', 24000, 48, '2021-05-15 19:42:36'),
+(112, 14, 60, 'STOCK OUT', 0, 80, '2021-05-15 19:55:27'),
+(113, 14, 1, 'STOCK OUT', 12000, 79, '2021-05-15 19:58:32'),
+(114, 14, 1, 'STOCK OUT', 12000, 78, '2021-05-15 20:16:58'),
+(115, 15, 0, 'STOCK IN', 0, 230, '2021-05-16 19:01:01');
 
 --
 -- Indexes for dumped tables
@@ -619,7 +601,7 @@ ALTER TABLE `tbl_ongkir`
 --
 ALTER TABLE `tbl_order`
   ADD PRIMARY KEY (`order_id`,`order_invoice`),
-  ADD KEY `item_id` (`item_id`),
+  ADD KEY `item_id` (`date_id`),
   ADD KEY `cust_id` (`cust_id`);
 
 --
@@ -660,7 +642,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `tbl_address`
 --
 ALTER TABLE `tbl_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -684,13 +666,13 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `tbl_checkout`
 --
 ALTER TABLE `tbl_checkout`
-  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `tbl_color`
@@ -702,31 +684,31 @@ ALTER TABLE `tbl_color`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cust_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_detailorder`
 --
 ALTER TABLE `tbl_detailorder`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `tbl_img`
 --
 ALTER TABLE `tbl_img`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_item`
 --
 ALTER TABLE `tbl_item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_item_detail`
 --
 ALTER TABLE `tbl_item_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_item_type`
@@ -744,13 +726,13 @@ ALTER TABLE `tbl_ongkir`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_proses`
 --
 ALTER TABLE `tbl_proses`
-  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tbl_provinsi`
@@ -768,7 +750,7 @@ ALTER TABLE `tbl_size`
 -- AUTO_INCREMENT for table `tbl_stockinout`
 --
 ALTER TABLE `tbl_stockinout`
-  MODIFY `stok_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `stok_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- Constraints for dumped tables
