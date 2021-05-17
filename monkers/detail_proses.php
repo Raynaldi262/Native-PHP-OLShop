@@ -73,7 +73,7 @@ $totalberat = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
@@ -103,22 +103,22 @@ $totalberat = 0;
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<!-- logout -->
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -154,11 +154,11 @@ $totalberat = 0;
 
 	<section id="cart_items">
 		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li><a href="../monkers/">Home</a></li>
-				</ol>
-			</div>
+				<div class="mainmenu pull-left">
+					<ul class="nav navbar-nav collapse navbar-collapse">
+						<li><a href="../">Home</a></li>
+					</ul>
+				</div>
 			<div>
 				<h1 style="text-align:center">Detail Barang</h1>
 			</div>
@@ -169,6 +169,7 @@ $totalberat = 0;
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
+							<td style="text-align: center">Warna</td>
 							<td style="text-align: center">Ukuran</td>
 							<td style="text-align: center">Jumlah</td>
 							<td style="text-align: center">Harga</td>
@@ -188,7 +189,7 @@ $totalberat = 0;
 						?>
 								<tr>
 									<td class="cart_product">
-										<a href="../monkers/product_details.php/?id=<?php echo $data_cart['item_id']; ?>">
+										<a href="../monkers/product_details.php/?id=<?php echo $data_check['item_id']; ?>">
 											<img style="width:200px" src="../dist/img/item/<?php echo $img['img_name']; ?>" alt="">
 										</a>
 									</td>
@@ -196,7 +197,12 @@ $totalberat = 0;
 										<h4><?php echo $item_cart['item_name'] ?></h4>
 									</td>
 									<td class="cart_price" style="text-align: center">
-										<p><?php echo $data_type['type_name'] ?></p>
+										<?php echo $data_type['type_name'] ?>
+									</td>
+									<td class="cart_quantity" style="text-align: center">
+										<div class="cart_quantity_button">
+											<?php echo $data_check['color_name'] ?>
+										</div>
 									</td>
 									<td class="cart_quantity" style="text-align: center">
 										<div class="cart_quantity_button">

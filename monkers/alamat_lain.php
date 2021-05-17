@@ -116,7 +116,7 @@ input[type=submit]:hover {
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
@@ -146,22 +146,22 @@ input[type=submit]:hover {
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<!-- logout -->
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -251,7 +251,7 @@ input[type=submit]:hover {
 										<form action="../model/User.php" method="post">
 											<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
 											<button style="background-color:red;" type="submit" name="deletealamat" class="btn cart_quantity_delete"><i class="fa fa-times"></i></button>
-											<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-dismiss="modal" data-target="#update_alamat<?php echo $i?>">Update</button>
+											<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-dismiss="modal" data-target="#update_alamat<?php echo $i?>">Ubah</button>
 										</form>
 									</td>
 								</tr>

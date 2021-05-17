@@ -80,7 +80,7 @@ $type_item = getDataAlltype($conn);
 							<?php
 							if (!isset($_SESSION['cust_id'])) {
 							?>
-								<li><a href="./login.php"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="./login.php"><i class="fa fa-user"></i> Akun</a></li>
 							<?php
 							} else {
 								$data = custLogin($_SESSION['cust_id']);
@@ -110,22 +110,22 @@ $type_item = getDataAlltype($conn);
 							<!-- cart -->
 							<?php if ($data_cart['juml'] != 0) { ?>
 								<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-										<span>Cart</span>
+										<span>Keranjang</span>
 										<span class="badge"><?php echo $data_cart['juml']; ?></span>
 									</a>
 								</li>
 							<?php } else { ?>
-								<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+								<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 							<?php } ?>
 
 							<?php
 							if (!isset($_SESSION['cust_id'])) {
 							?>
-								<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 							<?php
 							} else {
 							?>
-								<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+								<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 							<?php
 							}
 							?>
@@ -221,7 +221,7 @@ $type_item = getDataAlltype($conn);
 												<h2>Rp. <?php echo number_format($data['item_price']); ?></h2>
 												<p><?php echo $data['item_name']; ?></p>
 												<a href="../monkers/product_details.php/?id=<?php echo $data['item_id']; ?>">
-													<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detail Item</button>
+													<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Detail Barang</button>
 												</a>
 											</div>
 										</div>

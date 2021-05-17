@@ -11,7 +11,7 @@ $data_area = getDataArea($conn)
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<title>Login | E-Shopper</title>
+	<title>Login | Monkers Apparel</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
@@ -39,10 +39,10 @@ $data_area = getDataArea($conn)
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<li><a href="checkout.php"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.php" class="active"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Keranjang</a></li>
+								<li><a href="login.php" class="active"><i class="fa fa-lock"></i> Masuk</a></li>
 							</ul>
 						</div>
 					</div>
@@ -81,7 +81,7 @@ $data_area = getDataArea($conn)
 							<input type="text" placeholder="email" name="email" required />
 							<h5>Kata Sandi :</h5>
 							<input type="password" placeholder="password" name="password" required />
-							<button type="submit" style="background-color:grey;" name="login" class="btn btn-default">Login</button>
+							<button type="submit" style="background-color:grey;" name="login" class="btn btn-default">Masuk</button>
 						</form>
 					</div>
 					<!--/login form-->

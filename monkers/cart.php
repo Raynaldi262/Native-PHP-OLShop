@@ -69,7 +69,7 @@ $totalharga = 0;
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
@@ -99,21 +99,21 @@ $totalharga = 0;
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -157,7 +157,7 @@ $totalharga = 0;
 			</div>
 			</div>
 			<div>
-				<h1 style="text-align:center">Shopping Cart</h1>
+				<h1 style="text-align:center">Keranjang</h1>
 			</div>
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">

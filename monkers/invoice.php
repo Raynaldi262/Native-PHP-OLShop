@@ -83,11 +83,14 @@ $totalberat = 0;
   <img width="100" src="images/home/logo.png" />
   <h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
   <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
+  <p><?php echo $datauser['cust_name'] . ', ' . $datauser['cust_address'] . ', ' . $datauser['cust_city'] . ', ' . $datauser['cust_province'] . ', ' . $datauser['cust_phone'] ?></p>
   <table id="example1" class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Nama Product</th>
         <th>Tipe Barang</th>
+        <th>Ukuran</th>
+        <th>Warna</th>
         <th>Jumlah</th>
         <th>Berat Barang</th>
         <th>Harga Barang</th>
@@ -104,6 +107,8 @@ $totalberat = 0;
         <tr>
           <td><?php echo $item_cart1['item_name'] ?></td>
           <td><?php echo $data_type1['type_name'] ?></td>
+          <td><?php echo $data_check1['size'] ?></td>
+          <td><?php echo $data_check1['color_name'] ?></td>
           <td><?php echo $data_check1['qty'] ?></td>
           <td><?php echo $item_cart1['item_weight'] ?> Grm</td>
           <td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
@@ -135,44 +140,18 @@ $totalberat = 0;
       </tr>
     </tbody>
   </table>
-  <h3> data Pembeli</h3>
-  <table id="example1" class="table table-bordered table-striped">
-    <tbody>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Nama Pembeli</td>
-        <td><?php echo $datauser['cust_name'] ?></td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Alamat</td>
-        <td>Rp. <?php echo $datauser['cust_address'] ?></td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Kota</td>
-        <td><?php echo $datauser['cust_city'] ?> </td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Provinsi</td>
-        <td><?php echo $datauser['cust_province'] ?> </td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">No hp</td>
-        <td><?php echo $datauser['cust_phone'] ?> </td>
-      </tr>
-
-    </tbody>
-  </table>
   <br>
 </div>
 <?php
-$html = ob_get_contents();
-ob_end_clean();
+// $html = ob_get_contents();
+// ob_end_clean();
 
-require __DIR__ . '../../vendor/autoload.php';
+// require __DIR__ . '../../vendor/autoload.php';
 
-use Spipu\Html2Pdf\Html2Pdf;
+// use Spipu\Html2Pdf\Html2Pdf;
 
-$html2pdf = new Html2Pdf('P', 'A4', 'en');
-$html2pdf->writeHTML($html);
-$html2pdf->output('Invoice_Pemesanan.pdf', 'D');
+// $html2pdf = new Html2Pdf('P', 'A4', 'en');
+// $html2pdf->writeHTML($html);
+// $html2pdf->output('Invoice_Pemesanan.pdf', 'D');
 
 ?>

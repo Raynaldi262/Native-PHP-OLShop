@@ -61,7 +61,7 @@ $data_area = getDataArea($conn);
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
@@ -91,21 +91,21 @@ $data_area = getDataArea($conn);
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -181,7 +181,7 @@ $data_area = getDataArea($conn);
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Update Profile</h4>
+					<h4 class="modal-title">Ubah Profile</h4>
 					<div class="signup-form">
 						<!--sign up form-->
 						<form action="../model/User.php" method="post" enctype="multipart/form-data">
@@ -204,7 +204,7 @@ $data_area = getDataArea($conn);
 							</select>
 							<br>
 							<br>
-							<button type="submit" name="updateprofile" class="btn btn-default">Update</button>
+							<button type="submit" style="background-color:grey;" name="updateprofile" class="btn btn-default">Ubah</button>
 						</form>
 					</div>
 					<!--/sign up form-->
@@ -226,7 +226,7 @@ $data_area = getDataArea($conn);
 							<input type="Password" name="pass1" required />
 							<h5>Ketik Ulang Password :</h5>
 							<input type="Password" name="pass2" required />
-							<button type="submit" name="UbahPassword" class="btn btn-default">Ubah</button>
+							<button style="background-color:grey;" type="submit" name="UbahPassword" class="btn btn-default">Ubah</button>
 						</form>
 					</div>
 					<!--/sign up form-->

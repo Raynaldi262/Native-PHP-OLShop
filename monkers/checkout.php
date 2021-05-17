@@ -1,11 +1,11 @@
 <?php
 require('../model/User.php');
 require('../connect/conn.php');
-$dataprofile = getDataUser($_SESSION['cust_id']);
+
 
 if (isset($_SESSION['cust_id'])) {
 	$item = getDataCheck($_SESSION['cust_id']);
-
+	$dataprofile = getDataUser($_SESSION['cust_id']);
 	if (!isset($_GET['ida'])) {
 	$datauser = getDataUser($_SESSION['cust_id']);
 	}else{
@@ -94,7 +94,7 @@ $data_area = getDataArea($conn);
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data = custLogin($_SESSION['cust_id']);
@@ -124,22 +124,22 @@ $data_area = getDataArea($conn);
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<!-- logout -->
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../monkers/login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -244,7 +244,7 @@ $data_area = getDataArea($conn);
 		</div>
 	</section>
 	<!--/#cart_items-->
-
+<?php if (isset($_SESSION['cust_id'])) { ?>
 	<section id="do_action">
 		<div class="container">
 			<div class="row">
@@ -269,14 +269,14 @@ $data_area = getDataArea($conn);
 						<?php }?>
 						<input type="hidden" name="link" value="<?php echo $actual_link?>">
 						</form>
-							<?php if (isset($_SESSION['cust_id'])) { ?>
+							
 								<li>Nama : <?php echo $datauser['cust_name'] ?></li>
 								<li>Alamat : <?php echo $datauser['cust_address'] ?></li>
 								<li>Provinsi : <?php echo $datauser['cust_province'] ?></li>
 								<li>Kota : <?php echo $datauser['cust_city'] ?></li>
 								<li>no Hp : <?php echo $datauser['cust_phone'] ?></li>
 								<li>Email : <?php echo $datauser['cust_email'] ?></li>
-							<?php } ?>
+							
 						</ul>
 						<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button>
 						
@@ -320,6 +320,7 @@ $data_area = getDataArea($conn);
 			</div>
 		</div>
 	</section>
+	<?php } ?>
 	<!--Bayarrrrrrrrrrrrrrrn-->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">

@@ -1,4 +1,5 @@
-<?php require('../connect/conn.php');
+<?php
+require('../connect/conn.php');
 require('../model/User.php');
 if (isset($_SESSION['cust_id'])) {
 	$datauser = getDataUser($_SESSION['cust_id']);
@@ -22,15 +23,12 @@ if (isset($_GET['id'])) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
 	<title>Product Details | E-Shopper</title>
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/font-awesome.min.css" rel="stylesheet">
@@ -39,44 +37,25 @@ if (isset($_GET['id'])) {
 	<link href="../css/animate.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">
 	<link href="../css/responsive.css" rel="stylesheet">
-	<!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-	<link rel="shortcut icon" href="images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet" crossorigin="anonymous">
+
 </head>
 <!--/head-->
 <style>
-.responsive {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-}
+	.responsive {
+		width: 100%;
+		max-width: 400px;
+		height: auto;
+	}
 
-.thumb:hover{
-    opacity: 50%;
-    cursor: pointer;
-}
-
-@keyframes fadeIn{
-    to{
-        opacity: 1;
-    }
-}
-
-.fade{
-    opacity: 0;
-    animation: fadeIn 0.5s forwards;
-}
-
-.aktif{
-    opacity: 0.5;
-}
+	.img2>a>img {
+		height: 60px !important;
+		width: 60px !important;
+		margin-right: 10px !important;
+		margin-bottom: 10px !important;
+	}
 </style>
+
 <body>
 	<header id="header">
 		<!--header-->
@@ -95,7 +74,7 @@ if (isset($_GET['id'])) {
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../login.php"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="../login.php"><i class="fa fa-user"></i> Akun</a></li>
 								<?php
 								} else {
 									$data_user = custLogin($_SESSION['cust_id']);
@@ -125,21 +104,21 @@ if (isset($_GET['id'])) {
 								<!-- cart -->
 								<?php if ($data_cart['juml'] != 0) { ?>
 									<li><a href="../cart.php" class="notification"><i class="fa fa-shopping-cart"></i>
-											<span>Cart</span>
+											<span>Keranjang</span>
 											<span class="badge"><?php echo $data_cart['juml']; ?></span>
 										</a>
 									</li>
 								<?php } else { ?>
-									<li><a href="../cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+									<li><a href="../cart.php" class="notification"><i class="fa fa-shopping-cart"></i>Keranjang</a></li>
 								<?php } ?>
 								<?php
 								if (!isset($_SESSION['cust_id'])) {
 								?>
-									<li><a href="../login.php"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="../login.php"><i class="fa fa-lock"></i> Masuk</a></li>
 								<?php
 								} else {
 								?>
-									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="../login_user/logout_user.php"><i class="fa fa-lock"></i> Keluar</a></li>
 								<?php
 								}
 								?>
@@ -188,17 +167,15 @@ if (isset($_GET['id'])) {
 								<div class="view-product">
 									<img style="width:500px; height:auto;" class="responsive jumbo" src="../../dist/img/item/<?php echo $img['img_name']; ?>" alt="" />
 								</div>
-								<div id="similar-product" class="carousel slide" data-ride="carousel">
-									<!-- Wrapper for slides -->
-									  <div class="carousel-inner">
-										  <div class="item active thumbnail">
-										  <?php while($data_img = mysqli_fetch_assoc($img2)){?>
-											<a><img style="width:20%; height:auto;" class="thumb" src="../../dist/img/item/<?php echo $data_img['img_name']; ?>" alt=""></a>
-											<?php } ?>
-										  </div>
-									  </div>
+								<div>
+									<div class="img2">
+										<?php while ($data_img = mysqli_fetch_assoc($img2)) { ?>
+											<a href='../../dist/img/item/<?php echo $data_img['img_name']; ?>' data-toggle="lightbox" data-gallery="gallery">
+												<img style="width:20%; height:auto;" src="../../dist/img/item/<?php echo $data_img['img_name']; ?>" alt=""></a>
+										<?php } ?>
+									</div>
 								</div>
-						  	</div>
+							</div>
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information" style="float:right;width: 300px;">
@@ -207,28 +184,28 @@ if (isset($_GET['id'])) {
 								<span>
 									<span>Rp. <?php echo number_format($data['item_price']); ?></span>
 									<br>
-									<label>Quantity:</label>
+									<label>Jumlah:</label>
 									<form action="./model/User.php" method="post">
-										<input type="number" min='1' value="1" required name="qty" />
-										<input type="hidden" name="item_id" value="<?php echo $data['item_id'] ?>">
+										<input type="number" min='1' value="1" required name="qty" id="qty" />
+										<input type="hidden" name="item_id" id="item_id" value="<?php echo $data['item_id'] ?>">
 										<br>
 										<br>
 										<p><b> Ukuran : </b>
-											<select name="ukuran">
-											<?php while($data_ukuran = mysqli_fetch_assoc($ukuran)){ ?>
-											  <option value="<?php echo $data_ukuran['size_name'] ?>"><?php echo $data_ukuran['size_name'] ?></option>
-											  <?php }?>
+											<select name="ukuran" id="ukuran">
+												<?php while ($data_ukuran = mysqli_fetch_assoc($ukuran)) { ?>
+													<option id="<?php echo $data_ukuran['detail_qty'] ?>" value="<?php echo $data_ukuran['size_name'] ?>"><?php echo $data_ukuran['size_name'] ?></option>
+												<?php } ?>
 											</select>
 										</p>
-											<br>
-											<p><b>Warna: </b><?php echo $data_color['color_name']; ?></p>
-											<p><b>Kategori: </b> <?php echo $data_type['type_name']; ?></p>
-											<p><b>Deskripsi: </b> <?php echo $data['item_desc']; ?></p>
-											<br>
-										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+										<br>
+										<p><b>Warna: </b><?php echo $data_color['color_name']; ?></p>
+										<p><b>Kategori: </b> <?php echo $data_type['type_name']; ?></p>
+										<p><b>Deskripsi: </b> <?php echo $data['item_desc']; ?></p>
+										<br>
+										<button type="submit" name="addchart" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Masukan Keranjang</button>
 									</form>
 								</span>
-								
+
 							</div>
 							<!--/product-information-->
 						</div>
@@ -323,36 +300,32 @@ if (isset($_GET['id'])) {
 	<!--/Footer-->
 
 
-
+	<!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->
 	<script src="../js/jquery.js"></script>
+	<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 	<script src="../js/price-range.js"></script>
 	<script src="../js/jquery.scrollUp.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
+	<!-- <script src="../js/bootstrap.min.js"></script> -->
 	<script src="../js/jquery.prettyPhoto.js"></script>
 	<script src="../js/main.js"></script>
-	<script type="text/javascript">
-		const jumb = document.querySelector('.jumbo');
-		const asd = document.querySelector('.containere');
-		const thumb = document.querySelectorAll('div.thumbnail img');
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.js" crossorigin="anonymous"></script>
 
-	asd.addEventListener('click',function(e){
-	console.log(e.target)
+	<script>
+		$(function() {
+			var qty = $("#ukuran > option:selected").attr('id');
+			$("#qty").attr('max', qty);
+		});
 
-	jumb.classList.add('fade'); //tambah class
-	setTimeout(function(){
-		jumb.classList.remove('fade');
-	},500)
-	jumb.src = e.target.getAttribute('src');	
-	
-	
-	for(let i = 0 ; i < thumb.length ; i++){
-		thumb[i].className = 'thumb'
-	}
-		
-		//row2.className = 'thumb';
-	e.target.classList.add('aktif');
-	})
-
+		$('#ukuran').change(function() {
+			var qty = $("#ukuran > option:selected").attr('id');
+			$("#qty").attr('max', qty);
+		})
+		// lighbox
+		$(document).on("click", '[data-toggle="lightbox"]', function(event) {
+			event.preventDefault();
+			$(this).ekkoLightbox();
+		});
 	</script>
 </body>
 
