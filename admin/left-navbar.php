@@ -13,7 +13,7 @@
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="index.php" class="nav-link">Home</a>
+      <a href="index.php" class="nav-link">Beranda</a>
     </li>
   </ul>
   <ul class="navbar-nav ml-auto">

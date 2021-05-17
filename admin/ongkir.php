@@ -59,7 +59,7 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="data_ongkir">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item active">Harga Ongkir</li>
                             </ol>
                         </div>

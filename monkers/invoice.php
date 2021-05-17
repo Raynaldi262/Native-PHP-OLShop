@@ -52,10 +52,8 @@ $totalberat = 0;
   }
 
   img {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    z-index: -1;
+    display: block;
+    margin: 0 auto;
   }
 
 
@@ -81,10 +79,10 @@ $totalberat = 0;
 </style>
 <div style="text-align:center">
   <img width="100" src="images/home/logo.png" />
-  <h1>Invoice <?php echo $data_order['order_invoice'] ?></h1>
+  <h1><?php echo $data_order['order_invoice'] ?></h1>
   <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
   <p><?php echo $datauser['cust_name'] . ', ' . $datauser['cust_address'] . ', ' . $datauser['cust_city'] . ', ' . $datauser['cust_province'] . ', ' . $datauser['cust_phone'] ?></p>
-  <table id="example1" class="table table-bordered table-striped">
+  <table id="example1" class="table table-bordered table-striped" align="center">
     <thead>
       <tr>
         <th>Nama Product</th>
@@ -112,28 +110,20 @@ $totalberat = 0;
           <td>Rp. <?php echo number_format($item_cart1['item_price']) ?></td>
         </tr>
       <?php } ?>
-    </tbody>
-  </table>
-
-
-  <table id="example1" class="table table-bordered table-striped">
-
-
-    <tbody>
       <tr>
         <td style="background-color: gray; text-align: left;">Kurir</td>
         <td><?php echo $data_order['order_shipping'] ?></td>
-      </tr>
-      <tr>
-        <td style="background-color: gray; text-align: left;">Harga Ongkir</td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
       </tr>
       <tr>
-        <td style="background-color: gray; text-align: left;">Total Berat</td>
-        <td><?php echo $totalberat ?> Gram</td>
-      </tr>
-      <tr>
         <td style="background-color: gray; text-align: left;">Subtotal</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td>Rp. <?php echo number_format($data_order['order_totprice'] + $data_order['order_shipping_price']) ?></td>
       </tr>
     </tbody>

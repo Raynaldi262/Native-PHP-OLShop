@@ -62,7 +62,7 @@ while ($datas = mysqli_fetch_assoc($getSize)) {
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="stok">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item active">Stok</li>
                             </ol>
                         </div>
@@ -339,24 +339,7 @@ while ($datas = mysqli_fetch_assoc($getSize)) {
                     [10, 25, 50, -1],
                     [10, 25, 50, "All"]
                 ],
-                "scrollX": true,
-                "buttons": [{
-                    extend: "csv",
-                    exportOptions: {
-                        columns: [0, 2, 3, 4, 5, 6, 7, 8],
-                        modifier: {
-                            page: "current"
-                        }
-                    }
-                }, {
-                    extend: "pdf",
-                    exportOptions: {
-                        columns: [0, 2, 3, 4, 5, 6, 7, 8],
-                        modifier: {
-                            page: "current"
-                        }
-                    }
-                }, "colvis"]
+                "scrollX": true
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 

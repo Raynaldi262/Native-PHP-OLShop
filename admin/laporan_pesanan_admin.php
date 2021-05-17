@@ -82,7 +82,7 @@ function getAlamat2($conn, $id)
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="laporan">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item"><a href="laporan.php">Laporan</a></li>
                                 <li class="breadcrumb-item active">Laporan Pesanan</li>
                             </ol>
@@ -133,7 +133,7 @@ function getAlamat2($conn, $id)
                                                 <th>invoice</th>
                                                 <th>resi</th>
                                                 <th>Nama</th>
-                                                <th>AlamatP</th>
+                                                <th>Alamat</th>
                                                 <th>Pesanan</th>
                                                 <th>tgl pesanan</th>
                                                 <th>Total Harga</th>
@@ -273,7 +273,7 @@ function getAlamat2($conn, $id)
                     extend: "csv",
                     messageTop: judul,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11],
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                         modifier: {
                             page: "current"
                         }

@@ -10,7 +10,7 @@ $getCust = mysqli_query($conn, $sql);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Data Admin</title>
+    <title>Admin | Data Pelanggan</title>
 
     <!-- DataTables -->
     <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -32,11 +32,11 @@ $getCust = mysqli_query($conn, $sql);
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Data Admin</h1>
+                            <h1>Data Pelanggan</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="data_customer">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item active">Data Pelanggan</li>
                             </ol>
                         </div>

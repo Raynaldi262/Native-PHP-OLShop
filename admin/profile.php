@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Profile</title>
 
     <!-- Theme style -->
     <link rel="stylesheet" href="../dist/css/adminlte.min.css">
@@ -45,7 +45,7 @@ confirm_logged_in();
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="profile">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item active">Profile</li>
                             </ol>
                         </div><!-- /.col -->
@@ -87,7 +87,7 @@ confirm_logged_in();
                                         </tbody>
                                     </table>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-profile">
-                                        Edit Profile
+                                        Ubah Profile
                                     </button>
                                     <div class="" id="include-modal"></div>
                                 </div>

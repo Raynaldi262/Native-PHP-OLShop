@@ -114,7 +114,7 @@ $data_area = getDataArea($conn)
 							</select>
 							<br>
 							<br>
-							<button type="submit" style="background-color:grey;" name="singup" class="btn btn-default">Signup</button>
+							<button type="submit" style="background-color:grey;" name="singup" class="btn btn-default">Daftar</button>
 						</form>
 					</div>
 					<!--/sign up form-->

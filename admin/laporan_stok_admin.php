@@ -33,7 +33,7 @@ require('../connect/conn.php');
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right" id="laporan">
-                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                                 <li class="breadcrumb-item"><a href="laporan.php">Laporan</a></li>
                                 <li class="breadcrumb-item active">Laporan Stok</li>
                             </ol>

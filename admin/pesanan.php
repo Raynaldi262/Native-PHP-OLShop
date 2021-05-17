@@ -39,7 +39,7 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right" id="pesanan">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.php">Beranda</a></li>
                 <li class="breadcrumb-item active">Pesanan</li>
               </ol>
             </div>
@@ -70,7 +70,7 @@
                         <th>Total <br> Harga</th>
                         <th>Bukti <br> Transfer</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
