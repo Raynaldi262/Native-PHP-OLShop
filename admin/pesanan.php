@@ -315,7 +315,7 @@
         type: "post", //request type,
         dataType: 'json',
         data: {
-          getAlamat1: 1,
+          getAlamat2: 1,
           alamatID: id
         },
         success: function(data) {

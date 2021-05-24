@@ -81,7 +81,7 @@ function getAlamat2($conn)
 {
     $id = $_POST['alamatID'];
 
-    $sql = "select * from tbl_address where cust_id = " . $id . "";
+    $sql = "select * from tbl_address where address_id = " . $id . "";
 
     $result = mysqli_query($conn, $sql);
     $results = mysqli_fetch_assoc($result);
