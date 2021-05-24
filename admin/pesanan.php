@@ -182,7 +182,7 @@
           </button>
         </div>
         <div class="modal-body" style="text-align: center;">
-          <div class="modal-body alamat" style="text-align: center;">
+          <div class="modal-body alamat" style="text-align: left;">
           </div>
         </div>
       </div>

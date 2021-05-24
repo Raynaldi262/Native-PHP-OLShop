@@ -94,15 +94,13 @@
             </p>
           </a>
         </li>
-        <?php if ($_SESSION['role_id'] == 1 or $_SESSION['role_id'] == 2) { ?>
-          <li class="nav-item">
-            <a href="banner.php" class="nav-link" id="data_banner">
-              <p>
-                Banner Halaman Utama
-              </p>
-            </a>
-          </li>
-        <?php } ?>
+        <li class="nav-item">
+          <a href="banner.php" class="nav-link" id="data_banner">
+            <p>
+              Banner Halaman Utama
+            </p>
+          </a>
+        </li>
         <?php if ($_SESSION['role_id'] == 1) { ?>
           <li class="nav-item">
             <a href="data_admin.php" class="nav-link" id="data_admin">

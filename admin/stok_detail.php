@@ -120,14 +120,12 @@ while ($datas = mysqli_fetch_assoc($getSize)) {
                                                     <td><?php echo $data['size_name']; ?></td>
                                                     <td><?php echo $data['detail_qty']; ?></td>
                                                     <td>
-                                                        <?php if ($_SESSION['role_id'] != 3) { ?>
-                                                            <button type="button" class="btn btn-success ubahStok" data-toggle="modal" data-target="#modal-ubahStok" id="<?php echo $data['detail_id']; ?>">
-                                                                Ubah Stok
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['detail_id']; ?>">
-                                                                Hapus
-                                                            </button>
-                                                        <?php } ?>
+                                                        <button type="button" class="btn btn-success ubahStok" data-toggle="modal" data-target="#modal-ubahStok" id="<?php echo $data['detail_id']; ?>">
+                                                            Ubah Stok
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['detail_id']; ?>">
+                                                            Hapus
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             <?php $i++;

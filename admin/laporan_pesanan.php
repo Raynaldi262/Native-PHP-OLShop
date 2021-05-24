@@ -132,7 +132,7 @@ function getAlamat2($conn, $id)
                                                 <th>invoice</th>
                                                 <th>resi</th>
                                                 <th>Nama</th>
-                                                <th>AlamatP</th>
+                                                <th>Alamat <br> Pengiriman</th>
                                                 <th>Pesanan</th>
                                                 <th>tgl pesanan</th>
                                                 <th>Total Harga</th>

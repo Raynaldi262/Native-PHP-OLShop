@@ -119,14 +119,12 @@ while ($datas = mysqli_fetch_assoc($getTipe)) {
                                                     <td><?php echo $data['item_price']; ?></td>
                                                     <td><?php echo $data['item_desc']; ?></td>
                                                     <td>
-                                                        <?php if ($_SESSION['role_id'] != 3) { ?>
-                                                            <button type="button" class="btn btn-warning ubahItem" data-toggle="modal" data-target="#modal-ubahItem" id="<?php echo $data['item_id']; ?>">
-                                                                Ubah
-                                                            </button>
-                                                            <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['item_id']; ?>">
-                                                                Hapus
-                                                            </button>
-                                                        <?php } ?>
+                                                        <button type="button" class="btn btn-warning ubahItem" data-toggle="modal" data-target="#modal-ubahItem" id="<?php echo $data['item_id']; ?>">
+                                                            Ubah
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger hapusItem" data-toggle="modal" data-target="#modal-hapusItem" id="<?php echo $data['item_id']; ?>">
+                                                            Hapus
+                                                        </button>
                                                         <form action="stok_detail.php">
                                                             <input type='hidden' name='itemid' id='itemid' value="<?php echo $data['item_id']; ?>">
                                                             <input type="submit" class="btn btn-success" value="Detail" />
