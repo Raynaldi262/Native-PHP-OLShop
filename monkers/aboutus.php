@@ -200,6 +200,7 @@ input[type=submit]:hover {
 					<li><a href="index.php">Beranda</a></li>
 					<li><a href="aboutus.php" class="active">Tentang kami</a></li>
 					<li><a href="contactus.php">Kontak Kami</a></li>
+					<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
 				</ul>
 			</div>
 			</div>

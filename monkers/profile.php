@@ -147,6 +147,7 @@ $data_area = getDataArea($conn);
 					<li><a href="alamat_lain.php">Alamat lain</a></li>
 					<li><a href="aboutus.php">Tentang kami</a></li>
 					<li><a href="contactus.php">Kontak Kami</a></li>
+					<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
 				</ul>
 			</div>
 			</div>
