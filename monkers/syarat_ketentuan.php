@@ -206,7 +206,7 @@ input[type=submit]:hover {
 			</div>
 			<br>
 			<div>
-				<h1 style="text-align:center">Tentang Kami</h1>
+				<h1 style="text-align:center">Syarat & Ketentuan</h1>
 			</div><!-- 
 			<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button> -->
 		</div>
