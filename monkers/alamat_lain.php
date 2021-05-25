@@ -7,10 +7,10 @@ if (isset($_SESSION['cust_id'])) {
 	$item = getDataCheck($_SESSION['cust_id']);
 
 	if (!isset($_GET['ida'])) {
-	$datauser = getDataUser($_SESSION['cust_id']);
-	}else{
-	$datauser = getDataAlamat2($_GET['ida']);
-	$address_id = $datauser['address_id'];
+		$datauser = getDataUser($_SESSION['cust_id']);
+	} else {
+		$datauser = getDataAlamat2($_GET['ida']);
+		$address_id = $datauser['address_id'];
 	}
 
 
@@ -65,39 +65,47 @@ $data_alamat = getDataAlamat($_SESSION['cust_id']);
 </head>
 <!--/head-->
 <style>
-.responsive {
-  width: 70%;
-  max-width: 200px;
-  min-width: 100px;
-  height: auto;
-}
+	.responsive {
+		width: 70%;
+		max-width: 200px;
+		min-width: 100px;
+		height: auto;
+	}
 
-input[type=text], select,input[type=number],input[type=email],input[type=date] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+	input[type=text],
+	select,
+	input[type=number],
+	input[type=email],
+	input[type=date] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
 
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
+	input[type=submit]:hover {
+		background-color: #45a049;
+	}
 
+	.tambah {
+		margin-left: 88%;
+	}
 </style>
+
 <body>
 	<header id="header">
 		<!--header-->
@@ -198,102 +206,107 @@ input[type=submit]:hover {
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
-			<div class="mainmenu pull-left">
-				<ul class="nav navbar-nav collapse navbar-collapse">
-					<li><a href="index.php">Beranda</a></li>
-					<li><a href="aboutus.php">Tentang kami</a></li>
-					<li><a href="contactus.php">Kontak Kami</a></li>
-				</ul>
-			</div>
+				<div class="mainmenu pull-left">
+					<ul class="nav navbar-nav collapse navbar-collapse">
+						<li><a href="index.php">Beranda</a></li>
+						<li><a href="aboutus.php">Tentang kami</a></li>
+						<li><a href="contactus.php">Kontak Kami</a></li>
+					</ul>
+				</div>
 			</div>
 			<br>
 			<div>
 				<h1 style="text-align:center">Alamat Lain</h1>
-			</div><!-- 
+			</div>
+			<td><button type="button" data-toggle="modal" class="btn btn-success tambah" data-target="#tambahalamat">+ Tambah Alamat</button></td>
+
+			<!-- 
 			<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button> -->
 			<div class="table-responsive cart_info">
-						<table class="table table-condensed">
-							<thead>
-								<tr  style="background-color:grey;" class="cart_menu">
-									<td style="text-align: center">Nama</td>
-									<td style="text-align: center">Alamat</td>
-									<td style="text-align: center">Provinsi</td>
-									<td style="text-align: center">Kota</td>
-									<td style="text-align: center">NoHp</td>
-									<td><button  style="background-color:green;" type="button" data-toggle="modal" class="btn btn-default" data-target="#tambahalamat" >+</button></td>
-								</tr>
-						</thead>
+				<table class="table table-condensed">
+					<thead>
+						<tr style="background-color:grey;" class="cart_menu">
+							<td style="text-align: center">Nama</td>
+							<td style="text-align: center">Alamat</td>
+							<td style="text-align: center">Provinsi</td>
+							<td style="text-align: center">Kota</td>
+							<td style="text-align: center">No Hp</td>
+							<td style="text-align: center">Aksi</td>
+						</tr>
+					</thead>
 					<tbody>
-						<?php $i=0; while ($alamat = mysqli_fetch_assoc($data_alamat)) { ;
+						<?php $i = 0;
+						while ($alamat = mysqli_fetch_assoc($data_alamat)) {;
 							$data_area = getDataArea($conn);
-						 ?>
-								<tr>
-									<td  style="text-align: center">
-										<h4><?php echo $alamat['cust_name'] ?></h4>
-									</td>
-									<td  style="text-align: center">
-										<p><?php echo $alamat['cust_address'] ?></p>
-									</td>
-									<td  style="text-align: center">
-										<p><?php echo $alamat['cust_province'] ?></p>
-									</td>
-									<td  style="text-align: center">
-										<p><?php echo $alamat['cust_city'] ?></p>
-									</td>
-									<td style="text-align: center">
-										<div >
-											<?php echo $alamat['cust_phone'] ?>
-										</div>
-									</td>
-									<td class="cart_delete" style="text-align: center">
-										<form action="../model/User.php" method="post">
-											<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
-											<button style="background-color:red;" type="submit" name="deletealamat" class="btn cart_quantity_delete"><i class="fa fa-times"></i></button>
-											<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-dismiss="modal" data-target="#update_alamat<?php echo $i?>">Ubah</button>
-										</form>
-									</td>
-								</tr>
-								<div class="modal fade" id="update_alamat<?php echo $i?>" role="dialog">
-									<div class="modal-dialog">
-										<!-- Modal content-->
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">Update Alamat</h4>
-												<div class="signup-form">
-													<!--sign up form-->
-													<form action="../model/User.php" method="post" enctype="multipart/form-data">
-														<h5>Nama :</h5>
-														<input type="text" name="nama" value="<?php echo $alamat['cust_name'] ?>" required />
-														<h5>No Hp :</h5>
-														<input type="number" name="nohp" value="<?php echo $alamat['cust_phone'] ?>" required />
-														<h5>Alamat :</h5>
-														<input type="text" name="address" value="<?php echo $alamat['cust_address'] ?>" required />
-														<h5>Kota :</h5>
-														<select name="kota" id="kota">
-															<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
-																<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>
-															<?php } ?>
-														</select>
-														<br>
-														<br>
-														<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
-														<button type="submit" name="updatealamat" class="btn btn-default">Update</button>
-													</form>
-												</div>
-												<!--/sign up form-->
+						?>
+							<tr>
+								<td style="text-align: center">
+									<h4><?php echo $alamat['cust_name'] ?></h4>
+								</td>
+								<td style="text-align: center">
+									<p><?php echo $alamat['cust_address'] ?></p>
+								</td>
+								<td style="text-align: center">
+									<p><?php echo $alamat['cust_province'] ?></p>
+								</td>
+								<td style="text-align: center">
+									<p><?php echo $alamat['cust_city'] ?></p>
+								</td>
+								<td style="text-align: center">
+									<div>
+										<?php echo $alamat['cust_phone'] ?>
+									</div>
+								</td>
+								<td class="cart_delete" style="text-align: center">
+									<form action="../model/User.php" method="post">
+										<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
+										<button style="background-color:red;" type="submit" name="deletealamat" class="btn cart_quantity_delete"><i class="fa fa-times"></i></button>
+										<button style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-dismiss="modal" data-target="#update_alamat<?php echo $i ?>">Ubah</button>
+									</form>
+								</td>
+							</tr>
+							<div class="modal fade" id="update_alamat<?php echo $i ?>" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title">Update Alamat</h4>
+											<div class="signup-form">
+												<!--sign up form-->
+												<form action="../model/User.php" method="post" enctype="multipart/form-data">
+													<h5>Nama :</h5>
+													<input type="text" name="nama" value="<?php echo $alamat['cust_name'] ?>" required />
+													<h5>No Hp :</h5>
+													<input type="number" name="nohp" value="<?php echo $alamat['cust_phone'] ?>" required />
+													<h5>Alamat :</h5>
+													<input type="text" name="address" value="<?php echo $alamat['cust_address'] ?>" required />
+													<h5>Kota :</h5>
+													<select name="kota" id="kota">
+														<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
+															<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>
+														<?php } ?>
+													</select>
+													<br>
+													<br>
+													<input type="hidden" name="address_id" value="<?php echo $alamat['address_id'] ?>">
+													<button type="submit" name="updatealamat" class="btn btn-default">Update</button>
+												</form>
 											</div>
+											<!--/sign up form-->
 										</div>
 									</div>
 								</div>
-						<?php $i+=1; } ?>
+							</div>
+						<?php $i += 1;
+						} ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
 	<!--/#cart_items-->
-			<!--add alamat-->
-	<?php $data_area = getDataArea($conn);?>
+	<!--add alamat-->
+	<?php $data_area = getDataArea($conn); ?>
 	<div class="modal fade" id="tambahalamat" role="dialog">
 		<div class="modal-dialog">
 
@@ -317,8 +330,8 @@ input[type=submit]:hover {
 							</select>
 							<br>
 							<br>
-							<input type="hidden" value="route" name="route" >
-							<button type="submit" name="tambahalamat"  style="background-color:grey;" class="btn btn-default">Tambah</button>
+							<input type="hidden" value="route" name="route">
+							<button type="submit" name="tambahalamat" style="background-color:grey;" class="btn btn-default">Tambah</button>
 						</form>
 					</div>
 					<!--/sign up form-->

@@ -141,14 +141,14 @@ $data_area = getDataArea($conn);
 	<section id="do_action">
 		<div class="container">
 			<div class="breadcrumbs">
-			<div class="mainmenu pull-left">
-				<ul class="nav navbar-nav collapse navbar-collapse">
-					<li><a href="index.php">Beranda</a></li>
-					<li><a href="alamat_lain.php">Alamat lain</a></li>
-					<li><a href="aboutus.php">Tentang kami</a></li>
-					<li><a href="contactus.php">Kontak Kami</a></li>
-				</ul>
-			</div>
+				<div class="mainmenu pull-left">
+					<ul class="nav navbar-nav collapse navbar-collapse">
+						<li><a href="index.php">Beranda</a></li>
+						<li><a href="alamat_lain.php">Alamat lain</a></li>
+						<li><a href="aboutus.php">Tentang kami</a></li>
+						<li><a href="contactus.php">Kontak Kami</a></li>
+					</ul>
+				</div>
 			</div>
 			<br>
 			<div class="row">
@@ -170,8 +170,8 @@ $data_area = getDataArea($conn);
 						<br>
 					</ul>
 					<div style="text-align:center;">
-						<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">Ubah Profile</button>
-						<button  style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal1">Ubah Password</button>
+						<button style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">Ubah Profile</button>
+						<button style="background-color:grey;" type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal1">Ubah Password</button>
 					</div>
 				</div>
 			</div>
@@ -199,7 +199,8 @@ $data_area = getDataArea($conn);
 							<h5>No Hp :</h5>
 							<input type="number" name="nohp" value="<?php echo $datauser['cust_phone'] ?>" required />
 							<h5>Alamat :</h5>
-							<input type="text" name="address" value="<?php echo $datauser['cust_address'] ?>" required />							<h5>Kota :</h5>
+							<input type="text" name="address" value="<?php echo $datauser['cust_address'] ?>" required />
+							<h5>Kota :</h5>
 							<select name="kota" id="kota">
 								<?php while ($data = mysqli_fetch_assoc($data_area)) { ?>
 									<option value="<?php echo $data['area_name'] ?>"><?php echo $data['area_name'] ?></option>
@@ -245,7 +246,7 @@ $data_area = getDataArea($conn);
 			<div class="table-responsive cart_info">
 				<table id="example1" class="table table-condensed">
 					<thead>
-						<tr  style="background-color:grey;" class="cart_menu">
+						<tr style="background-color:grey;" class="cart_menu">
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Harga</td>
 							<td style="text-align: center">Kurir</td>
