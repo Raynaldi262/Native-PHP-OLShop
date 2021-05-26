@@ -5,9 +5,9 @@ $item = getDetailProses($_GET['id']);
 $data_order = getDataOrder($_GET['id']);
 $dataproses = getProsesDataDetail($_GET['id']);
 $dataprofile = getDataUser($_SESSION['cust_id']);
-if ($_GET['ida']!=0) {
-	$datauser = getDataAlamat2($_GET['ida']);	
-}else{
+if ($_GET['ida'] != 0) {
+	$datauser = getDataAlamat2($_GET['ida']);
+} else {
 	$datauser = getDataUser($_SESSION['cust_id']);
 }
 
@@ -154,22 +154,22 @@ $totalberat = 0;
 
 	<section id="cart_items">
 		<div class="container">
-				<div class="mainmenu pull-left">
-					<ul class="nav navbar-nav collapse navbar-collapse">
-						<li><a href="../">Beranda</a></li>
-						<li><a href="aboutus.php">Tentang kami</a></li>
-						<li><a href="contactus.php">Kontak Kami</a></li>
-						<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
-					</ul>
-				</div>
-				<br>
+			<div class="mainmenu pull-left">
+				<ul class="nav navbar-nav collapse navbar-collapse">
+					<li><a href="../">Beranda</a></li>
+					<li><a href="aboutus.php">Tentang kami</a></li>
+					<li><a href="contactus.php">Kontak Kami</a></li>
+					<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+				</ul>
+			</div>
+			<br>
 			<div>
 				<h1 style="text-align:center">Detail Barang</h1>
 			</div>
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
-						<tr  style="background-color:grey;" class="cart_menu">
+						<tr style="background-color:grey;" class="cart_menu">
 							<td style="text-align: center">Gambar</td>
 							<td style="text-align: center">Nama</td>
 							<td style="text-align: center">Tipe</td>
@@ -267,7 +267,7 @@ $totalberat = 0;
 							<!-- <a type="button" class="btn " data-toggle="modal" data-target="#invoice">Download Invoice</a> -->
 							<br>
 							<?php if ($dataproses['status'] != 'Menunggu Konfrimasi') { ?>
-								<a href="invoice.php?id=<?php echo $linkid?>&idu=<?php echo $_SESSION['cust_id']?>&ida=<?php echo $_GET['ida']?>&custid=<?php echo $_SESSION['cust_id']?>">
+								<a href="invoice.php?id=<?php echo $linkid ?>&idu=<?php echo $_SESSION['cust_id'] ?>&ida=<?php echo $_GET['ida'] ?>&custid=<?php echo $_SESSION['cust_id'] ?>&adminid=">
 									<button type="button" class="btn btn-success">
 										<i class="fa fa-print"> Cetak Invoice</i>
 									</button>

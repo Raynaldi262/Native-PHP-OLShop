@@ -8,7 +8,7 @@ if ($_GET['ida'] != 0) {
   $datauser = getDataUser($_GET['idu']);
 }
 
-ECHO $_GET['custid']; /////////////////////////////////////////////////////////////////
+echo $_GET['custid']; /////////////////////////////////////////////////////////////////
 
 // if (isset($_SESSION['cust_id'])) {
 // 	$data_cart = getcartCount($_GET['idu']);
@@ -133,15 +133,15 @@ $totalberat = 0;
   <br>
 </div>
 <?php
-// $html = ob_get_contents();
-// ob_end_clean();
+$html = ob_get_contents();
+ob_end_clean();
 
-// require __DIR__ . '../../vendor/autoload.php';
+require __DIR__ . '../../vendor/autoload.php';
 
-// use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Html2Pdf;
 
-// $html2pdf = new Html2Pdf('P', 'A4', 'en');
-// $html2pdf->writeHTML($html);
-// $html2pdf->output('Invoice_Pemesanan.pdf', 'D');
+$html2pdf = new Html2Pdf('P', 'A4', 'en');
+$html2pdf->writeHTML($html);
+$html2pdf->output('Invoice_Pemesanan.pdf', 'D');
 
 ?>
