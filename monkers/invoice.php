@@ -8,7 +8,18 @@ if ($_GET['ida'] != 0) {
   $datauser = getDataUser($_GET['idu']);
 }
 
-echo $_GET['custid']; /////////////////////////////////////////////////////////////////
+if ($_GET['custid'] == null) {
+  $sql = "select * from tbl_admin where admin_id = " . $_GET['adminid'] . "";
+
+  $name = mysqli_query($conn, $sql);
+  $name = mysqli_fetch_assoc($name);
+} else {
+  $sql = "select * from tbl_customer where cust_id = " . $_GET['custid'] . "";
+
+  $name = mysqli_query($conn, $sql);
+  $name = mysqli_fetch_assoc($name);
+}
+/////////////////////////////////////////////////////////////////
 
 // if (isset($_SESSION['cust_id'])) {
 // 	$data_cart = getcartCount($_GET['idu']);
@@ -130,6 +141,14 @@ $totalberat = 0;
       </tr>
     </tbody>
   </table>
+  <?php
+  if ($_GET['custid'] == null) {
+    echo '*Dicektak oleh ' . $name['admin_name'];
+  } else {
+    echo '*Dicektak oleh ' . $name['cust_name'];
+  }
+
+  ?>
   <br>
 </div>
 <?php

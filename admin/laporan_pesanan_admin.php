@@ -1,6 +1,6 @@
 <?php
 require('../connect/conn.php');
-
+require('../session/session.php');
 function getItem($conn, $id)
 {
     $sql = "select * from 

@@ -1,5 +1,6 @@
 <?php
 require('../connect/conn.php');
+require('../session/session.php');
 
 function getItem($conn, $id)
 {
@@ -201,7 +202,7 @@ function getAlamat2($conn, $id)
                                                     </td>
                                                     <td><?php echo $data['order_status']; ?></td>
                                                     <td>
-                                                        <a href='../monkers/invoice.php?id=<?php echo $data['date_id']; ?>&idu=<?php echo $data['cust_id']; ?>&ida=<?php echo $data['address_id'] ?> '>
+                                                        <a href='../monkers/invoice.php?id=<?php echo $data['date_id']; ?>&idu=<?php echo $data['cust_id']; ?>&ida=<?php echo $data['address_id'] ?>&custid=&adminid=<?php echo $_SESSION['admin_id'] ?>'>
                                                             <button type="button" class="btn btn-success print">
                                                                 <i class="fa fa-print"> Print Invoice</i>
                                                             </button>
