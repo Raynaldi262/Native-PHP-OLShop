@@ -8,7 +8,7 @@ if ($_GET['ida'] != 0) {
   $datauser = getDataUser($_GET['idu']);
 }
 
-ECHO $_GET['custid'];
+ECHO $_GET['custid']; /////////////////////////////////////////////////////////////////
 
 // if (isset($_SESSION['cust_id'])) {
 // 	$data_cart = getcartCount($_GET['idu']);
