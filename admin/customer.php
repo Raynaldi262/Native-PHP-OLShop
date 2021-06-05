@@ -1,5 +1,6 @@
 <?php
 require('../connect/conn.php');
+require('../session/session.php');
 $sql = "select * from tbl_customer";
 
 $getCust = mysqli_query($conn, $sql);
@@ -68,6 +69,7 @@ $getCust = mysqli_query($conn, $sql);
                                                 <th>Email</th>
                                                 <th>Total Pesanan</th>
                                                 <th>Total Harga</th>
+                                                <th>Data Pembelian</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,6 +86,11 @@ $getCust = mysqli_query($conn, $sql);
                                                     <td><?php echo $data['cust_email']; ?></td>
                                                     <td><?php echo $data['cust_total_order']; ?></td>
                                                     <td><?php echo 'Rp ' . number_format($data['cust_total_price']); ?></td>
+                                                    <td>
+                                                        <a href="print_pembelian.php?id=<?php echo $data['cust_id'] ?>&adminid=<?php echo $_SESSION['admin_id'] ?>">
+                                                            <span>Print</span>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             <?php $i++;
                                             } ?>

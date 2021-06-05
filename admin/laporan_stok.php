@@ -84,10 +84,10 @@ require('../connect/conn.php');
                                                 <th>Nama</th>
                                                 <th>Warna</th>
                                                 <th>Ukuran</th>
-                                                <th>Stok</th>
+                                                <th>Stok Awal</th>
                                                 <th>Stok Masuk</th>
                                                 <th>Stok keluar</th>
-                                                <th>Total Stok</th>
+                                                <th>Stok Akhir</th>
                                                 <th>Keuntungan</th>
                                             </tr>
                                         </thead>
@@ -228,7 +228,7 @@ require('../connect/conn.php');
                     extend: "pdf",
                     messageTop: judul,
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                        columns: [0, 1, 2, 3, 4, 7, 8],
                         modifier: {
                             page: "current"
                         }

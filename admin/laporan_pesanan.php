@@ -278,6 +278,15 @@ function getAlamat2($conn, $id)
                             page: "current"
                         }
                     }
+                }, {
+                    extend: "pdf",
+                    messageTop: judul,
+                    exportOptions: {
+                        columns: [0, 1, 3, 4, 5, 7],
+                        modifier: {
+                            page: "current"
+                        }
+                    }
                 }, "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });

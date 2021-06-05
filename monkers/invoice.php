@@ -98,7 +98,7 @@ $totalberat = 0;
   <table id="example1" class="table table-bordered table-striped" align="center">
     <thead>
       <tr>
-        <th>Nama Product</th>
+        <th>Nama Barang</th>
         <th>Tipe Barang</th>
         <th>Ukuran</th>
         <th>Warna</th>
@@ -143,9 +143,9 @@ $totalberat = 0;
   </table>
   <?php
   if ($_GET['custid'] == null) {
-    echo '*Dicektak oleh ' . $name['admin_name'];
+    echo '*Dicetak oleh ' . $name['admin_name'];
   } else {
-    echo '*Dicektak oleh ' . $name['cust_name'];
+    echo '*Dicetak oleh ' . $name['cust_name'];
   }
 
   ?>
