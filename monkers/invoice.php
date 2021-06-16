@@ -33,6 +33,7 @@ if ($_GET['custid'] == null) {
 $totalharga = 0;
 $totalberat = 0;
 
+ob_start();
 ?>
 <style>
   table {
@@ -152,8 +153,10 @@ $totalberat = 0;
   <br>
 </div>
 <?php
-$html = ob_get_contents();
-ob_end_clean();
+// $html = ob_get_contents();
+// ob_end_clean();
+
+$html = ob_get_clean();
 
 require __DIR__ . '../../vendor/autoload.php';
 
