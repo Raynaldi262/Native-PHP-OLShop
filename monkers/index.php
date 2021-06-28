@@ -162,8 +162,9 @@ $type_item = getDataAlltype($conn);
 								</ul>
 							</li>
 							<li><a href="aboutus.php">Tentang kami</a></li>
-							<li><a href="contactus.php">Kontak Kami</a></li>
+							<li><a href="bantuan.php">Bantuan</a></li>
 							<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+							<li><a href="contactus.php">Kontak Kami</a></li>
 						</ul>
 					</div>
 				</div>

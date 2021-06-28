@@ -32,7 +32,6 @@ if (isset($_SESSION['cust_id'])) {
 	$data_check['juml'] = 0;
 	$proses_count['juml'] = 0;
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,6 +97,7 @@ input[type=submit]:hover {
 	text-align: justify;
 	text-justify: inter-word;
 }
+
 </style>
 <body>
 	<header id="header">
@@ -210,20 +210,44 @@ input[type=submit]:hover {
 			</div>
 			</div>
 			<br>
+			<br>
 			<div>
-				<h1 style="text-align:center">Hubungi Kami</h1>
+				<h1 style="text-align:center">Bantuan</h1>
 			</div><!-- 
 			<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button> -->
 
 		</div>
 	</section>
 	<div class="text">
-		<h3>Nomor Whatsapp : 0812-4567-8910</h3>
-	</div>
-	<div style="position:fixed;left:20px;bottom:20px;">
-		<a href="https://api.whatsapp.com/send?phone=+6281245678910&text=Halo">
-		<button style="background:#32C03C;vertical-align:center;height:36px;border-radius:5px">
-		<img src="https://web.whatsapp.com/img/favicon/1x/favicon.png"> Whatsapp Kami</button></a>
+	<p>
+		<h3>Cara Login & Daftar</h3>
+		<ol>
+			<li>Masuk ke menu login</li>
+			<li>Masuk dengan akun yang sudah ada lalu klik masuk</li>
+			<li>atau jika belum memiliki akun daftar pada kolom pendaftaran</li>
+			<li>Isi data sesuai dengan data pribadi anda</li>
+			<li>Lalu jika sudah klik daftar</li>
+		</ol>
+			<h3>Cara Pemesanan</h3>
+		<ol>
+		<li>Login dengan akun yang sudah daftar sebelumnya</li>
+		<li>Pilih dan klik produk Monkers Apparel yang ingin di beli</li>
+		<li>Pilih jumlah dan ukuran yang ingin di beli (Produk dan Ukuran yang tidak tersedia tidak akan muncul di website)</li>
+		<li>Klik masukan ke keranjang</li>
+		<li>Cek Kembali barang belanjaan dikeranjang, kalau sudah sesuai klik beli</li>
+		<li>Pilih alamat dan pilih jenis kurir yang diinginkan</li>
+		<li>Klik Bayar, akan muncul popup nomor rekening kami dan anda dapat mengupload bukti pembayaran disana (bukti pembayaran harus berekstensi .Jpg , .Jpeg, dan .Png)</li>
+		<li>Setelah itu klik upload</li>
+		<li>Selamat anda telah berhasil melakukan pemesanan</li>
+		</ol>
+			<h3>Cara Cek Status Pesanan & Cetak Invoice</h3>
+		<ol>
+		<li>Klik mennu profile</li>
+		<li>Scroll ke bawah makan anda akan melihat table proses yang menampilkan status pesanan</li>
+		<li>Klik “Detail” untuk melihat invoice pesanan yang dipilih</li>
+		<li>Klik Cetak Inovice untuk mencetak invoice dari pesana yang sudah terkonfirmasi </li>
+		</ol>
+	</p>
 	</div>
 	<script>
 		$('.selector select[name=perPage]').on('change', function(e) {

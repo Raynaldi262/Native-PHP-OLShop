@@ -180,8 +180,9 @@ $data_area = getDataArea($conn);
 				<ul class="nav navbar-nav collapse navbar-collapse">
 					<li><a href="index.php">Beranda</a></li>
 					<li><a href="aboutus.php">Tentang kami</a></li>
-					<li><a href="contactus.php">Kontak Kami</a></li>
+					<li><a href="bantuan.php">Bantuan</a></li>
 					<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+					<li><a href="contactus.php">Kontak Kami</a></li>
 				</ul>
 			</div>
 			</div>
@@ -335,6 +336,7 @@ $data_area = getDataArea($conn);
 					<div class="signup-form">
 						<form action="../model/User.php" method="post" enctype="multipart/form-data">
 							<h5>Masukan Bukti Pembayaran :</h5>
+							<p>Trabsfer ke BCA – 123456789 A/n PT Mong Kreasi Indonesia</p>
 							<input type="file" name="img" />
 							<input type="hidden" name="kurir" value="<?php echo $data_onkir['ongkir_type']; ?>">
 							<input type="hidden" name="hargaongkir" value="<?php echo $hargaongkir; ?>">

@@ -146,9 +146,10 @@ if (isset($_GET['id'])) {
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="../">Beranda</a></li>
-								<li><a href="aboutus.php">Tentang kami</a></li>
-								<li><a href="contactus.php">Kontak Kami</a></li>
-								<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+								<li><a href="../aboutus.php">Tentang kami</a></li>
+								<li><a href="../bantuan.php">Bantuan</a></li>
+								<li><a href="../syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+								<li><a href="../contactus.php">Kontak Kami</a></li>
 							</ul>
 						</div>
 					</div>
