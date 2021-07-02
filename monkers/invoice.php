@@ -100,7 +100,6 @@ ob_start();
     <thead>
       <tr>
         <th>Nama Barang</th>
-        <th>Tipe Barang</th>
         <th>Ukuran</th>
         <th>Warna</th>
         <th>Jumlah</th>
@@ -117,7 +116,6 @@ ob_start();
       ?>
         <tr>
           <td><?php echo $item_cart1['item_name'] ?></td>
-          <td><?php echo $data_type1['type_name'] ?></td>
           <td><?php echo $data_check1['size'] ?></td>
           <td><?php echo $data_check1['color_name'] ?></td>
           <td><?php echo $data_check1['qty'] ?></td>
