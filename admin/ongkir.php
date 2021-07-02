@@ -486,22 +486,22 @@ while ($datas = mysqli_fetch_assoc($getProv)) {
         });
 
         // konfirmasi hapus data disini
-        // $(document).on("click", ".hapusOngkir", function() {
-        //     var ongkirID = $(this).attr('id');
-        //     $.ajax({
-        //         url: "../model/dataOngkir.php", //the page containing php script
-        //         type: "post", //request type,
-        //         dataType: 'json',
-        //         data: {
-        //             get_ongkir: 1,
-        //             ongkir_id: ongkirID
-        //         },
-        //         success: function(data) {
-        //             $("#id_hapus").val(data.ongkir_id);
-        //             $("#hapus").text('Anda yakin menghapus ongkir area ' + data.area_name + ' dengan tipe pengiriman ' + data.ongkir_type + ' ?');
-        //         }
-        //     });
-        // });
+        $(document).on("click", ".hapusOngkir", function() {
+            var ongkirID = $(this).attr('id');
+            $.ajax({
+                url: "../model/dataOngkir.php", //the page containing php script
+                type: "post", //request type,
+                dataType: 'json',
+                data: {
+                    get_ongkir: 1,
+                    ongkir_id: ongkirID
+                },
+                success: function(data) {
+                    $("#id_hapus").val(data.ongkir_id);
+                    $("#hapus").text('Anda yakin menghapus ongkir area ' + data.area_name + ' dengan tipe pengiriman ' + data.ongkir_type + ' ?');
+                }
+            });
+        });
     </script>
 </body>
 
