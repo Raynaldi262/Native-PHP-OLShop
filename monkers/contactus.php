@@ -220,11 +220,6 @@ input[type=submit]:hover {
 	<div class="text">
 		<h3>Nomor Whatsapp : 0812-4567-8910</h3>
 	</div>
-	<div style="position:fixed;left:20px;bottom:20px;">
-		<a href="https://api.whatsapp.com/send?phone=+6281245678910&text=Halo">
-		<button style="background:#32C03C;vertical-align:center;height:36px;border-radius:5px">
-		<img src="https://web.whatsapp.com/img/favicon/1x/favicon.png"> Whatsapp Kami</button></a>
-	</div>
 	<script>
 		$('.selector select[name=perPage]').on('change', function(e) {
 			$(e.currentTarget).closest('form').submit();

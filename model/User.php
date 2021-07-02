@@ -476,7 +476,7 @@ function UpdateAlamat($conn)
    $check = mysqli_query($conn, $sql); // untuk mencari provinsi
    $prov = mysqli_fetch_assoc($check);
 
-   $sql = "UPDATE tbl_address SET cust_name = '" . $_POST['nama'] . "'  , cust_address = '" . $_POST['address'] . "', cust_province = '" . $prov['prov_name'] . "' , cust_city = '" . $_POST['kota'] . "' , cust_email = '" . $_POST['email'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE address_id = " . $_POST['address_id'] . " ";
+   $sql = "UPDATE tbl_address SET cust_name = '" . $_POST['nama'] . "'  , cust_address = '" . $_POST['address'] . "', cust_province = '" . $prov['prov_name'] . "' , cust_city = '" . $_POST['kota'] . "', cust_phone = '" . $_POST['nohp'] . "' WHERE address_id = " . $_POST['address_id'] . " ";
    $result = mysqli_query($conn, $sql);
 
    if ($result) {
