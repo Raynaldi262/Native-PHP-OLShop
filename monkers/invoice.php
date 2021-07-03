@@ -126,16 +126,14 @@ ob_start();
         <td style="background-color: gray; text-align: left;">Kurir</td>
         <td><?php echo $data_order['order_shipping'] ?></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td></td> 
         <td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
       </tr>
       <tr>
         <td style="background-color: gray; text-align: left;">Subtotal</td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td></td> 
         <td>Rp. <?php echo number_format($data_order['order_totprice'] + $data_order['order_shipping_price']) ?></td>
       </tr>
     </tbody>

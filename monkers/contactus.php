@@ -8,10 +8,10 @@ if (isset($_SESSION['cust_id'])) {
 
 
 	if (!isset($_GET['ida'])) {
-	$datauser = getDataUser($_SESSION['cust_id']);
-	}else{
-	$datauser = getDataAlamat2($_GET['ida']);
-	$address_id = $datauser['address_id'];
+		$datauser = getDataUser($_SESSION['cust_id']);
+	} else {
+		$datauser = getDataAlamat2($_GET['ida']);
+		$address_id = $datauser['address_id'];
 	}
 
 
@@ -62,43 +62,49 @@ if (isset($_SESSION['cust_id'])) {
 </head>
 <!--/head-->
 <style>
-.responsive {
-  width: 70%;
-  max-width: 200px;
-  min-width: 100px;
-  height: auto;
-}
+	.responsive {
+		width: 70%;
+		max-width: 200px;
+		min-width: 100px;
+		height: auto;
+	}
 
-input[type=text], select,input[type=number],input[type=email],input[type=date] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+	input[type=text],
+	select,
+	input[type=number],
+	input[type=email],
+	input[type=date] {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
 
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-.text{
-	margin: 50px ;
-	text-align: justify;
-	text-justify: inter-word;
-}
+	input[type=submit]:hover {
+		background-color: #45a049;
+	}
+
+	.text {
+		margin: 50px;
+		text-align: justify;
+		text-justify: inter-word;
+	}
 </style>
+
 <body>
 	<header id="header">
 		<!--header-->
@@ -199,26 +205,27 @@ input[type=submit]:hover {
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
-			<div class="mainmenu pull-left">
-				<ul class="nav navbar-nav collapse navbar-collapse">
-					<li><a href="index.php">Beranda</a></li>
-					<li><a href="aboutus.php">Tentang kami</a></li>
-					<li><a href="bantuan.php" class="active">Bantuan</a></li>
-					<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
-					<li><a href="contactus.php">Kontak Kami</a></li>
-				</ul>
-			</div>
+				<div class="mainmenu pull-left">
+					<ul class="nav navbar-nav collapse navbar-collapse">
+						<li><a href="index.php">Beranda</a></li>
+						<li><a href="aboutus.php">Tentang kami</a></li>
+						<li><a href="bantuan.php" class="active">Bantuan</a></li>
+						<li><a href="syarat_ketentuan.php">Syarat & Ketentuan</a></li>
+						<li><a href="contactus.php">Kontak Kami</a></li>
+					</ul>
+				</div>
 			</div>
 			<br>
 			<div>
 				<h1 style="text-align:center">Hubungi Kami</h1>
-			</div><!-- 
+			</div>
+			<!-- 
 			<button  style="background-color:grey;" type="button" class="btn btn-default check_out" data-toggle="modal" data-target="#tambahalamat">Tambah Alamat</button> -->
 
 		</div>
 	</section>
-	<div class="text">
-		<h3>Nomor Whatsapp : 0812-4567-8910</h3>
+	<div class="text" align="center">
+		<h3 align="center">Nomor Whatsapp : 0812-4567-8910</h3>
 	</div>
 	<script>
 		$('.selector select[name=perPage]').on('change', function(e) {
