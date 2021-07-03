@@ -121,7 +121,18 @@ function getAlamat2($conn, $id)
                                         $end = date("d-m-Y", strtotime($_POST['end']));
                                     ?> <p align="center" class="title"><?php
                                                                         echo 'Data tanggal ' . $start . ' sampai tanggal ' . $end;  ?>
-                                        </p>
+                                        </p><?php ?>
+                                        <form action="">
+                                            <input type='hidden' name='ins_start' id='ins_start' value='<?php echo $_POST['start']; ?>'>
+                                            <input type='hidden' name='ins_end' id='ins_end' value='<?php echo $_POST['end']; ?>'>
+                                        </form>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <form action="">
+                                            <input type='hidden' name='ins_start' id='ins_start' value=''>
+                                            <input type='hidden' name='ins_end' id='ins_end' value=''>
+                                        </form>
                                     <?php
                                     }
                                     ?>
@@ -270,24 +281,35 @@ function getAlamat2($conn, $id)
                 ],
                 "scrollX": true,
                 "buttons": [{
-                    extend: "csv",
-                    messageTop: judul,
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                        modifier: {
-                            page: "current"
+                        extend: "csv",
+                        messageTop: judul,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                            modifier: {
+                                page: "current"
+                            }
                         }
-                    }
-                }, {
-                    extend: "pdf",
-                    messageTop: judul,
-                    exportOptions: {
-                        columns: [0, 1, 3, 4, 5, 7],
-                        modifier: {
-                            page: "current"
+                    },
+                    {
+                        text: 'PDF',
+                        action: function(e, dt, node, config) {
+                            var start = $('#ins_start').val();
+                            var end = $('#ins_end').val();
+                            window.location.href = 'laporan_pesanan_pdf.php?start=' + start + '&end=' + end + '&user=<?php echo $_SESSION['admin_id'] ?>'
                         }
-                    }
-                }, "colvis"]
+                    },
+                    // {
+                    //     extend: "pdf",
+                    //     messageTop: judul,
+                    //     exportOptions: {
+                    //         columns: [0, 1, 3, 4, 5, 7],
+                    //         modifier: {
+                    //             page: "current"
+                    //         }
+                    //     }
+                    // }, 
+                    "colvis"
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 

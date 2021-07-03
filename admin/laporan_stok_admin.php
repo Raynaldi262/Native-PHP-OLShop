@@ -1,5 +1,6 @@
 <?php
 require('../connect/conn.php');
+require('../session/session.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,12 +70,20 @@ require('../connect/conn.php');
                                     ?> <p align="center" class="title"><?php
                                                                         echo 'Data tanggal ' . $start ?>
                                         </p>
+                                        <form action="">
+                                            <input type='hidden' name='ins_start' id='ins_start' value='<?php echo $_POST['start']; ?>'>
+                                            <input type='hidden' name='ins_end' id='ins_end' value='<?php echo $_POST['start']; ?>'>
+                                        </form>
                                     <?php
                                     } else {
                                     ?>
                                         <p align="center" class="title"><?php
                                                                         echo 'Data Hari ini ' . date("Y-m-d") ?>
                                         </p>
+                                        <form action="">
+                                            <input type='hidden' name='ins_start' id='ins_start' value='<?php echo $_POST['start']; ?>'>
+                                            <input type='hidden' name='ins_end' id='ins_end' value='<?php echo $_POST['start']; ?>'>
+                                        </form>
                                     <?php } ?>
                                     <br>
                                     <table id="example1" class="table table-bordered table-striped">
@@ -219,24 +228,37 @@ require('../connect/conn.php');
                 ],
                 "scrollX": true,
                 "buttons": [{
-                    extend: "csv",
-                    messageTop: judul,
-                    exportOptions: {
-                        columns: [0, 2, 3, 4, 5, 6, 7, 8],
-                        modifier: {
-                            page: "current"
+                        extend: "csv",
+                        messageTop: judul,
+                        exportOptions: {
+                            columns: [0, 2, 3, 4, 5, 6, 7, 8],
+                            modifier: {
+                                page: "current"
+                            }
                         }
-                    }
-                }, {
-                    extend: "pdf",
-                    messageTop: judul,
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 7, 8],
-                        modifier: {
-                            page: "current"
+                    },
+                    {
+                        text: 'PDF',
+                        action: function(e, dt, node, config) {
+                            var start = $('#ins_start').val();
+                            var end = $('#ins_end').val();
+                            console.log(start);
+                            console.log(end);
+                            window.location.href = 'laporan_stok_pdf.php?start=' + start + '&end=' + end + '&user=<?php echo $_SESSION['admin_id'] ?>'
                         }
-                    }
-                }, "colvis"]
+                    },
+                    // {
+                    //     extend: "pdf",
+                    //     messageTop: judul,
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3, 4, 7, 8],
+                    //         modifier: {
+                    //             page: "current"
+                    //         }
+                    //     }
+                    // }, 
+                    "colvis"
+                ]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 
