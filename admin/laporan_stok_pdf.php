@@ -47,6 +47,7 @@ ob_start();
 <div style="text-align:center">
     <img width="100" src="../dist/img/logo.png" />
     <h3>LAPORAN STOK</h3>
+    <p><?php echo 'Periode ' . $getStart . ' s/d ' . $getEnd ?></p>
     <P>Dicetak Oleh (<?php echo $user['admin_name'] ?>)</P>
     <table id="example1" class="table table-bordered table-striped" align="center" style=" border-bottom-style: none; border-right-style: none; border-left-style: none;">
         <thead>
