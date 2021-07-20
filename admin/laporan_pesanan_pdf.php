@@ -213,14 +213,14 @@ ob_start();
     <br>
 </div>
 <?php
-// $html = ob_get_clean();
+$html = ob_get_clean();
 
 
-// require __DIR__ . '../../vendor/autoload.php';
+require __DIR__ . '../../vendor/autoload.php';
 
-// use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Html2Pdf;
 
-// $html2pdf = new Html2Pdf('P', 'A4', 'en');
-// $html2pdf->writeHTML($html);
-// $html2pdf->output('laporan_pesanan.pdf', 'D');
+$html2pdf = new Html2Pdf('P', 'A4', 'en');
+$html2pdf->writeHTML($html);
+$html2pdf->output('laporan_pesanan.pdf', 'D');
 ?>

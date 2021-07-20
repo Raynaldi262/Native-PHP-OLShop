@@ -58,7 +58,7 @@ ob_start();
                 <th>Ukuran</th>
                 <th>Stok Awal</th>
                 <th>Stok Akhir</th>
-                <th>Keuntungan</th>
+                <!-- <th>Keuntungan</th> -->
             </tr>
         </thead>
         <tbody align="center">
@@ -133,13 +133,13 @@ ob_start();
                     <td><?php echo $data['size_name']; ?></td>
                     <td><?php echo $data['stok']; ?></td>
                     <td><?php echo $data['total_qty']; ?></td>
-                    <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td>
+                    <!-- <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td> -->
                 </tr>
             <?php $i++;
             } ?>
         </tbody>
 
-        <tfoot>
+        <!-- <tfoot>
             <tr align="center">
                 <th></th>
                 <th>Total :</th>
@@ -149,7 +149,7 @@ ob_start();
                 <th></th>
                 <th align="center"><?php echo 'Rp ' . number_format($total['total']); ?></th>
             </tr>
-        </tfoot>
+        </tfoot> -->
     </table>
     <br>
 </div>
