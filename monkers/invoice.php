@@ -96,7 +96,10 @@ ob_start();
   <h1><?php echo $data_order['order_invoice'] ?></h1>
   <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
   <p><?php echo $datauser['cust_name'] . ', ' . $datauser['cust_address'] . ', ' . $datauser['cust_city'] . ', ' . $datauser['cust_province'] . ', ' . $datauser['cust_phone'] ?></p>
-  <?php echo substr($data_order['create_date'],0,10)?>
+  <?php
+  echo 'Tanggal pemesanan: ' . $date = date("d-m-Y", strtotime($data_order['create_date']));
+
+  ?>
   <table id="example1" class="table table-bordered table-striped" align="center">
     <thead>
       <tr>
@@ -127,14 +130,14 @@ ob_start();
         <td style="background-color: gray; text-align: left;">Kurir</td>
         <td><?php echo $data_order['order_shipping'] ?></td>
         <td></td>
-        <td></td> 
+        <td></td>
         <td>Rp. <?php echo number_format($data_order['order_shipping_price']) ?></td>
       </tr>
       <tr>
         <td style="background-color: gray; text-align: left;">Subtotal</td>
         <td></td>
         <td></td>
-        <td></td> 
+        <td></td>
         <td>Rp. <?php echo number_format($data_order['order_totprice'] + $data_order['order_shipping_price']) ?></td>
       </tr>
     </tbody>
