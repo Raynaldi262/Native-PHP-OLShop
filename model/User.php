@@ -110,7 +110,7 @@ function getDataAlamat2($alamat_id)
 function getDataProses($cust_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_proses where cust_id = " . $cust_id . " ";
+   $sql = "SELECT * from tbl_proses where cust_id = " . $cust_id . " ORDER BY create_date DESC";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -377,7 +377,7 @@ function ProsesBayar($conn)
          if ($ukuran < 4044070) {        // max 4 mb
             move_uploaded_file($file_tmp, '../monkers/images/bayar/' . $date_id . $nama);
 
-            $sql = "INSERT INTO tbl_proses (date_id,cust_id,address_id,name, price, ongkir, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " ,'" .  $_POST['addressid'] . "' ,'" .  $_POST['nama'] . "', '" . $_POST['totalharga'] . "','" . $_POST['hargaongkir'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', now(),'" . $date_id . $nama . "') ";
+            $sql = "INSERT INTO tbl_proses (date_id,cust_id,address_id,name, price, ongkir, kurir, status, create_date,img_bayar) VALUES ('" . $date_id . "'," . $_SESSION['cust_id'] . " ,'" .  $_POST['addressid'] . "' ,'" .  $_POST['nama'] . "', '" . $_POST['totalharga'] . "','" . $_POST['hargaongkir'] . "', '" . $_POST['kurir'] . "', 'Menunggu Konfrimasi', CURRENT_TIMESTAMP,'" . $date_id . $nama . "') ";
             $result = mysqli_query($conn, $sql);
 
 

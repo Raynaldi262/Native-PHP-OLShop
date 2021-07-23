@@ -278,7 +278,7 @@ $data_area = getDataArea($conn);
 									<h4><?php echo $data['status'] ?></h4>
 								</td>
 								<td style="text-align: center">
-									<h4><?php echo $data['create_date'] ?></h4>
+									<h4><?php echo substr($data['create_date'],0,10) ?></h4>
 								</td>
 								<?php if ($data['status'] != "Pesanan dibatalkan") { ?>
 									<td style="text-align: center">
