@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2021 at 06:47 AM
+-- Generation Time: Jul 23, 2021 at 06:52 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.20
 
@@ -258,7 +258,8 @@ INSERT INTO `tbl_detailorder` (`detail_id`, `date_id`, `item_id`, `cust_id`, `si
 (84, '11361420210723', 25, 3, 'S', 1, '2021-07-23'),
 (85, '11394720210723', 26, 3, 'XL', 1, '2021-07-23'),
 (86, '11451020210723', 26, 3, 'XL', 1, '2021-07-23'),
-(87, '11451020210723', 25, 3, 'S', 1, '2021-07-23');
+(87, '11451020210723', 25, 3, 'S', 1, '2021-07-23'),
+(88, '11512920210723', 25, 3, 'S', 3, '2021-07-23');
 
 -- --------------------------------------------------------
 
@@ -427,7 +428,7 @@ CREATE TABLE `tbl_proses` (
   `ongkir` int(11) NOT NULL,
   `kurir` varchar(50) DEFAULT NULL,
   `status` varchar(200) DEFAULT NULL,
-  `create_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `create_date` date NOT NULL DEFAULT current_timestamp(),
   `img_bayar` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -436,15 +437,16 @@ CREATE TABLE `tbl_proses` (
 --
 
 INSERT INTO `tbl_proses` (`proses_id`, `date_id`, `cust_id`, `address_id`, `name`, `price`, `ongkir`, `kurir`, `status`, `create_date`, `img_bayar`) VALUES
-(44, '07420120210515', 3, 0, 'asd', 36000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15 00:00:00', '07420120210515Apprel-for-web-2-17-819x1024.jpg'),
-(45, '07483520210515', 3, 0, 'asd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15 00:00:00', '07483520210515Apprel-for-web-2-17-819x1024.jpg'),
-(46, '08152420210515', 3, 4, 'ddddd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15 00:00:00', '08152420210515Apprel-for-web-2-17-819x1024.jpg'),
-(47, '05223220210522', 3, 0, 'asd', 20000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-05-22 00:00:00', '05223220210522Apprel-for-web-03-819x1024.jpg'),
-(48, '07494520210524', 3, 4, 'ddddd', 12000, 3000, 'Jne', 'Menunggu Konfrimasi', '2021-05-24 00:00:00', '07494520210524Apprel-for-web-03-819x1024.jpg'),
-(49, '08411320210524', 3, 4, 'ddddd', 12000, 3000, 'Jne', 'Proses Pengemasan', '2021-05-24 00:00:00', '08411320210524Apprel-for-web-03-819x1024.jpg'),
-(50, '09271320210608', 3, 0, 'asd', 20000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-06-08 00:00:00', '09271320210608gbr1.png'),
-(55, '11394720210723', 3, 0, 'asd', 12000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-07-23 11:39:47', '11394720210723S__16015497.jpg'),
-(56, '11451020210723', 3, 0, 'asd', 32000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-07-23 11:45:10', '11451020210723S__16015497.jpg');
+(44, '07420120210515', 3, 0, 'asd', 36000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '07420120210515Apprel-for-web-2-17-819x1024.jpg'),
+(45, '07483520210515', 3, 0, 'asd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '07483520210515Apprel-for-web-2-17-819x1024.jpg'),
+(46, '08152420210515', 3, 4, 'ddddd', 12000, 1200, 'Jne', 'Pesanan dikirim', '2021-05-15', '08152420210515Apprel-for-web-2-17-819x1024.jpg'),
+(47, '05223220210522', 3, 0, 'asd', 20000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-05-22', '05223220210522Apprel-for-web-03-819x1024.jpg'),
+(48, '07494520210524', 3, 4, 'ddddd', 12000, 3000, 'Jne', 'Menunggu Konfrimasi', '2021-05-24', '07494520210524Apprel-for-web-03-819x1024.jpg'),
+(49, '08411320210524', 3, 4, 'ddddd', 12000, 3000, 'Jne', 'Proses Pengemasan', '2021-05-24', '08411320210524Apprel-for-web-03-819x1024.jpg'),
+(50, '09271320210608', 3, 0, 'asd', 20000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-06-08', '09271320210608gbr1.png'),
+(55, '11394720210723', 3, 0, 'asd', 12000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-07-23', '11394720210723S__16015497.jpg'),
+(56, '11451020210723', 3, 0, 'asd', 32000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-07-23', '11451020210723S__16015497.jpg'),
+(57, '11512920210723', 3, 0, 'asd', 60000, 1200, 'Jne', 'Menunggu Konfrimasi', '2021-07-23', '11512920210723S__16015497.jpg');
 
 -- --------------------------------------------------------
 
@@ -691,13 +693,13 @@ ALTER TABLE `tbl_banner`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `tbl_checkout`
 --
 ALTER TABLE `tbl_checkout`
-  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `check_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `tbl_color`
@@ -715,7 +717,7 @@ ALTER TABLE `tbl_customer`
 -- AUTO_INCREMENT for table `tbl_detailorder`
 --
 ALTER TABLE `tbl_detailorder`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `tbl_img`
@@ -757,7 +759,7 @@ ALTER TABLE `tbl_order`
 -- AUTO_INCREMENT for table `tbl_proses`
 --
 ALTER TABLE `tbl_proses`
-  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `proses_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tbl_provinsi`
