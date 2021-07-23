@@ -129,8 +129,8 @@ function getAlamat2($conn, $id)
                                                                         echo 'Data Hari ini ' . date("Y-m-d") ?>
                                         </p>
                                         <form action="">
-                                            <input type='hidden' name='ins_start' id='ins_start' value='<?php echo $_POST['start']; ?>'>
-                                            <input type='hidden' name='ins_end' id='ins_end' value='<?php echo $_POST['start']; ?>'>
+                                            <input type='hidden' name='ins_start' id='ins_start' value=''>
+                                            <input type='hidden' name='ins_end' id='ins_end' value=''>
                                         </form>
                                     <?php } ?>
                                     <br>
