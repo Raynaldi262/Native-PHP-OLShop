@@ -110,7 +110,7 @@ function getDataAlamat2($alamat_id)
 function getDataProses($cust_id)
 {
    require('../connect/conn.php');
-   $sql = "SELECT * from tbl_proses where cust_id = " . $cust_id . " ORDER BY create_date DESC";
+   $sql = "SELECT * from tbl_proses where cust_id = " . $cust_id . " ORDER BY proses_id DESC";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
