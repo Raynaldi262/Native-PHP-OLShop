@@ -96,6 +96,7 @@ ob_start();
   <h1><?php echo $data_order['order_invoice'] ?></h1>
   <h2>Resi : <?php echo $data_order['order_resi'] ?></h2>
   <p><?php echo $datauser['cust_name'] . ', ' . $datauser['cust_address'] . ', ' . $datauser['cust_city'] . ', ' . $datauser['cust_province'] . ', ' . $datauser['cust_phone'] ?></p>
+  <?php echo substr($data_order['create_date'],0,10)?>
   <table id="example1" class="table table-bordered table-striped" align="center">
     <thead>
       <tr>
