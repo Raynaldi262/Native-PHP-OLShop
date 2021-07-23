@@ -81,8 +81,8 @@ require('../session/session.php');
                                                                         echo 'Data Hari ini ' . date("Y-m-d") ?>
                                         </p>
                                         <form action="">
-                                            <input type='hidden' name='ins_start' id='ins_start' value='<?php echo $_POST['start']; ?>'>
-                                            <input type='hidden' name='ins_end' id='ins_end' value='<?php echo $_POST['start']; ?>'>
+                                            <input type='hidden' name='ins_start' id='ins_start' value=''>
+                                            <input type='hidden' name='ins_end' id='ins_end' value=''>
                                         </form>
                                     <?php } ?>
                                     <br>
@@ -97,7 +97,7 @@ require('../session/session.php');
                                                 <th>Stok Masuk</th>
                                                 <th>Stok keluar</th>
                                                 <th>Stok Akhir</th>
-                                                <th>Keuntungan</th>
+                                                <!-- <th>Keuntungan</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -163,7 +163,7 @@ require('../session/session.php');
                                                     <td><?php echo $data['stock_in']; ?></td>
                                                     <td><?php echo $data['stock_out']; ?></td>
                                                     <td><?php echo $data['total_qty']; ?></td>
-                                                    <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td>
+                                                    <!-- <td><?php echo 'Rp ' . number_format($data['stok_price']); ?></td> -->
                                                 </tr>
                                             <?php $i++;
                                             } ?>
@@ -231,7 +231,7 @@ require('../session/session.php');
                         extend: "csv",
                         messageTop: judul,
                         exportOptions: {
-                            columns: [0, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 2, 3, 4, 5, 6, 7],
                             modifier: {
                                 page: "current"
                             }
