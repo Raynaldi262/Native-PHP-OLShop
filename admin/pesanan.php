@@ -68,6 +68,7 @@
                         <th>Pesanan</th>
                         <th>Jenis <br> Pengiriman</th>
                         <th>Total <br> Harga</th>
+                        <th>Ongkir</th>
                         <th>Bukti <br> Transfer</th>
                         <th>Status</th>
                         <th>Aksi</th>
@@ -94,6 +95,7 @@
                             </button></td>
                           <td><?php echo $data['kurir']; ?></td>
                           <td><?php echo $data['price']; ?></td>
+                          <td><?php echo $data['ongkir']; ?></td>
                           <td> <a href='../monkers/images/bayar/<?php echo $data['img_bayar']; ?>' data-toggle="lightbox" data-gallery="gallery">
                               <img src="../monkers/images/bayar/<?php echo $data['img_bayar']; ?> " alt=""></a></td>
                           <td><?php echo $data['status']; ?></td>
@@ -275,6 +277,7 @@
       $("#example1").DataTable({
         // "responsive": true,
         "autoWidth": true,
+        "aaSorting": [],
         "lengthMenu": [
           [10, 25, 50, -1],
           [10, 25, 50, "All"]

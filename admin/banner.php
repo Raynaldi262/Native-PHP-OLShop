@@ -61,15 +61,15 @@
                                         <div class="form-group">
                                             <table class="table">
                                                 <tr>
-                                                    <td width="40%" align="right"><label>Pilih file untuk diupload</label></td>
-                                                    <td width="30"><input type="file" name="img" id="img" class="custom-file-input" /></td>
+                                                    <!-- <td width="40%" align="right"><label>Pilih file untuk diupload</label></td> -->
+                                                    <td width="70%" align="center"><input type="file" name="img" id="img" /></td>
                                                     <td width="30%" align="left"><input type="submit" name="upload" id="upload" class="btn btn-primary" value="Upload"></td>
                                                 </tr>
-                                                <tr>
-                                                    <td width="40%" align="right"></td>
-                                                    <td width="30"><span class="text-muted">jpg, png</span></td>
+                                                <!-- <tr>
+                                                    <td width="0%" align="right"></td>
+                                                    <td width="70%"><span class="text-muted">jpg, png</span></td>
                                                     <td width="30%" align="left"></td>
-                                                </tr>
+                                                </tr> -->
                                             </table>
                                         </div>
                                     </form>

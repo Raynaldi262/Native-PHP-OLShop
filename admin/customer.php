@@ -69,7 +69,7 @@ $getCust = mysqli_query($conn, $sql);
                                                 <th>Email</th>
                                                 <th>Total Pesanan</th>
                                                 <th>Total Harga</th>
-                                                <th>Data Pembelian</th>
+                                                <!-- <th>Data Pembelian</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -86,11 +86,11 @@ $getCust = mysqli_query($conn, $sql);
                                                     <td><?php echo $data['cust_email']; ?></td>
                                                     <td><?php echo $data['cust_total_order']; ?></td>
                                                     <td><?php echo 'Rp ' . number_format($data['cust_total_price']); ?></td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <a href="print_pembelian.php?id=<?php echo $data['cust_id'] ?>&adminid=<?php echo $_SESSION['admin_id'] ?>">
                                                             <span>Print</span>
                                                         </a>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             <?php $i++;
                                             } ?>
