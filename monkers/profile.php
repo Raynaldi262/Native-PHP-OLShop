@@ -322,6 +322,7 @@ $data_area = getDataArea($conn);
 			$("#example1").DataTable({
 				"responsive": true,
 				"autoWidth": false,
+				"aaSorting": [],
 				"lengthMenu": [
 					[10, 25, 50, -1],
 					[10, 25, 50, "All"]
