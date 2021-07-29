@@ -1,6 +1,6 @@
 <?php
 require('../model/User.php');
-$data_order = getDataOrder($_GET['id']);
+$data_order = getDataOrder2($_GET['id'],);
 
 if ($_GET['ida'] != 0) {
   $datauser = getDataAlamat2($_GET['ida']);
@@ -112,7 +112,7 @@ ob_start();
     </thead>
     <tbody>
       <?php
-      $item1 = getDetailProses($_GET['id']);
+      $item1 = getDetailProses2($_GET['id']);
       while ($data_check1 = mysqli_fetch_assoc($item1)) {
         $item_cart1 = getItemcart($data_check1['item_id']);
         $data_type1 = getTypeitem($item_cart1['type_id']);

@@ -244,10 +244,27 @@ function getDataOrder($date_id)
    return $data;
 }
 
+function getDataOrder2($date_id)
+{
+   require('../connect/conn.php');
+   $sql = "SELECT * from tbl_order where date_id = " . $date_id . " ";
+   $item = mysqli_query($conn, $sql);
+   $data = mysqli_fetch_assoc($item);
+   return $data;
+}
+
 function getDetailProses($date_id)
 {
    require('../connect/conn.php');
    $sql = "SELECT * FROM tbl_detailorder INNER JOIN tbl_item ON tbl_item.item_id = tbl_detailorder.item_id INNER JOIN tbl_color ON tbl_color.color_id = tbl_item.color_id where cust_id = " . $_SESSION['cust_id'] . " AND date_id = " . $date_id . " ";
+   $item = mysqli_query($conn, $sql);
+   return $item;
+}
+
+function getDetailProses2($date_id)
+{
+   require('../connect/conn.php');
+   $sql = "SELECT * FROM tbl_detailorder INNER JOIN tbl_item ON tbl_item.item_id = tbl_detailorder.item_id INNER JOIN tbl_color ON tbl_color.color_id = tbl_item.color_id where date_id = " . $date_id . " ";
    $item = mysqli_query($conn, $sql);
    return $item;
 }
@@ -565,20 +582,19 @@ function AddAddress($conn)
    $sql = "INSERT INTO tbl_address (cust_id,cust_name, cust_address, cust_province, cust_city, cust_email, cust_phone, create_date,status) 
          VALUES ('" . $_SESSION['cust_id'] . "','" . $_POST['nama'] . "', '" . $_POST['address'] . "', '" . $prov['prov_name'] . "', '" . $_POST['kota'] . "', 'adasdads', '" . $_POST['nohp'] . "', now(), 'ACTIVE') ";
    $result = mysqli_query($conn, $sql);
-   if(isset($_POST['route'])){
-         if ($result) {
-      msg('Alamat Telah Berhasil Ditambah!!', '../monkers/alamat_lain.php');
+   if (isset($_POST['route'])) {
+      if ($result) {
+         msg('Alamat Telah Berhasil Ditambah!!', '../monkers/alamat_lain.php');
+      } else {
+         msg('Alamat Gagal', '../monkers/alamat_lain.php');
+      }
    } else {
-      msg('Alamat Gagal', '../monkers/alamat_lain.php');
+      if ($result) {
+         msg('Alamat Telah Berhasil Ditambah!!', '../monkers/checkout.php');
+      } else {
+         msg('Alamat Gagal', '../monkers/checkout.php');
+      }
    }
-   }else{
-         if ($result) {
-      msg('Alamat Telah Berhasil Ditambah!!', '../monkers/checkout.php');
-   } else {
-      msg('Alamat Gagal', '../monkers/checkout.php');
-   }
-   }
-
 }
 
 
